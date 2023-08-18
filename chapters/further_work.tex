@@ -1,0 +1,48 @@
+% Change Management
+
+This section explores further areas of exploration as an add-on to the teaching allocation system. This includes on-the-fly change management options to account for sudden changes to faculty availability, measures to indicate and counter undersupply problems etc.
+
+\section{Workload Model and Distribution}
+Some work is required to refine on the developments made in \autoref{chapter:formal_informal_workload} and \autoref{chapter:rts_ratio}. This includes studying existing faculty data to refine the parameters for \autoref{section:defining_formal_workload}, studying service duties to refine the service workload model.
+
+\section{Lecture Splitting}
+
+Lecture Splitting is generally a neglected activity, generally approached as an afterthought. A systematic approach to this problem could help in not only improving the teaching quality, but also help in distributing the teaching workload equitably. Further exploration will be made, expanding on topics mentioned in \autoref{chapter:lecture_splitting} to develop a systematic approach to this.
+
+\section{Allocation Algorithm}
+
+% Using this understanding, it aims to design a solution that is –
+% \begin{enumerate}
+% \item \textbf{Multi-constrained}\\It should account for the operational and business realities of allocation. Along with this, it should incorporate faculty preferences.
+% \item \textbf{Comprehensive}\\It should incorporate the skills and experience of the lecturers into the skill requirement for the courses and automatically figure out which lecturers are best suited to the course.
+% \item \textbf{Flexible and Resilient}\\It should be able to adapt on the fly whenever changes are required, without causing massive changes in the allocations. For example, if a faculty falls ill, it should be able to find another faculty to fill in without minimal changes to the schedule.
+% \item \textbf{Scalable}\\It should be able to allocate for large schools with hundreds of lecturers and courses without falling into performance issues.
+% \end{enumerate}
+
+The algorithms that have previously been applied to teaching allocation have been fairly limited due to scalability issues and a lack of many-to-many allocation solutions for such multi-constrained problems. Further work is required to check the applicability of some recent promising developments in the field of many-to-many allocations. The findings then need to be applied into making an allocation algorithm that isn't greedy in nature and takes into account the constraints of the problem.
+
+\section{Informal Workload Allocation}
+
+A systemic approach needs to be developed for allocation of FYPs while taking into account the faculty's teaching workload quota and the Masters' and PhD students already being supervised by the faculty. A systemic approach needs to be built on top of this, which can take the students' FYP preferences and priorities into account to automatically allocate the FYPs to corresponding students.
+
+\section{Solving systemic problems leading to workload inequity}
+
+A good allocation system is expected to provide equitable allocations that are resilient to disruptions. However, certain limitations inherent to the faculty workforce, such as heavy dependence on some faculty members for certain areas of expertise. These limitations result in faculty overloading, restrict the equity of workload distribution from being achieved, all at the eventual expense of teaching quality. 
+
+If analytical metrics are exposed to the management well ahead of time, giving them insights into hiring faculty in a targeted manner with expertise in key areas, such problems can largely be avoided. Some such key metrics include -
+\begin{enumerate}
+\item Identifying highly in-demand faculty members who are routinely required to exceed their workload requirements.
+\item Identifying over-dependence on faculty members, where certain courses can only be assigned to one faculty.
+\item Are organizational goals being met?
+\end{enumerate}
+
+Further exploration will be done into identifying more key metrics that allow management to identify such gaps in expertise and other issues that cause such workload inequity.
+
+\section{Change Management}
+Faculty movement is an inevitable part of a large university and certain faculty are bound to leave, unexpectedly fall sick or have urgent matters to attend to. In circumstances like these, the management is required to act quickly and find a replacement that without disturbing their pre-existing allocations, all while also matching teaching expertise. Thus, the need for change management is clearly felt.
+Further exploration into different change management techniques will take place to find a solution that might account for all these requirements.
+
+
+\section{Feedback Normalization to account for bias}
+
+There have been countless documented cases of mistrials due to the subjective biases of a jury in court. Similarly, studies have pointed to the biases that student feedback suffers from, including language, accent, racial and gender preferences. However, not all such biases hold true in rating a faculty's teaching capability. In an attempt to solve this, finding methods to counter such biases is an area that will be explored.

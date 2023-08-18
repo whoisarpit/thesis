@@ -1,0 +1,120 @@
+
+% This is the main file to setup the document.
+% Document organization and appearance settings are all done here
+% Each chapter is a separate tex file, all linked together here
+
+
+% Preamble (document settings) -----------------------------------------------------------
+% Document type and font --
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc} %utf-8 encoding for ASCII symbols
+
+% insert packages here --
+\usepackage{graphicx}       %for handling images
+
+\usepackage{amsmath}        %for math symbols
+
+\usepackage{breakcites}     %to avoid citations extending into the margin
+\usepackage{rotating}
+
+\usepackage[margin=1in]{geometry}   %to reduce margins to 1 inch, default margins wasted a lot of space
+
+\usepackage{sidecap}        %to enable side captions on figures
+
+\usepackage{setspace}       %to enable doublespacing
+
+\usepackage[
+backend=biber,
+style=apa,
+citestyle=apa,
+maxcitenames=2,
+]{biblatex}       %use the biblatex package
+
+\usepackage{float} % for precisely placed float figures https://www.overleaf.com/learn/latex/Positioning_of_Figures
+
+\addbibresource{bibliography.bib}   %path to the bib file
+
+\usepackage{enumitem}
+
+
+\usepackage{changepage}
+
+\usepackage{hyperref}       % to create a linked table of contents
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+% Set path to images
+\graphicspath{ {images/} }  % Direct to the main image folder, always good to create sub-folders to organize images for individual chapters
+
+\singlespacing  %making text double spaces
+
+\def\labelitemi{--}
+
+% End of preamble
+%-------------------------------------------------------------------------------------------
+\begin{document}
+
+% Making title page
+\input{chapters/titlepage}
+
+% Starting frontmatter:
+% Abstract goes here
+\doublespacing
+\input{chapters/abstract}
+\pagenumbering{roman}   % Roman page numbering to start from abstract onwards
+\addcontentsline{toc}{section}{\textbf{Abstract}}
+\listoffigures          % generate list of figures
+\singlespacing          % keep pre-content single spaced
+\addcontentsline{toc}{section}{\textbf{List of Figures}}
+\listoftables           % generate list of tables
+\addcontentsline{toc}{section}{\textbf{List of Tables}}
+
+% End of frontmatter
+
+% Insert table of contents
+\tableofcontents
+
+
+% Main matter starts here --
+% Inserting individual chapters. Mention chapter titles here and simple link the chapter's tex file
+\doublespacing
+
+\chapter{Introduction}
+\pagenumbering{arabic}    % We want Arabic numerals for main matter page numbering
+\input{chapters/introduction} % Link to the chapter tex file
+
+\chapter{Literature review}
+\input{chapters/literature_review.tex}
+
+\chapter{Modelling Faculty Workload}
+\input{chapters/modelling_faculty_workload.tex}
+
+\chapter{Teaching Workload Distribution}
+\input{chapters/workload_model}
+
+\chapter{Key Factors Affecting Inclusive Teaching Allocation}
+\input{chapters/teaching_allocation_factors}
+
+\chapter{Framework for Workload-Aware Teaching Allocation}
+\input{chapters/teaching_allocation_framework}
+
+\chapter{Further Work and Timeline}
+\input{chapters/further_work}
+
+% Include appendix      % Set this up if needed
+%\appendix
+
+\singlespacing
+% Insert bibliography here
+\printbibliography
+
+
+\end{document}
+
+% End of document
+%-----------------------------------------------------------------------------------------------------

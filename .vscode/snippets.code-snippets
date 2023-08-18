@@ -1,0 +1,105 @@
+{
+	"Insert figure": {
+		"prefix": "figure",
+		"body": [
+			"\\begin{figure}[H]",
+			"\t\\includegraphics[width='${1:0.7}'\\textwidth]{'${2:path}'}",
+			"\t\\centering",
+			"\t\\caption*{'${3:caption}'}",
+			"\\end{figure}",
+			"$4"
+		],
+		"description": "Insert centered figure with caption."
+	},
+	"Insert code from file": {
+		"prefix": "code-file",
+		"body": [
+			"\\lstinputlisting[language='${1:language}']{'${2:path}'}",
+			"$3"
+		],
+		"description": "Insert code from file."
+	},
+	"Insert inline code": {
+		"prefix": "code-file",
+		"body": [
+			"\\lstinputlisting[language='${1:language}']{'${2:path}'}",
+			"$3"
+		],
+		"description": "Insert code from file."
+	},
+	"Insert bullet points": {
+		"prefix": "bullet-points",
+		"body": [
+			"\\begin{itemize}",
+			"\t\\item $1",
+			"\\end{itemize}",
+			"$2"
+		],
+		"description": "Insert bullet points."
+	},
+	"Insert align block": {
+		"prefix": "align-block",
+		"body": [
+			"\\begin{align*}",
+			"\t$1",
+			"\\end{align*}",
+			"$2"
+		],
+		"description": "Insert align block."
+	},
+	"Insert matrix": {
+		"prefix": "matrix",
+		"body": [
+			"\\begin{bmatrix}",
+			"\t$1",
+			"\\end{bmatrix}",
+			"$2"
+		],
+		"description": "Insert align matrix."
+	},
+	"Insert begin block": {
+		"prefix": "begin",
+		"body": [
+			"\\begin{$1}",
+			"\t$2",
+			"\\end{$1}",
+			"$3"
+		],
+		"description": "Insert begin block."
+	},
+	"Insert equation": {
+		"prefix": "equation",
+		"body": [
+			"\\[ $1 \\]",
+			"$2"
+		],
+		"description": "Insert equation."
+	},
+	"Insert fraction": {
+		"prefix": "fraction",
+		"body": [
+			"\\frac{$1}{$2}"
+		],
+		"description": "Insert fraction."
+	},
+	"Insert itemize block": {
+		"prefix": "itemize",
+		"body": [
+			"\\begin{itemize}",
+			"\t\\item $1",
+			"\\end{itemize}",
+			"$2"
+		],
+		"description": "Insert itemize block."
+	},
+	"Insert enumerate block": {
+		"prefix": "enumerate",
+		"body": [
+			"\\begin{enumerate}",
+			"\t\\item $1",
+			"\\end{enumerate}",
+			"$2"
+		],
+		"description": "Insert enumerate block."
+	},
+}

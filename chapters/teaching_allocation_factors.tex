@@ -1,3 +1,4 @@
+\chapter{Key Factors Affecting Inclusive Teaching Allocation}
 
 This section describes the  pre-processing required for teaching allocation, the factors considered in the process, which include considerations for choosing the most appropriate faculty for a course, as well as the constraints that govern the choice. It then goes on to describe the allocation algorithm
 
@@ -5,22 +6,22 @@ This section describes the  pre-processing required for teaching allocation, the
 \label{chapter:lecture_splitting}
 % Lecture Splitting for Collaborative Teaching
 
-In the interest of distributing workload of large classes, as well as give students more opportunity to find a teaching style that suits them, thus improving understanding and knowledge retention. Collaborative teaching can take many forms, like Parallel teaching, Station Teaching etc \parencite{forbes2012successful}. In this work, the strategy of splitting lectures is explored, wherein different lectures are taken by different faculty, which allows accommodation of larger class sizes, as well as improve the equitable distribution of workload. This is approached in a two-step process.
+In the interest of distributing workload of large classes, as well as give students more opportunity to find a teaching style that suits them, thus improving understanding and knowledge retention. Collaborative teaching can take many forms, like Parallel teaching, Station Teaching etc \cite{forbes2012successful}. In this work, the strategy of splitting lectures is explored, wherein different lectures are taken by different faculty, which allows accommodation of larger class sizes, as well as improve the equitable distribution of workload. This is approached in a two-step process.
 
 \subsection{Class-size based splitting}
 Due to the large class sizes, the amount of administrative teaching work (correcting assignments etc.) can be staggering. Thus, such lectures necessitate splitting to share the workload between, two or more faculty.
 
 \begin{table}
-	\centering
-	\begin{tabular}{|l|c|}
-		\hline
-        Class Size & Split\\
+    \centering
+    \begin{tabular}{|l|c|}
         \hline
-        \(<\)250 & 1 \\
-        \(\ge\) 250, \(<\) 500 & 2 \\
-        \(\ge\) 500 & 3 \\
+        Class Size             & Split \\
         \hline
-	\end{tabular}
+        \(<\)250               & 1     \\
+        \(\ge\) 250, \(<\) 500 & 2     \\
+        \(\ge\) 500            & 3     \\
+        \hline
+    \end{tabular}
     \caption{Class-size based splitting}
     \label{class_size_splitting}
 \end{table}
@@ -33,9 +34,9 @@ During the allocation phase, inequity is likely to take place due to varying fie
 Given that quality of allocations is not notably sacrificed, and class-size meets a minimum size \(S_{min}\), splitting courses is attempted such that on high-utilization and medium-utilization faculty such that -
 
 \begin{enumerate}
-\item Under-utilized faculty can serve high-utilization faculty’s courses
-\item Under-utilized faculty can serve medium-utilization faculty’s courses
-\item Medium-utilized faculty can serve high-utilization faculty’s courses
+    \item Under-utilized faculty can serve high-utilization faculty’s courses
+    \item Under-utilized faculty can serve medium-utilization faculty’s courses
+    \item Medium-utilized faculty can serve high-utilization faculty’s courses
 \end{enumerate}
 
 Further work is required to clearly define the thresholds that delineate high, medium and low utilization, as well as \(S_{min}\) suitable for such splitting. Further experiments and data analysis on existing courses also needs to be done to test if this technique yields positive results.
@@ -53,17 +54,17 @@ Further work is required to clearly define the thresholds that delineate high, m
 \section{Allocating Suitable Faculty}
 \label{section:allocation_criteria}
 
-There are multiple factors that need to be considered while choosing the faculty to be allocated for a course, 
+There are multiple factors that need to be considered while choosing the faculty to be allocated for a course,
 \subsection{Course Priority}
 Certain courses require a lot more attention than other courses. The reasons can be an attribute of the students studying in the course, or the contents of the course themselves. Some considerations into the priority of courses are
 \begin{enumerate}
-\item \textbf{Seniority of students} - Courses of lower years require more attention, as newly on-boarded students may not be well acquainted with the university teaching styles and pressures.
-\item \textbf{Foundational Courses} - Certain courses form the foundation for many courses later in the students' academic journeys. Foundations of programming and algorithm design are core skills that a computer science engineer could require, for example. Thus, special attention needs to be paid to account for such courses.
-\item \textbf{Course Difficulty} - Tougher courses generally require more teaching expertise.
+    \item \textbf{Seniority of students} - Courses of lower years require more attention, as newly on-boarded students may not be well acquainted with the university teaching styles and pressures.
+    \item \textbf{Foundational Courses} - Certain courses form the foundation for many courses later in the students' academic journeys. Foundations of programming and algorithm design are core skills that a computer science engineer could require, for example. Thus, special attention needs to be paid to account for such courses.
+    \item \textbf{Course Difficulty} - Tougher courses generally require more teaching expertise.
 \end{enumerate}
 
 \subsection{Faculty Preferences}
-A key factor that governs faculty satisfaction is the ability to choose their courses and teaching areas \parencite{schniederjans1987goal, badri1998multi}. This allows the faculty to align their research to the courses they teach, discover new opinions in their areas of expertise, etc. while avoiding courses they feel are largely irrelevant to their career path and interests. On top of this, the ability to specify their schedule preferences, like being able to condense their teaching hours into certain days of the week, etc. allows them to focus much better on their research. An allocation system should, thus, be able to account for such preferences.
+A key factor that governs faculty satisfaction is the ability to choose their courses and teaching areas \cite{schniederjans1987goal, badri1998multi}. This allows the faculty to align their research to the courses they teach, discover new opinions in their areas of expertise, etc. while avoiding courses they feel are largely irrelevant to their career path and interests. On top of this, the ability to specify their schedule preferences, like being able to condense their teaching hours into certain days of the week, etc. allows them to focus much better on their research. An allocation system should, thus, be able to account for such preferences.
 
 \subsection{Faculty Performance}
 Different faculty have different areas of excellence. Some faculties are more research intensive, others are great teachers, while others are gifted in administrative and management roles. However, teaching performance is important, especially in aforementioned high-priority courses, and thus needs to be accounted for. Student and peer feedback ratings are a reliable indicator of the teaching quality that can be used into this effect.
@@ -74,29 +75,29 @@ The allocation algorithm operates under certain hard and soft constraints that n
 
 The constraints are as follows:
 \begin{enumerate}
-\item \textbf{Teaching Workload Weightage} (Soft)
+    \item \textbf{Teaching Workload Weightage} (Soft)
 
-After the teaching workload is calculated as an output of the workload model, this weightage is used to distribute the amount of formal teaching workload to be allocated to each faculty. This workload weightage should never be violated, unless, there are courses that will go unallocated if not assigned to aforementioned faculty.
+          After the teaching workload is calculated as an output of the workload model, this weightage is used to distribute the amount of formal teaching workload to be allocated to each faculty. This workload weightage should never be violated, unless, there are courses that will go unallocated if not assigned to aforementioned faculty.
 
-\item \textbf{Maximum Teaching Capacity} (Hard)
+    \item \textbf{Maximum Teaching Capacity} (Hard)
 
-Faculty (primarily lecturers) should never be assigned teaching workload beyond the max capacity defined in the system. This is because the capacity is defined with the absolute maximum feasibility in mind and, if exceeded, could lead to a drastic reduction in teaching quality due to deal with course related preparatory work/administrative duties.
+          Faculty (primarily lecturers) should never be assigned teaching workload beyond the max capacity defined in the system. This is because the capacity is defined with the absolute maximum feasibility in mind and, if exceeded, could lead to a drastic reduction in teaching quality due to deal with course related preparatory work/administrative duties.
 
-\item \textbf{Non-Preferred Courses} (Soft)
+    \item \textbf{Non-Preferred Courses} (Soft)
 
-Courses low on the faculty preference list should generally not be allocated, unless no other viable faculty is available.
+          Courses low on the faculty preference list should generally not be allocated, unless no other viable faculty is available.
 
-\item \textbf{Courses without expertise} (Hard)
+    \item \textbf{Courses without expertise} (Hard)
 
-A faculty cannot teach a course they don't have any expertise in. In practical terms, this means that courses the faculty hasn't previously taught, or aren't anywhere in their preference list, should not be allocated to the faculty.
+          A faculty cannot teach a course they don't have any expertise in. In practical terms, this means that courses the faculty hasn't previously taught, or aren't anywhere in their preference list, should not be allocated to the faculty.
 
-\item \textbf{Faculty isn't given too many courses} (Soft)
+    \item \textbf{Faculty isn't given too many courses} (Soft)
 
-The faculty workload should be concentrated into as few courses as possible, due to the additional work required in course preparation for every additional course. In practical terms, this means tutorials/lab of a course should ideally be allocated to the same faculty that takes up the lectures.
+          The faculty workload should be concentrated into as few courses as possible, due to the additional work required in course preparation for every additional course. In practical terms, this means tutorials/lab of a course should ideally be allocated to the same faculty that takes up the lectures.
 
-\item \textbf{Equal distribution of various teaching activities} (Soft)
+    \item \textbf{Equal distribution of various teaching activities} (Soft)
 
-Each faculty should ideally receive an equal ratio of tutorials/labs/lectures to other faculty. This means that a faculty shouldn't for example, receive a disproportionate number of tutorials as this would require a lot of preparation work and will stagger their work hours too much.
+          Each faculty should ideally receive an equal ratio of tutorials/labs/lectures to other faculty. This means that a faculty shouldn't for example, receive a disproportionate number of tutorials as this would require a lot of preparation work and will stagger their work hours too much.
 \end{enumerate}
 \section{Allocation Algorithm}
 

@@ -12,6 +12,16 @@
 % insert packages here --
 \usepackage{graphicx}       %for handling images
 
+% set font
+\usepackage{mathptmx}       %for Times New Roman font
+
+
+\usepackage{color}          %for including colored text
+\usepackage{amssymb}        %for math symbols
+
+\usepackage{breakcites}     %to avoid citations extending into the margin
+
+
 \usepackage{amsmath}        %for math symbols
 
 \usepackage{breakcites}     %to avoid citations extending into the margin
@@ -22,12 +32,10 @@
 \usepackage{sidecap}        %to enable side captions on figures
 
 \usepackage{setspace}       %to enable doublespacing
-
+\usepackage{makecell}
 \usepackage[
 backend=biber,
-style=apa,
-citestyle=apa,
-maxcitenames=2,
+style=ieee,
 ]{biblatex}       %use the biblatex package
 
 \usepackage{float} % for precisely placed float figures https://www.overleaf.com/learn/latex/Positioning_of_Figures
@@ -53,61 +61,63 @@ maxcitenames=2,
 
 \singlespacing  %making text double spaces
 
-\def\labelitemi{--}
+\def\thesistitle{Holistic Teaching Workload Allocation for Research-Intensive Universities}
+\def\authorname{Arpit Roopchandani}
+\def\degreename{Master of Engineering}
+\def\deptname{School of Computer Science and Engineering}
+\def\supervisorname{Prof. Thambipillai Srikanthan}
+\def\schoolname{Nanyang Technological University}
+\def\submissionyear{2023}
+\def\submissionmonth{September}
+\def\submissiondate{20 \submissionmonth, \submissionyear}
+
 
 % End of preamble
 %-------------------------------------------------------------------------------------------
 \begin{document}
 
 % Making title page
-\input{chapters/titlepage}
+\input{intro/titlepage.tex}
 
-% Starting frontmatter:
+
+% Starting front matter
 % Abstract goes here
 \doublespacing
-\input{chapters/abstract}
+
 \pagenumbering{roman}   % Roman page numbering to start from abstract onwards
-\addcontentsline{toc}{section}{\textbf{Abstract}}
-\listoffigures          % generate list of figures
+
+\input{intro/abstract.tex}
+\input{intro/declaration.tex}
+
+\newpage
 \singlespacing          % keep pre-content single spaced
+\listoffigures          % generate list of figures
 \addcontentsline{toc}{section}{\textbf{List of Figures}}
+\newpage
 \listoftables           % generate list of tables
 \addcontentsline{toc}{section}{\textbf{List of Tables}}
 
-% End of frontmatter
+% End of front matter
 
 % Insert table of contents
+\newpage
 \tableofcontents
 
+% Starting main matter
 
-% Main matter starts here --
-% Inserting individual chapters. Mention chapter titles here and simple link the chapter's tex file
+\newpage
+\pagenumbering{arabic}    % We want Arabic numerals for main matter page numbering
+
 \doublespacing
 
-\chapter{Introduction}
-\pagenumbering{arabic}    % We want Arabic numerals for main matter page numbering
-\input{chapters/introduction} % Link to the chapter tex file
-
-\chapter{Literature review}
+\input{chapters/introduction.tex} % Link to the chapter tex file
 \input{chapters/literature_review.tex}
-
-\chapter{Modelling Faculty Workload}
 \input{chapters/modelling_faculty_workload.tex}
+\input{chapters/workload_model.tex}
+\input{chapters/teaching_allocation_factors.tex}
+\input{chapters/teaching_allocation_framework.tex}
+\input{chapters/further_work.tex}
 
-\chapter{Teaching Workload Distribution}
-\input{chapters/workload_model}
-
-\chapter{Key Factors Affecting Inclusive Teaching Allocation}
-\input{chapters/teaching_allocation_factors}
-
-\chapter{Framework for Workload-Aware Teaching Allocation}
-\input{chapters/teaching_allocation_framework}
-
-\chapter{Further Work and Timeline}
-\input{chapters/further_work}
-
-% Include appendix      % Set this up if needed
-%\appendix
 
 \singlespacing
 % Insert bibliography here

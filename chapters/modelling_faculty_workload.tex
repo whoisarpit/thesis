@@ -1,3 +1,5 @@
+\chapter{Modelling Faculty Workload}
+
 \label{chapter:rts_ratio}
 
 % methodology
@@ -10,13 +12,13 @@
 Due to the various activities that faculty are involved in, and their varying degrees of involvement, distributing the teaching workload equally between the faculty would lead to an unequal overall workload. Thus, modelling faculty workload is an important activity in maintaining equity in the teaching workload distribution. This section delves into the workload allocation model used for distributing the teaching workload.
 
 \section{Workload Allocation Model (WAM)}
-The inclusion of research and service/administrative workloads along with teaching workload has previously led to admirable results in existing Workload Allocation Models (WAMs) like \parencite{finlay1994management} and \parencite{griffith2020framework}. \parencite{rohan2017} demonstrated how, in a teaching allocation-centric view, research and service workloads can be used to offset the teaching workload by giving relaxations for the same. However, to give a transparent and comprehensive view of a faculty's workload, we chose to give a clear picture of all three aspects of the faculty's workload.
+The inclusion of research and service/administrative workloads along with teaching workload has previously led to admirable results in existing Workload Allocation Models (WAMs) like \cite{finlay1994management} and \cite{griffith2020framework}. \cite{rohan2017} demonstrated how, in a teaching allocation-centric view, research and service workloads can be used to offset the teaching workload by giving relaxations for the same. However, to give a transparent and comprehensive view of a faculty's workload, we chose to give a clear picture of all three aspects of the faculty's workload.
 
 We define the total workload \(W_f\) of a faculty \(f\) as constituted by 3 parts \(R_f + T_f + S_f\) for Teaching, Research and Service respectively. Since, the aim is to distribute an equal amount of workload to all faculties, we thus choose an equal total workload \(W\) for all faculty. After fitting for the units described in later sections, we chose the value \(W = 12\). Thus,
 \[W_f = R_f + T_f + S_f = 12\]
 \section{Workload Allocation Model principles}
 
-\parencite{trac2011} lists the principles that guide WAMs:
+\cite{trac2011} lists the principles that guide WAMs:
 
 \begin{enumerate}
     \item \textbf{Equity}
@@ -38,12 +40,12 @@ We define the total workload \(W_f\) of a faculty \(f\) as constituted by 3 part
           \end{itemize}
 \end{enumerate}
 
-Faculty members in universities commonly perceive their own teaching workload as higher than average, and their own department’s workload assignment as unfair \parencite{2018exploring}. Thus, a transparent workload model is important for staff satisfaction. Also, the accuracy of the model depends on its ability to closely describe and encapsulate all the work of a faculty, while its utility lies in the ability to abstract said work into broad areas for transparency and analytical purposes. \parencite{vardi2009impacts} describes this push and pull between accuracy and simplicity, and that WAM complexity is known to cause dissatisfaction.
+Faculty members in universities commonly perceive their own teaching workload as higher than average, and their own department’s workload assignment as unfair \cite{2018exploring}. Thus, a transparent workload model is important for staff satisfaction. Also, the accuracy of the model depends on its ability to closely describe and encapsulate all the work of a faculty, while its utility lies in the ability to abstract said work into broad areas for transparency and analytical purposes. \cite{vardi2009impacts} describes this push and pull between accuracy and simplicity, and that WAM complexity is known to cause dissatisfaction.
 
-Existing workload models operate on various ideologies for quantifying the amount or value of work delivered by a faculty. A common ideology is to quantify work on the basis of the amount of time spent. One such ideology is using measurable outputs to quantify the value of work done by individual faculty. In the case of teaching output, this could be the total academic credits students have acquired \parencite{trac2011}
+Existing workload models operate on various ideologies for quantifying the amount or value of work delivered by a faculty. A common ideology is to quantify work on the basis of the amount of time spent. One such ideology is using measurable outputs to quantify the value of work done by individual faculty. In the case of teaching output, this could be the total academic credits students have acquired \cite{trac2011}
 
 \section{Modelling Research Workload}
-As previously mentioned, research supervision workload i.e. the amount of work spent in the supervision of research staff (Post-Docs and Research Assistants/Associates) \parencite{rohan2017} makes for a useful proxy to measure the overall research workload. However, the aim of the WAM is to define the total workload accurately. Thus, we account for the scholarly research work (research work, publishing papers etc) by splitting \(R_f\) into two parts.
+As previously mentioned, research supervision workload i.e. the amount of work spent in the supervision of research staff (Post-Docs and Research Assistants/Associates) \cite{rohan2017} makes for a useful proxy to measure the overall research workload. However, the aim of the WAM is to define the total workload accurately. Thus, we account for the scholarly research work (research work, publishing papers etc) by splitting \(R_f\) into two parts.
 \[R_f = R^b_f + R^s_f\]
 \(R^b_f\) is the Scholarly Workload for the faculty, defined by faculty type. \(R^s_f\) is amount of Supervision Workload defined by the amount of work required for managing aforementioned research staff.
 \subsubsection{Hierarchy effects in Research Supervision Workload}
@@ -53,7 +55,7 @@ As previously mentioned, research supervision workload i.e. the amount of work s
     \caption{Plot of tanh and log functions}
     \label{fig:plot_tanh_log}
 \end{figure}
-However, it fails to account for hierarchy effects and economies-of-scale where, as the research staff members increase, they self-organize into a hierarchy, thus reducing the supervision workload on the faculty \parencite{WANG2015197,wellman1997electronic}. We aim to account for this using some non-linearity in the supervision workload. We currently use \(tanh\) due to its closeness to logarithmic functions which tapers off to a maximum (\autoref{fig:plot_tanh_log}), however, more testing is required to arrive at the final definition of the supervision workload, including the weights of research staff types.
+However, it fails to account for hierarchy effects and economies-of-scale where, as the research staff members increase, they self-organize into a hierarchy, thus reducing the supervision workload on the faculty \cite{WANG2015197,wellman1997electronic}. We aim to account for this using some non-linearity in the supervision workload. We currently use \(tanh\) due to its closeness to logarithmic functions which tapers off to a maximum (\autoref{fig:plot_tanh_log}), however, more testing is required to arrive at the final definition of the supervision workload, including the weights of research staff types.
 
 \begin{equation}
     \begin{aligned}

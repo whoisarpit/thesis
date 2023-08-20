@@ -1,0 +1,51 @@
+
+\newcommand*{\signaturetable}[1][default]{
+    \begingroup
+    \noindent
+    \renewcommand{\arraystretch}{0} % to reduce the spacing between rows
+    \begin{tabular}{p{0.35\linewidth}p{0.1\linewidth}p{0.55\linewidth}}
+        \makecell{\submissiondate \vspace{0.2cm}} &  & \includegraphics[width=\linewidth]{images/logos/ase_watermark.png} \\
+        \hrule                                    &  & \hrule                                                             \\
+        \makecell[t]{Date}                        &  & \makecell[t]{ #1 }                                                 \\
+    \end{tabular}
+    \endgroup
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Statement of Originality}
+I hereby certify that the work embodied in this thesis is the result of original research, is free of plagiarised materials, and has not been submitted for a higher degree to any other University or Institution. I confirm that the investigations were conducted in accord with the ethics policies and integrity standards of \schoolname and that the research data are presented honestly and without prejudice.
+\vfill
+
+\signaturetable[{
+            \authorname \\ \deptname \\ \schoolname
+        }]
+\vspace{2cm}
+
+\chapter*{Supervisor declaration}
+
+I have reviewed the content and presentation style of this thesis and declare it is of sufficient quality and grammatical clarity to be examined.  To the best of my knowledge, it is free of plagiarism and the research and writing are those of the candidate except as acknowledged in the Author Attribution Statement. To the best of my knowledge, the investigations were conducted in accord with the ethics policies and integrity standards of \schoolname and that the research data are presented honestly and without prejudice.
+\vfill
+
+
+\signaturetable[{
+            \supervisorname \\ \deptname \\ \schoolname
+        }]
+\vspace{2cm}
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Authorship Attribution Statement}
+
+This thesis does not contain any materials from papers published in peer-reviewed journals or from papers accepted at conferences in which I am listed as an author.
+
+\vfill
+
+
+% Date section on the left and watermarked signature on the right
+
+\signaturetable[{
+            \authorname \\ \deptname \\ \schoolname
+        }]
+\vspace{2cm}

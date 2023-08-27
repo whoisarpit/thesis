@@ -1,0 +1,352 @@
+\chapter{Teaching Workload Model}
+
+The first step to allocating teaching workload in a fair and transparent manner is accurately quantifying the workload. In this chapter, we will discuss the teaching workload model that aims to accurately quantify the time and effort that goes into teaching a course. It delves into the various activities that are involved in teaching a course and the time and effort that goes into each of these activities. We further discuss the various factors that affect the teaching workload and how they are incorporated into the model. Finally, we discuss the implementation of the model and the various assumptions that are made.
+
+\section{Defining Teaching Activities}
+
+Teaching activities have previously been classified into the buckets of classroom contact hours (delivery of lectures etc), course administration workload (grading examinations etc) and preparation workload (preparing and revising course material) \cite{griffith2020framework}. However, a need to further divide the teaching workload into more granular activities was felt. This was done to better account for the distribution of workload between the different faculty involved in teaching a course - course coordinators, lecturers, tutors and lab instructors. An analysis of various courses offered at the \deptname revealed that the teaching workload could be divided into granular activities. In the following sections, we will discuss the various activities involved in teaching a course and how they are distributed between the different faculty involved in teaching a course.
+
+\subsection{Activities for Lecturers and Course Coordinators}
+\label{sec:activities_for_lecturers}
+
+Course Coordinators handle the bulk of the teaching workload. They are responsible for the preparation of material, as well as  the delivery of lectures. Most of the administrative activities associated with a course are also handled by them.
+
+For large enough courses, the course coordinators are assisted by additional lecturers who mirror their responsibilities. In such a scenario, course coordinators and lecturers take the responsibility of delivering the course for mostly equal durations of the term. They accordingly also share the workload of preparing the course material and grading the examinations for their respective portions of the course. For example, if a 13-week course is taught by a course coordinator and a lecturer, the course coordinator and lecturer will be responsible for delivering the course for 7 and 6 weeks respectively.
+
+The activities involved in teaching a course can be distributed into three phases - before the course starts, during the course and after the course ends. The activities involved in each of these phases are listed below.
+
+\begin{enumerate}
+  \item Before the course starts
+        \begin{enumerate}
+          \item Preparation of lecture material
+          \item Preparation of tutorial material
+          \item Preparation of lab material
+        \end{enumerate}
+
+  \item During the course
+        \begin{enumerate}
+          \item Lecture Delivery
+          \item Consultation
+        \end{enumerate}
+
+  \item After the course ends
+        \begin{enumerate}
+          \item Grading Examinations
+          \item Grades Entry and Moderation
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Activities for Tutors and Lab Instructors}
+
+Tutorials and lab sessions for a course are taught in groups of 30-40 students. Tutors and Lab Instructors are primarily responsible for the delivery of these tutorials and labs respectively. They are also responsible for the grading of tutorial assignments and lab reports, although this activity is largely carried out as part of the delivery of materials, and thus doesn't need to be separately accounted for. Ideally, the course coordinator are given the responsibility of delivering these tutorials and labs. However, it is assumed that the materials for tutorial and lab sessions are prepared to a degree that minimal effort is required to deliver them. With that perspective, the activities involved the teaching workload of tutors and lab instructors can be divided into three phases -
+
+\begin{enumerate}
+  \item Before the session: \textbf{Tutorial/Lab Material Review}
+  \item During the session: \textbf{Tutorial/Lab Delivery}
+  \item After the session: \textbf{Consultation}
+\end{enumerate}
+
+
+\section{Factors Affecting Teaching Workload}
+
+A number of factors can have an impact on the teaching workload. However, for each of these factors, the impact on the teaching workload is not uniform. In this section, we will discuss the various factors that affect the teaching workload and how they are incorporated into the teaching workload model.
+
+\subsection{Class Size}
+
+The number of students enrolled in a course, or class size, can have an impact on the teaching workload in two ways. Firstly, since more students means more assignments and examinations to grade, the time required to grade the examinations and assignments increases directly proportional to the class size. Secondly, the faculty needs to allocate more time to consultation if the class size is large.
+
+However, the class size has minimal impact on the time required to prepare the course material, since the course material is prepared once and delivered to all students, irrespective of the class size. Similarly, the time required to deliver the course material is also independent of the class size.
+
+
+\subsection{Course Familiarity}
+\label{sec:course_familiarity}
+
+The familiarity of the faculty with the course material can have an impact on the teaching workload. If the faculty is unfamiliar with the course material, they will need to spend more time researching and preparing the course material. However, another faculty might have previously taught the same course, and thus the course material is readily available. This leads to three distinct scenarios:
+
+\begin{enumerate}
+  \item \textbf{Course Coordinator has previously taught the course}\\
+        If the course coordinator has previously taught the course, they only need to ensure that the course material is up to date. Thus, the time required to prepare the course material is minimal.
+  \item \textbf{Course Coordinator has not previously taught the course, but another faculty has}\\
+        If another faculty in the department has previously taught the course, the course material prepared by them is readily available. Most time is spent on reviewing the course material and tailoring it to the course coordinator's teaching style. Thus, the time required to prepare the course material is moderate.
+  \item \textbf{Course Coordinator has not previously taught the course, and no other faculty has either}\\
+        If no other faculty in the department has previously taught the course, the course material needs to be prepared from scratch. This requires a significant amount of time and effort. Especially for advanced and novel courses, the research required to prepare the course material can be significant. Thus, the time required to prepare the course material is substantial.
+\end{enumerate}
+
+For all three scenarios however, it can be assumed that once the course material is prepared, the time required to deliver the course material is independent of the course familiarity since the course material is already prepared. Similarly, since the exam material preparation is already accounted for, grading the examinations and assignments is entirely unaffected by the course familiarity.
+
+\subsection{Cognitive Load}
+
+Although the amount of time spent in various teaching activities might be comparable, the cognitive load associated with these activities can vary significantly. The cognitive effort associated with preparing the course material is significant, since the faculty has to research and prepare the course material to a degree that the tutorials and labs can be delivered by independent tutors and lab instructors. Delivering a lecture also requires a significant amount of effort, since the faculty needs to ensure comprehension and engagement of the students, and engage in realtime feedback to adjust the pace of the lecture. On the other hand, since the examination material and the grading strategy is already prepared, grading the examinations and assignments requires minimal effort. Thus, the cognitive load associated with each of these activities can be ranked as follows:
+
+\begin{enumerate}
+  \item \textbf{Course Material Preparation}
+  \item \textbf{Lecture Delivery}
+  \item \textbf{Examination and Assignment Grading}
+\end{enumerate}
+
+It can be argued that the cognitive load associated with course material preparation can vary depending on the course complexity, since the amount of research for complex courses is significantly higher. However, since the faculty is chosen to teach a course according to their expertise, this factor is not considered in the teaching workload model. Similarly, teaching a larger class size can also increase the cognitive load associated with lecture delivery, but the impact is assumed to be minimal.
+
+
+
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{Activity}             & \textbf{Class Size} & \textbf{Familiarity} & \textbf{Effort} \\ \hline
+    \multicolumn{4}{|l|}{\color{gray}Course Coordinator}                                         \\\hline
+    Lecture Material Preparation  & -                   & \checkmark           & High            \\ \hline
+    Tutorial Material Preparation & -                   & \checkmark           & High            \\ \hline
+    Lab Material Preparation      & -                   & \checkmark           & High            \\ \hline
+    Lecture Delivery              & -                   & -                    & Medium          \\ \hline
+    Consultation                  & \checkmark          & -                    & Insignificant   \\ \hline
+    Exam Grading                  & \checkmark          & -                    & Low             \\ \hline
+    Grades Entry and Moderation   & -                   & -                    & Insignificant   \\ \hline
+
+    \multicolumn{4}{|l|}{\color{gray}Tutor/Lab Instructor}                                       \\\hline
+    Material Review               & -                   & \checkmark           & Medium          \\ \hline
+    Delivery                      & -                   & -                    & Medium          \\ \hline
+    Consultation                  & -                   & -                    & Insignificant   \\ \hline
+  \end{tabular}
+  \caption{Teaching Workload Factors}
+  \label{tab:teaching-workload-factors}
+\end{table}
+
+\autoref{tab:teaching-workload-factors} describes the various factors that affect the teaching workload and how they impact the teaching workload.
+
+\section{Teaching Workload Model}
+
+\subsection{Preparation}
+
+The preparation workload is the time required to prepare the course material. This includes preparing the lecture material, tutorial material, and lab material. We found that preparation of lecture materials for a completely new course takes approximately 10 hours per hour of lecture. Similarly, preparation of tutorial materials for a completely new course takes approximately 5 hours per hour of tutorial. Finally, preparation of lab materials for a completely new course takes approximately 2.5 hours per hour of lab. So for a new course, we can say:
+
+\begin{equation}
+  \label{eq:preparation-workload}
+  \begin{aligned}
+    T_p^{lec} & = 10  & \times H^{lec} \\
+    T_p^{tut} & = 5   & \times H^{tut} \\
+    T_p^{lab} & = 2.5 & \times H^{lab}
+  \end{aligned}
+\end{equation}
+
+where \(T_p^{lec}\), \(T_p^{tut}\), and \(T_p^{lab}\) are the preparation workload for lecture, tutorial, and lab respectively, and \(H^{lec}\), \(H^{tut}\), and \(H^{lab}\) are the number of hours of lectures, tutorials, and labs respectively.
+
+In \autoref{sec:course_familiarity}, we found that the preparation workload is affected by the familiarity of the course coordinator with the course material.  that if the another faculty has previously taught the course, the preparation workload is reduced by 60\%. We also found that if the same course coordinator has previously taught the course, the preparation workload is negligible. To account for these, we introduce \textbf{Newness to School} (\(N_1\)) and \textbf{Newness to Faculty} (\(N_2\)) factors. These factors are defined in \autoref{tab:n1-workload-factor} and \autoref{tab:n2-workload-factor} respectively. The need to introduce two separate factors is felt because in certain scenarios, the workload of a course independent of the faculty needs to be known. For example, if the total workload for the school needs to be calculated, the workload of a course needs to be calculated independent of the faculty. In such a case, the \(N_1\) is used. However, if the workload of a faculty needs to be calculated, both \(N_1\) and \(N_2\) need to be considered.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Case}                 & \textbf{\(N_1\)} \\ \hline
+    Course is new to school       & 1                \\ \hline
+    Course has been taught before & 0.4              \\ \hline
+  \end{tabular}
+  \caption{\(N_1\) - Newness to School factor}
+  \label{tab:n1-workload-factor}
+\end{table}
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Case}                        & \textbf{\(N_2\)} \\ \hline
+    Course is new to Faculty             & 1                \\ \hline
+    Faculty has taught the course before & 0                \\ \hline
+  \end{tabular}
+  \caption{\(N_2\) - Newness to Faculty factor}
+  \label{tab:n2-workload-factor}
+\end{table}
+
+For simplicity, we define the combined newness factor \(N = N_1 \times N_2\). Thus for the three cases of familiarity, the newness factors can be calculated as follows:
+
+\begin{enumerate}
+  \item Course is new to school and faculty has not taught the course before       \\
+        \(N_1 = 1\) ; \(N_2 = 1\) ; \(N = 1\)
+  \item Another faculty has taught the course before \\
+        \(N_1 = 0.4\) ; \(N_2 = 1\) ; \(N = 0.4\)
+  \item Course Coordinator has taught the course before     \\
+        \(N_1 = 0.4\) ; \(N_2 = 0\) ; \(N = 0\)
+\end{enumerate}
+
+So, the preparation workload for a course is given by:
+
+\begin{equation}
+  \label{eqn:preparation-workload}
+  \begin{aligned}
+    T_p^{lec} & = 10  & \times N \times H^{lec} \\
+    T_p^{tut} & = 5   & \times N \times H^{tut} \\
+    T_p^{lab} & = 2.5 & \times N \times H^{lab}
+  \end{aligned}
+\end{equation}
+
+\subsection{Review and Delivery}
+
+The review workload is the time required to review the materials for tutorial and lab. This includes reviewing the tutorial and lab questions, and the solutions to the tutorial and lab experiments. We found that a faculty spends 1 hour per hour of tutorial and 30 minutes per hour of lab on reviewing the materials, which is further reduced if the course isn't new to the tutor or lab instructor. So, the review workload for a course is given by:
+
+\begin{equation}
+  \label{eqn:review-workload}
+  \begin{aligned}
+    T_r^{tut} & = 1   & \times N \times H^{tut} \\
+    T_r^{lab} & = 0.5 & \times N \times H^{lab}
+  \end{aligned}
+\end{equation}
+
+The delivery workload is the time required to deliver the course. This includes delivering the lectures, tutorials, and labs. Since the delivery of teaching activities is completely independent of the class size and course familiarity, the delivery workload is the same as the number of hours of lectures, tutorials, and labs. So, the delivery workload for a course is given by:
+
+\begin{equation}
+  \label{eqn:delivery-workload}
+  \begin{aligned}
+    T_d^{lec} & = H^{lec} \\
+    T_d^{tut} & = H^{tut} \\
+    T_d^{lab} & = H^{lab}
+  \end{aligned}
+\end{equation}
+
+
+\subsection{Exam Grading}
+
+The exam grading workload is the time required to grade the exams. This includes grading the mid-semester exams, final exams, and any additional assignments that may be given. We found that on an aggregate, a faculty spends 2 hours per student per semester on grading. So, the exam grading workload for a course is given by \(T_g = 2 \times S\), where \(S\) is the number of students enrolled in the course.
+
+However, because exam grading is a largely clerical task, we need to account for the fact that an hour spent on grading is less taxing than an hour spent on teaching. Exam grading is also frequently delegated to teaching assistants. So, we introduce a normalization factor \(N_g = 0.25\) to account for this. So, the exam grading workload for a course is given by:
+
+\begin{equation}
+  \label{eqn:exam-grading-workload}
+  \begin{aligned}
+    T_g & = 0.25 \times 2 \times S \\
+        & = 0.5 \times S
+  \end{aligned}
+\end{equation}
+
+\subsection{Total Workload}
+
+The total workload for a course is the sum of the preparation workload, delivery workload, and exam grading workload. So, the total workload for the course coordinator is given by:
+
+\begin{equation}
+  \label{eqn:total-workload}
+  \begin{aligned}
+    T & = T_p + T_d + T_g                                                                                                                   \\
+      & = T_p^{lec} + T_p^{tut} + T_p^{lab} + T_d^{lec} + T_d^{tut} + T_d^{lab} + T_g                                                       \\
+      & = 10 \times N \times H^{lec} + 5 \times N \times H^{tut} + 2.5 \times N \times H^{lab} + H^{lec} + H^{tut} + H^{lab} + 0.5 \times S
+  \end{aligned}
+\end{equation}
+where,
+\begin{equation}
+  \nonumber
+  \begin{aligned}
+    N       & = newness\ factor                     \\
+    H^{lec} & = hours\ of\ lectures                 \\
+    H^{tut} & = hours\ of\ tutorials                \\
+    H^{lab} & = hours\ of\ labs                     \\
+    S       & = students\ enrolled\ in\ the\ course
+  \end{aligned}
+\end{equation}
+
+For tutors and lab assistants, the workload is the sum of the review workload and delivery workload. So, the total workload for a tutor or lab assistant is given by:
+
+\begin{equation}
+  \label{eqn:total-workload-tut-lab}
+  \begin{aligned}
+    T^{tut} & = T_r^{tut} + T_d^{tut}                 \\
+            & = 1 \times N \times H^{tut} + H^{tut}   \\
+    T^{lab} & = T_r^{lab} + T_d^{lab}                 \\
+            & = 0.5 \times N \times H^{lab} + H^{lab}
+  \end{aligned}
+\end{equation}
+where,
+\begin{equation}
+  \nonumber
+  \begin{aligned}
+    N       & = newness\ factor      \\
+    H^{tut} & = hours\ of\ tutorials \\
+    H^{lab} & = hours\ of\ labs
+  \end{aligned}
+\end{equation}
+
+Other activities like consultation hours, office hours, and grades entry and moderation are not included in the workload calculation because they are not significant enough to affect the workload distribution.
+
+\subsection{Demonstration of the model}
+\label{sec:workload_demo}
+
+For the purposes of demonstration, we will consider three examples:
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|}
+    \hline
+    \textbf{Course}                        & \(H^{lec}\) & \(H^{tut}\) & \(H^{lab}\) & \(S\) & \(N\) \\\hline
+    Computer Organisation \& Architecture  & 26          & 13          & 26          & 720   & 0.4   \\\hline
+    Artificial Intelligence in Game Design & 39          & 0           & 0           & 26    & 0.4   \\\hline
+    Data Structures                        & 26          & 13          & 26          & 25    & 1     \\\hline
+  \end{tabular}
+\end{table}
+
+For the first example, the total workload for the course coordinator is given by:
+
+\begin{equation}
+  \nonumber
+  \begin{aligned}
+    T_1 & = T_p + T_d + T_g                                                                                                                         \\
+        & = (10 \times N \times H^{lec} + 5 \times N \times H^{tut} + 2.5 \times N \times H^{lab}) + (H^{lec} + H^{tut} + H^{lab}) + (0.5 \times S) \\
+        & = (10 \times 0.4 \times 26 + 5 \times 0.4 \times 13 + 2.5 \times 0.4 \times 26) + (26 + 13 + 26) + (0.5 \times 720)                       \\
+        & = 156 + 65 + 360                                                                                                                          \\
+        & = 581\ units
+  \end{aligned}
+\end{equation}
+
+For the second example, the total workload for the course coordinator is given by:
+
+\begin{equation}
+  \nonumber
+  \begin{aligned}
+    T_2 & = 10 \times 0.4 \times 39 + 5 \times 0.4 \times 0 + 2.5 \times 0.4 \times 0 + 39 + 0 + 0 + 0.5 \times 26 \\
+        & = 156 + 39 + 13                                                                                          \\
+        & = 208\ units
+  \end{aligned}
+\end{equation}
+
+For the third example, the total workload for the course coordinator is given by:
+
+\begin{equation}
+  \nonumber
+  \begin{aligned}
+    T_3 & = 10 \times 1 \times 26 + 5 \times 1 \times 13 + 2.5 \times 1 \times 26 + 26 + 13 + 26 + 0.5 \times 26 \\
+        & = 390 + 65 + 13                                                                                        \\
+        & = 468\ units
+  \end{aligned}
+\end{equation}
+
+As we can see with the third example, a new course can have a substantial amount of workload associated with it, even if the number of students enrolled in it is small. This is because the preparation workload, at 390 units, is much higher for the new course.
+
+
+\section{Accounting for disproportionate workload distribution}
+
+Although there are various factors that govern the workload distribution, there can be cases where the workload distribution is disproportionately high. As seen in \autoref{sec:workload_demo}, the workload of Course 2 is much lower than that of Course 1 and 3. This makes it difficult to distribute the workload fairly among the teaching staff as whoever is assigned to Course 1 or 3 will have a much higher workload than the person assigned to Course 2.
+
+A way to remediate such inequities is to split the workload of such courses between two or more faculty, as discussed in \autoref{sec:activities_for_lecturers}. This is done through a process of \textbf{Lecture Splitting}. In this section we will discuss various strategies that can be used to determine whether a course needs to be split. It is also important to note that the tutorial and lab workloads are already split into groups of 30-40 students and, as a result, do not need to be split further. As long as a reasonable number of tutorial and lab groups are allocated to each faculty, the tutorial and lab workload distribution remains fair.
+
+\subsection{Naive Class-Size Based Splitting}
+
+The current practice is to split the workload of a course if the number of students enrolled in it exceeds certain thresholds. For example, if more than 200 students enrolled in a course, the course is split between two faculty. The rationale behind this is that in addition to being an indicator of the effort required to teach the course, the number of students is also a limiting factor as the number of halls big enough to accommodate such a large number of students is limited. However, this is not a good strategy as it does not take into account other factors that affect the workload. For example, a course with 200 students and 1 hours of lectures per week will have a lower workload than a new course with 100 students and 3 hours of lectures per week.
+
+\subsection{Workload Based Splitting}
+
+Since the workload is a better indicator of the effort required to teach a course, it is better to directly use the workload as a metric for splitting the course. For example, if the workload of a course exceeds a certain threshold, the course is split between two faculty. However, additional factors need to be incorporated to account for availability of lecture theatres. This led to the development of a 3-Pass splitting strategy that is more inclusive. The 3-Pass splitting strategy is discussed in the next section.
+
+\subsection{3-Pass Splitting Strategy}
+
+The 3-Pass splitting strategy has passes that take care of individual aspects that require splitting of lectures. The passes are as follows:
+
+\begin{enumerate}
+  \item {
+        \textbf{Pass 1: Workload distribution perspective}\\
+        This pass ensures that workload distribution among the faculty remains fair and equitable. We split courses that are greater than 300 units between two faculties and courses that are greater than 500 units between three faculties. This ensures that faculty gets reasonable amount of time to prepare for the course and correct assignments and exams.
+        }
+  \item {
+        \textbf{Pass 2: Lecture-theatre availability based splitting}\\
+        This pass ensures that the number of students in a lecture theatre does not exceed the capacity of the lecture theatre. We check against the availability of lecture theatres and split courses that are greater than the capacity offered by the largest available lecture theatres.
+        }
+  \item {
+        \textbf{Pass 3: Realizability}\\
+        While the first two passes are pre-emptive, this step is reactive, and done realtime throughout the allocation process. This pass ensures that courses are allocated even in the absence of faculty which have the bandwidth to teach the course. This is done by splitting the course between the faculty that are available. This pass is further discussed in a later chapter % TODO: Add reference
+        }
+\end{enumerate}

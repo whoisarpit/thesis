@@ -20,7 +20,7 @@
 \usepackage{amssymb}        %for math symbols
 
 \usepackage{breakcites}     %to avoid citations extending into the margin
-
+\usepackage{comment}
 
 \usepackage{amsmath}        %for math symbols
 
@@ -31,8 +31,11 @@
 
 \usepackage{sidecap}        %to enable side captions on figures
 
-\usepackage{setspace}       %to enable doublespacing
+\usepackage{setspace}       %to enable onehalfspacing
 \usepackage{makecell}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{amssymb}
 \usepackage[
 backend=biber,
 style=ieee,
@@ -77,16 +80,16 @@ style=ieee,
 \begin{document}
 
 % Making title page
+\input{intro/cover.tex}
 \input{intro/titlepage.tex}
 
 
 % Starting front matter
 % Abstract goes here
-\doublespacing
+\onehalfspacing
 
 \pagenumbering{roman}   % Roman page numbering to start from abstract onwards
 
-\input{intro/abstract.tex}
 \input{intro/declaration.tex}
 
 \newpage
@@ -96,33 +99,31 @@ style=ieee,
 \newpage
 \listoftables           % generate list of tables
 \addcontentsline{toc}{section}{\textbf{List of Tables}}
-
-% End of front matter
-
-% Insert table of contents
 \newpage
 \tableofcontents
+
+\onehalfspacing
+
+\newpage
+\pagenumbering{arabic}    % We want Arabic numerals for main matter page numbering
+\input{intro/abstract.tex}
 
 % Starting main matter
 
 \newpage
-\pagenumbering{arabic}    % We want Arabic numerals for main matter page numbering
 
-\doublespacing
 
-\input{chapters/introduction.tex} % Link to the chapter tex file
-\input{chapters/literature_review.tex}
-\input{chapters/modelling_faculty_workload.tex}
-\input{chapters/workload_model.tex}
-\input{chapters/teaching_allocation_factors.tex}
-\input{chapters/teaching_allocation_framework.tex}
-\input{chapters/further_work.tex}
-
+\input{archive/introduction.tex}
+\input{archive/literature_review.tex}
+\input{chapters/teaching_workload.tex}
+\input{chapters/faculty_wam.tex}
+\input{chapters/quality_score.tex}
+\input{chapters/lecture_allocation.tex}
+\input{chapters/tutorial_lab_allocation.tex}
 
 \singlespacing
 % Insert bibliography here
 \printbibliography
-
 
 \end{document}
 

@@ -1,5 +1,5 @@
 {
-	"Insert figure": {
+	"Figure": {
 		"prefix": "figure",
 		"body": [
 			"\\begin{figure}[H]",
@@ -11,7 +11,7 @@
 		],
 		"description": "Insert centered figure with caption."
 	},
-	"Insert code from file": {
+	"Code from file": {
 		"prefix": "code-file",
 		"body": [
 			"\\lstinputlisting[language='${1:language}']{'${2:path}'}",
@@ -19,7 +19,7 @@
 		],
 		"description": "Insert code from file."
 	},
-	"Insert inline code": {
+	"Inline code": {
 		"prefix": "code-file",
 		"body": [
 			"\\lstinputlisting[language='${1:language}']{'${2:path}'}",
@@ -27,7 +27,7 @@
 		],
 		"description": "Insert code from file."
 	},
-	"Insert bullet points": {
+	"Bullet points": {
 		"prefix": "bullet-points",
 		"body": [
 			"\\begin{itemize}",
@@ -37,7 +37,7 @@
 		],
 		"description": "Insert bullet points."
 	},
-	"Insert align block": {
+	"Align block": {
 		"prefix": "align-block",
 		"body": [
 			"\\begin{align*}",
@@ -47,7 +47,7 @@
 		],
 		"description": "Insert align block."
 	},
-	"Insert matrix": {
+	"Matrix": {
 		"prefix": "matrix",
 		"body": [
 			"\\begin{bmatrix}",
@@ -57,8 +57,8 @@
 		],
 		"description": "Insert align matrix."
 	},
-	"Insert begin block": {
-		"prefix": "begin",
+	"Begin block": {
+		"prefix": "block",
 		"body": [
 			"\\begin{$1}",
 			"\t$2",
@@ -67,7 +67,7 @@
 		],
 		"description": "Insert begin block."
 	},
-	"Insert equation": {
+	"Equation": {
 		"prefix": "equation",
 		"body": [
 			"\\[ $1 \\]",
@@ -75,14 +75,14 @@
 		],
 		"description": "Insert equation."
 	},
-	"Insert fraction": {
+	"Fraction": {
 		"prefix": "fraction",
 		"body": [
 			"\\frac{$1}{$2}"
 		],
 		"description": "Insert fraction."
 	},
-	"Insert itemize block": {
+	"Itemize block": {
 		"prefix": "itemize",
 		"body": [
 			"\\begin{itemize}",
@@ -92,7 +92,7 @@
 		],
 		"description": "Insert itemize block."
 	},
-	"Insert enumerate block": {
+	"Enumerate block": {
 		"prefix": "enumerate",
 		"body": [
 			"\\begin{enumerate}",
@@ -101,5 +101,37 @@
 			"$2"
 		],
 		"description": "Insert enumerate block."
+	},
+	"Chapter": {
+		"prefix": "chapter",
+		"body": [
+			"\\chapter{$1}",
+			"$2"
+		],
+		"description": "Insert Chapter."
+	},
+	"Section": {
+		"prefix": "section",
+		"body": [
+			"\\section{$1}",
+			"$2"
+		],
+		"description": "Insert Section."
+	},
+	"Subsection": {
+		"prefix": "subsection",
+		"body": [
+			"\\subsection{$1}",
+			"$2"
+		],
+		"description": "Insert Subsection."
+	},
+	"Subsubsection": {
+		"prefix": "subsubsection",
+		"body": [
+			"\\subsubsection{$1}",
+			"$2"
+		],
+		"description": "Insert Subsubsection."
 	},
 }

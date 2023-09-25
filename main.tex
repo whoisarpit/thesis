@@ -62,6 +62,7 @@ style=ieee,
 % Set path to images
 \graphicspath{ {images/} }  % Direct to the main image folder, always good to create sub-folders to organize images for individual chapters
 
+
 \singlespacing  %making text double spaces
 
 \def\thesistitle{Holistic Teaching Workload Allocation for Research-Intensive Universities}
@@ -100,6 +101,7 @@ style=ieee,
 \listoftables           % generate list of tables
 \addcontentsline{toc}{section}{\textbf{List of Tables}}
 \newpage
+\pdfbookmark{\contentsname}{toc}
 \tableofcontents
 
 \onehalfspacing
@@ -112,6 +114,7 @@ style=ieee,
 
 \newpage
 
+\setlength{\parskip}{1em}   % 1em is the height of the letter 'M'
 
 \input{archive/introduction.tex}
 \input{archive/literature_review.tex}

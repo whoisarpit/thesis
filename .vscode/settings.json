@@ -2,8 +2,6 @@
   "explorer.excludeGitIgnore": true,
   "latex-workshop.latex.tools": [
     {
-      "name": "latexmk",
-      "command": "latexmk",
       "args": [
         "--shell-escape",
         "-synctex=1",
@@ -13,11 +11,11 @@
         "-outdir=%OUTDIR%",
         "%DOC%"
       ],
-      "env": {}
+      "command": "latexmk",
+      "env": {},
+      "name": "latexmk"
     },
     {
-      "name": "pdflatex",
-      "command": "pdflatex",
       "args": [
         "--shell-escape",
         "-synctex=1",
@@ -25,16 +23,23 @@
         "-file-line-error",
         "%DOC%"
       ],
-      "env": {}
+      "command": "pdflatex",
+      "env": {},
+      "name": "pdflatex"
     },
     {
-      "name": "bibtex",
-      "command": "bibtex",
       "args": [
         "--shell-escape",
         "%DOCFILE%"
       ],
-      "env": {}
+      "command": "bibtex",
+      "env": {},
+      "name": "bibtex"
     }
   ],
+  "latex-workshop.view.pdf.color.dark.backgroundColor": "#161616",
+  "latex-workshop.view.pdf.color.dark.pageBorderColor": "#00000022",
+  "latex-workshop.view.pdf.color.dark.pageColorsBackground": "#242424",
+  "latex-workshop.view.pdf.color.dark.pageColorsForeground": "#ccc",
+  "window.title": "Thesis"
 }

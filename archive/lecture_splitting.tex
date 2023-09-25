@@ -1,0 +1,39 @@
+\chapter{Lecture Splitting}
+
+\section{Introduction}
+
+As seen in \autoref{sec:workload_demo}, the workload of some courses is significantly higher than the workload of a typical course. Although workload distribution consists of multiple courses to be taught by a faculty, a course with a disproportionately high workload can lead to issues in maintaining a fair and equitable workload distribution. A way to remediate such inequities is to split the workload of such courses between two or more faculty, as discussed in \autoref{sec:workload_of_course_lecturers}. This process of splitting the workload of a course between two or more faculty is called \textit{Lecture Splitting}. In this chapter we will discuss various strategies that can be used to determine whether a course needs to be split.
+
+\section{Motivation}
+
+As discussed in \autoref{sec:workload_of_course_lecturers}, the workload of a course can be significantly impacted by the number of students enrolled in the course. Thus, a course with a large number of students enrolled can have a significantly higher workload due to the increased number of assignments and exams to be corrected. This can lead to inequities in workload distribution among the faculty. For example, if a course has class size of 500 students, it might be difficult for a highly research active faculty to teach the course due to a lack of bandwidth. Similarly, if such a course is already allocated to a faculty, allocating a second course becomes difficult as the workload of the faculty is already high. In such cases, splitting the course lecture between two or more faculty ensures that all faculty have a comparable workload. The tutorial and lab workloads are already split into groups of 30-40 students, as a result, do not need to be split further. Thus, as long as a reasonable number of tutorial and lab groups are allocated to each faculty, the tutorial and lab workload distribution remains fair.
+
+The lecture workload of a course can also be impacted by the number of factors, such as the number of hours of lectures per week, the number of assignments and exams, the number of students enrolled in the course, etc. Thus, it is important to take into account all these factors while determining whether a course needs to be split. For example, a course with 200 students and 1 hours of lectures per week will have a lower workload than a new course with 100 students and 3 hours of lectures per week due to lower preparation time required. Thus, it is important to take into account all these factors while determining whether a course needs to be split.
+
+\section{Strategies}
+
+% Left here
+
+
+\subsection{Naive Class-Size Based Splitting}
+
+The current practice is to split the workload of a course if the number of students enrolled in it exceeds certain thresholds. For example, if more than 200 students enrolled in a course, the course is split between two faculty. The rationale behind this is that in addition to being an indicator of the effort required to teach the course, the number of students is also a limiting factor as the number of halls big enough to accommodate such a large number of students is limited. However, this is not a good strategy as it does not take into account other factors that affect the workload. For example, a course with 200 students and 1 hours of lectures per week will have a lower workload than a new course with 100 students and 3 hours of lectures per week.
+
+\subsection{Workload Based Splitting}
+
+Since the workload is a better indicator of the effort required to teach a course, it is better to directly use the workload as a metric for splitting the course. For example, if the workload of a course exceeds a certain threshold, the course is split between two faculty. However, additional factors need to be incorporated to account for availability of lecture theatres. This led to the development of a 3-Pass splitting strategy that is more inclusive. The 3-Pass splitting strategy is discussed in the next section.
+
+\section{3-Pass Splitting Strategy}
+
+The 3-Pass splitting strategy has passes that take care of individual aspects that require splitting of lectures. The passes are as follows:
+
+\begin{enumerate}
+      \item \textbf{Pass 1: Workload distribution perspective}
+
+            This pass ensures that workload distribution among the faculty remains fair and equitable. We split courses that are greater than 300 units between two faculties and courses that are greater than 500 units between three faculties. This ensures that faculty gets reasonable amount of time to prepare for the course and correct assignments and exams.
+
+      \item \textbf{Pass 2: Realizability}
+
+            While the first two passes are pre-emptive, this step is reactive, and done realtime throughout the allocation process. This pass ensures that courses are allocated even in the absence of faculty which have the bandwidth to teach the course. This is done by splitting the course between the faculty that are available. This pass is further discussed in a later chapter
+            % TODO: Add reference
+\end{enumerate}

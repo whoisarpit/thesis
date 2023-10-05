@@ -45,12 +45,12 @@ style=ieee,
 
 \addbibresource{bibliography.bib}   %path to the bib file
 
-\usepackage{enumitem}
-
-
-\usepackage{changepage}
-
+\usepackage{enumitem} % for customizing lists
+\usepackage{changepage} % for changing margins for specific sections
+\usepackage{tikz} % for drawing diagrams
+\usepackage{pgfplots} % for drawing plots
 \usepackage{hyperref}       % to create a linked table of contents
+
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -58,6 +58,7 @@ style=ieee,
     linkcolor=black,
     urlcolor=black
 }
+\pgfplotsset{width=10cm,compat=1.9}
 
 % Set path to images
 \graphicspath{ {images/} }  % Direct to the main image folder, always good to create sub-folders to organize images for individual chapters
@@ -108,6 +109,7 @@ style=ieee,
 
 \newpage
 \pagenumbering{arabic}    % We want Arabic numerals for main matter page numbering
+
 \input{intro/abstract.tex}
 
 % Starting main matter

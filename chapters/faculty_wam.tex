@@ -1,215 +1,170 @@
-
 \chapter{Faculty Workload Model}
 
 \section{Introduction}
 
-In an academic institution, teaching workload only constitutes a small part of the overall workload of a faculty member. In addition to teaching, faculty members are also expected to perform research, manage staff, acquire research funding, and perform various service activities. The workload of a faculty member is therefore a complex function of the various activities that they perform. In an equal distribution of workload, each faculty member would be expected to perform the same amount of work in each of the activities. However, this would be a disservice to the institution as it would not take into account the differences in the abilities of the faculty members, as well as their preferences for the various activities. In addition, the workload of a faculty member is not static, but changes over time as they progress in their career. For example, a junior faculty member would be expected to spend more time on teaching than research, while a senior faculty member would be expected to make significant research and service contributions. Thus, a fair and equitable workload distribution should take the research and service contributions of the faculty members into account.
+In an academic institution, teaching workload only constitutes a small part of the overall workload of a faculty member. In addition to teaching, faculty members are also expected to perform research, manage staff, acquire research funding, and perform various service activities. The workload of a faculty member is therefore a complex function of the various activities that they perform.
+
+With equal distribution of workload, each faculty member would be expected to perform the same amount of work in each of the activities. However, this would be a disservice to the institution as it would not take into account the differences in the abilities of the faculty members, as well as their preferences for the various activities. In addition, the workload of a faculty member is not static, but changes over time as they progress in their career. For example, a junior faculty member would be expected to spend more time on teaching than research, while a senior faculty member would be expected to make significant research and service contributions. Thus, a fair and equitable workload distribution should take the research and service contributions of the faculty members into account.
 
 In the pursuit of an equitable workload distribution, the first step is to quantify the workload of the various activities. This is a non-trivial task as the various activities are not easily quantifiable. The Faculty Workload Model aims to solve this problem by providing a framework for quantifying the workload of the various activities.
 
-\section{Objectives of the Faculty Workload Model}
+\section{Components of Faculty Workload}
 
-The aim of the Faculty Workload Model is to provide transparency and accountability in the workload allocation process, and to ensure equity and fairness in the distribution of workload and resources.
-
-
-
-\section{Principles Guiding the Faculty Workload Model}
-\label{sec:principles_guiding_workload_allocation_model}
-
-To achieve the objectives of the workload allocation model, it is important to define a set of principles and attributes that the workload allocation model should satisfy. These principles and attributes are:
+A faculty member's workload consists of multiple responsibilities and activities. These responsibilities and activities can be broadly classified into three categories:
 
 \begin{enumerate}
+  \item \textbf{Research Workload}
 
-      \item The workload allocation model should be accurate.
+        A faculty member's research workload consists of the various research activities that they perform. This includes research - the actual research work that the faculty performs, research supervision - the supervision of post doctoral fellows, research fellows and research assistants, research funding - the acquisition of research funding from external sources, and research publication - the writing of research papers, as well as the submission of research papers to conferences and journals. The research workload of a faculty member is a complex function of the various research activities that they perform. The research workload of a faculty member is quantified in \autoref{sec:modelling_research_workload}.
 
-            The workload allocation model should be able to accurately quantify the workload of the various activities. This is important as the workload allocation model will influence the distribution of teaching workload to the faculty, and the allocation of resources to the various departments. An inaccurate workload allocation model will result in an unfair distribution of workload and resources.
+  \item \textbf{Teaching Workload}
 
-      \item The workload allocation model should be transparent and easily understood.
+        A faculty member's teaching workload consists of the activities that they perform towards the learning of their students. This can further be classified into two categories:
 
-            Complexity is the enemy of transparency. A complex workload allocation model might be able to accurately quantify the workload of the various activities, but it will be difficult for the faculty to understand how the workload is being allocated. This causes the faculty to lose confidence in the workload allocation model, and will result in a lack of buy-in from the faculty. Additionally, a complex workload allocation model will be difficult to fine-tune and adapt to the needs of the institution.
+        \begin{enumerate}
+          \item Formal Teaching
 
-      \item The workload allocation model should be flexible and adaptable to the needs of the institution.
+                This refers to the delivery of lectures, tutorials and labs to the students, and other activities that are directly related to the delivery of the course like preparation of course materials, setting and marking of assignments and examinations, and consultation with students. This part of the teaching workload was described in \autoref{ch:teaching_workload}.
 
-            Carrying on from the previous point, the workload allocation model should be flexible and adaptable to the needs of the institution. Different institutions have different priorities and needs, and the workload allocation model should be able to adapt to these needs. For example, a teaching-focused institution might want to place more emphasis on teaching workload, while a research-focused institution might want to place more emphasis on research workload. The workload allocation model should be able to adapt to these different needs.
+          \item Informal Teaching
 
-      \item The workload allocation model should account for the zero-sum nature of workload.
+                This refers to the supervision of students outside of the formal teaching environment. This includes the supervision of Final-Year Projects (FYPs), Undergraduate Research Experience on Campus (URECA) projects and postgraduate students' research projects.
 
-            The working hours of a faculty member are finite. As such, the workload of the various activities are zero-sum in nature. For example, a faculty member who spends more time on teaching will have less time to spend on research. The workload allocation model should account for this zero-sum nature of workload. This is important as the workload allocation model will influence the distribution of teaching workload to the faculty, and the allocation of resources to the various departments. An inaccurate workload allocation model will result in an unfair distribution of workload and resources.
+        \end{enumerate}
 
-      \item The workload allocation model should be inclusive and account for the contributions of all faculty members.
+  \item \textbf{Service Workload}
 
-            An academic institution is made up of faculty members of different roles and seniority. The faculty are also broadly classified into lecturers and professors and the institution's goals and priorities for the faculty are influenced by the faculty's role and seniority. For example, a lecturer would be expected to spend more time on teaching than research, while a professor would be expected to make significant research and service contributions. The workload allocation model should be able to account for the contributions of all faculty members, regardless of their roles and seniority.
+        A faculty member's service workload consists of the various service activities that they perform. This includes departmental service - the various service activities that the faculty performs for the department, administrative duties - the various administrative duties that the faculty performs for the institution, and research service duties - the various service activities that the faculty performs for the research community. The service workload of a faculty member is quantified in \autoref{sec:modelling_service_workload}.
 
 \end{enumerate}
-
-
-\section{Distinguishing Workload Patterns among Faculty Types}
-
-An academic institution consists of faculty members of different roles and seniority. The faculty are broadly classified into lecturers and professors, and the institution's goals and priorities for the faculty are influenced by the faculty's role and seniority. For example, a lecturer would be expected to spend more time on teaching than research, while a professor would be expected to make significant research and service contributions. The workload allocation model should be able to
-
-% TODO
 
 \section{Modelling Research Workload}
 \label{sec:modelling_research_workload}
 
-The research workload of a faculty is a complex function of the various research activities that they perform. In order to quantify the research workload of a faculty, we first need to identify the various research activities that they perform. The research activities of a faculty can be broadly classified into the following categories:
+TODO: Add an introduction before delving into the components
+
+\subsection{Components of Research Workload}
+
+Research Workload can be classified into three distinct categories:
 
 \begin{enumerate}
 
-      \item Research Supervision
+  \item \textbf{Research Publication}
 
-            This includes the supervision of post doctoral fellows, research fellows and research assistants. The workload of research supervision is dependent on the number of research staff that the faculty is supervising, as well as the seniority of the research staff. For example, a faculty member who is supervising a post doctoral fellow would be expected to spend less time on research supervision than a faculty member who is supervising a research assistant, as the post doctoral fellow would be expected to be more independent than the research assistant.
+        This refers to the writing of research papers, as well as the submission of research papers to conferences and journals. The workload of research publication is dependent on the number of research papers that the faculty has published, as well as the quality and subject matter of the research papers. For example, a faculty member who has published a research paper in a top-tier conference would generally be expected to have a higher research publication workload than a faculty member who has published a research paper in a lower-tier conference. However, this activity remains difficult to quantify due to the variations in the research publication venues as well as the subject matter of the research papers.
 
-      \item Research Funding
+  \item \textbf{Research Funding}
 
-            This includes the acquisition of research funding from external sources. This further involves the writing of research proposals, as well as the application and management of research grants. The management of research grants includes hiring the research staff for the projects associated with the research grants, as well as bookkeeping and reporting of the research grants. One way to quantify the research funding workload of a faculty is to use the amount of research funding that they have acquired. However, this is not an accurate measure of the research funding workload as the amount of research funding that a faculty has acquired is dependent on the research funding opportunities that are available to them. For example, a faculty member who is in a research area that is currently popular would be expected to acquire more research funding than a faculty member who is in a research area that is currently not popular.
+        This refers to the acquisition of research funding from external sources. This further involves the writing of research proposals, as well as the application and management of research grants. The amount of research funding that a faculty has acquired can be used as a measure of the research funding workload. However, this is not an accurate reflection of the research funding workload as the amount of research funding that a faculty has acquired is dependent on the research funding opportunities that are available to them. For example, a faculty member who is in a research area that is currently popular would be expected to acquire more research funding than a faculty member who is in a research area that is currently not popular.
 
-            Another approach is to use the number of research grants that a faculty has acquired or applied to, as a measure of the research funding workload. However, this is also not an accurate measure of the research funding workload as different research grants have different levels of complexity and scrutiny in their application process. This is especially true for research grants that are awarded through a competitive process, as the application process for these research grants are more complex and require more effort than research grants that are awarded through a non-competitive process. All things being equal, a faculty member who has applied for more research grants would be expected to have a higher research funding workload than a faculty member who has applied for less research grants. However, this activity remains difficult to quantify due to the variations in the research funding sources.
+        The number of research grants that a faculty has acquired or applied to can also be used as a measure of the research funding workload. However, this is also not an accurate measure as different research grants have different levels of complexity and scrutiny in their application process. This is especially true for research grants that are awarded through a competitive process, as the application process for these research grants are more complex and require more effort than research grants that are awarded through a non-competitive process. All things being equal, a faculty member who has applied for more research grants would be expected to have a higher research funding workload than a faculty member who has applied for less research grants. However, this activity remains difficult to quantify due to the variations in the research funding sources.
 
-      \item Research Publication
+  \item \textbf{Research Staff Supervision}
 
-            This includes the writing of research papers, as well as the submission of research papers to conferences and journals. The workload of research publication is dependent on the number of research papers that the faculty has published, as well as the quality and subject matter of the research papers. For example, a faculty member who has published a research paper in a top-tier conference would generally be expected to have a higher research publication workload than a faculty member who has published a research paper in a lower-tier conference. However, this activity remains difficult to quantify due to the variations in the research publication venues as well as the subject matter of the research papers.
+        This refers to the supervision of post doctoral fellows, research fellows and research assistants. The workload of research supervision is dependent on the number of research staff that the faculty is supervising, as well as the seniority of the research staff. A faculty member who is supervising a post doctoral fellow would be expected to spend less time on research supervision than a faculty member who is supervising a research assistant, as the post doctoral fellow would be expected to be more independent than the research assistant.
+
 
 \end{enumerate}
 
 Additionally, another component of research workload is the research service workload. This includes the service activities that the faculty performs for the research community. For example, the faculty might be serving on the program committee of a conference, or the editorial board of a journal, or might be reviewing research papers for conferences and journals. The workload of research service is dependent on the number of research service activities that the faculty is performing, as well as the seniority of the research service activities. However, this activity is classified as service workload and is not considered as part of the research workload.
 
-\subsection{Methods of Quantifying Research Workload}
-
-The research workload of a faculty is a complex function of the various research activities that they perform. The research workload of a faculty can be quantified using the following methods:
-
-\subsection{Comprehensive Research Workload}
-
-One approach to quantifying the research workload of a faculty is to comprehensively quantify the workload of the various research activities. This approach is the most accurate approach to quantifying the research workload of a faculty, as it takes into account the various research activities that the faculty performs. For the activities defined in \autoref{sec:modelling_research_workload}, the research workload of a faculty can be defined as:
-
-\begin{enumerate}
-
-      \item Research Supervision Workload (\(R_{sup}\))
-
-            Research supervision workload is dependent on the number of research staff that the faculty is supervising, as well as the seniority of the research staff. We found that the research supervision for a post-doctoral fellow is approximately 0.5 times the research supervision for a research assistant. As such, the research supervision workload of a faculty can be quantified using the following formula:
-
-            \begin{equation*}
-                  R_sup = 0.5 \times N_{PD} +  N_{RA}
-            \end{equation*}
-
-            where $N_{PD}$ is the number of post-doctoral fellows that the faculty is supervising, and $N_{RA}$ is the number of research assistants that the faculty is supervising.
-
-
-      \item Research Funding Workload (\(R_{fund}\))
-
-            Research funding workload is dependent on the number of research grants that the faculty has applied to, as well as the complexity of the research grants. Since the complexity of the research grants is difficult to quantify, we will only use the number of research grants that the faculty has applied to as a measure of the research funding workload. The research funding workload of a faculty can be quantified using the following formula:
-
-            \begin{equation*}
-                  R_{fund} = N_{rg}
-            \end{equation*}
-
-            where $N_{rg}$ is the number of research grants that the faculty has applied to.
-
-      \item Research Publication Workload (\(R_{pub}\))
-
-            Research publication workload is dependent on the number of research papers and journal articles that the faculty has published, as well as the quality and subject matter of the publications. Since the effort required to publish a research paper or journal article depends on the quality and subject matter of the publication, we can assign a peer-rated weight to each publication based on the quality and subject matter of the publication. The research publication workload of a faculty can be quantified using the following formula:
-
-            \begin{equation*}
-                  R_{pub} = \sum_{i=1}^{N_{rp}} w_i
-            \end{equation*}
-
-            where $N_{rp}$ is the number of research papers and journal articles that the faculty has published, and $w_i$ is the peer-rated weight of the $i$-th publication.
-
-            As a simplification of the above formula, we can ignore the peer-rated weight of the publications and use the number of publications as a measure of the research publication workload. The research publication workload of a faculty in this case would simply be
-
-            \begin{equation*}
-                  R_{pub} = N_{rp}
-            \end{equation*}
-
-\end{enumerate}
-
-However, each of these research activities are not directly comparable as the nature of each of these activities are different. Therefore, to quantify the research workload of a faculty, we need to convert the research workload of each of these activities into a common unit. For this, we can take a simple take a simple weighted average of the research workload of each of these activities, where the weights correspond to the relative workload per unit of each of these activities. However, defining the workload at this level of granularity has considerable disadvantages. These disadvantages are discussed in \autoref{sec:research_workload_derived_from_research_supervision}.
-
-
 \subsection{Research Workload Derived from Research Supervision}
 \label{sec:research_workload_derived_from_research_supervision}
 
-Although the research workload of a faculty can be comprehensively quantified using the methods described in the previous section, this leads to a complex workload allocation model that is fairly complex. However, a complex model is difficult for the faculty to understand, and will result in a lack of transparency and buy-in from the faculty. Additionally, a complex model will be difficult to fine-tune and adapt to the needs of the institution, as tuning the weights of the various research activities will be difficult.
 
-Moreover, including the workload of research publication is problematic as it is a trailing indicator of research workload. This is because the research publications are only published after the research has been completed. This trailing nature of research publication workload means that if the faculty is given teaching workload relaxation to account for their significant research outputs, the workload relaxation will only be given for the following semester or term, which can cause misplaced distribution of the workload. For example, if the major conferences in the faculty member's research area are held in the first half of the year, the faculty member will be given teaching workload relaxation in the second half of the year, where their research workload is typically lower. Moreover, looking at the lower research outputs in the second half of the year, the faculty member might be given additional teaching workload in the first half of the following year, where their research workload is already high. This problem could be circumvented by accounting for the research workload of the previous year, but that leads to it's own set of issues. This misplaced distribution of workload can be avoided by using a leading indicator of research workload, such as research supervision workload.
+The research publication workload is difficult to quantify due to the difference in the quality and subject matter of the research papers. Moreover, research papers are only published after the research has been completed which makes them a trailing indicator of research publication workload. However, the research publication workload was found to be directly proportional to the research supervision workload of the faculty. This is because for a faculty, the research is largely conducted in collaboration with the research staff that they are supervising. It is also indicative of the number of future publications that the faculty will be able to author or co-author. Thus, the research supervision workload can be used as a proxy for the research publication workload of the faculty.
 
-Another observation is that the research publication and research funding workload of a faculty has a direct correlation with the research supervision workload of the faculty. This is because the research supervision workload will directly impact the number of research publications that the faculty will be able to author or co-author. Additionally, the research supervision workload is also proportional to the research funding workload, as the number of research staff that can be hired is dependent on the research funding that the faculty has acquired. As a result, a clear way to simplify the research workload allocation model is to use the research supervision workload as a proxy for the research workload of the faculty. Thus, the research workload of a faculty can be quantified using the following formula:
+The research funding workload is difficult to quantify due to the difference in the complexity and scrutiny of the research grants. Similar to the publication workload, research grants were also found to be a trailing indicator of the research funding workload, as the research grants are only awarded after the research proposal has been submitted and reviewed. However, the research funding workload was also found to be directly proportional to the research supervision workload of the faculty. This is because the number of research staff that the faculty can hire is dependent on the amount of research funding that the faculty has acquired. Additionally, the assistance of the research staff is also required in the application of research grants. Thus, the research supervision workload can be used as a proxy for the research funding workload of the faculty.
+
+Thus, the research workload of a faculty can be written as a function of the research supervision workload of the faculty. The research workload of a faculty can be quantified using the following formula:
 
 \begin{equation*}
-      R = 0.5 \times N_{PD} +  N_{RA}
+  R = 0.5 \times N_{PD} +  N_{RA}
 \end{equation*}
 
 where $N_{PD}$ is the number of post-doctoral fellows that the faculty is supervising, and $N_{RA}$ is the number of research assistants that the faculty is supervising.
 
-This has the advantage of being a simple workload allocation model that is easy to understand and fine-tune, as the only parameter that needs to be tuned is the workload of supervising a post-doctoral fellow relative to the workload of supervising a research assistant. Additionally, this is also a leading indicator of the total research workload of the faculty.
+This has the advantage of being a simple workload allocation model that is easy to understand and fine-tune, as the only parameter that needs to be tuned is the workload of supervising a post-doctoral fellow relative to the workload of supervising a research assistant. Additionally, this is also a leading indicator of the total research workload of the faculty for the upcoming semester.
 
 \subsection{Addressing Hierarchy Effects in Research}
 
-As described above, quantifying the research workload of a faculty as a function of the research staff working under them has considerable advantages. We used a simple linear function to quantify the research workload of a faculty. However, one key observation from how faculty supervise a large cohort of research staff was that the faculty do not directly supervise all of the research staff. Instead, the faculty supervise a small number of senior research staff, who in turn supervise a larger number of junior research staff. This not only reduces the workload of the faculty, but also provides a career progression path for the research staff and an opportunity for the senior research staff to gain supervisory experience. To account for this hierarchy effect, a non-linear function can be used to quantify the research workload of a faculty. The non-linear function is expected to have the following properties:
+As described above, quantifying the research workload of a faculty as a function of the research staff working under them has considerable advantages. A simple linear function was used to quantify the research workload of a faculty. However, one key observation from how faculty supervise a large cohort of research staff was that the faculty do not directly supervise all of the research staff. Instead, the faculty supervise a small number of senior research staff, who in turn supervise a larger number of junior research staff. This not only reduces the workload of the faculty, but also provides a career progression path for the research staff and an opportunity for the senior research staff to gain supervisory experience. To account for this hierarchy effect, a non-linear function can be used to quantify the research workload of a faculty. The non-linear function is expected to have the following properties:
 
 \begin{enumerate}
 
-      \item The research workload of a faculty should be a monotonically increasing function of the number of research staff that they are supervising
-      \item The research workload of a faculty should rise linearly for a small number of research staff, and then rise non-linearly for a large number of research staff to account for the hierarchy effect
-      \item The research workload of a faculty should asymptotically approach a maximum value as beyond a certain number of research staff, the research workload of the faculty will not increase significantly
+  \item The research workload of a faculty should be a monotonically increasing function of the number of research staff that they are supervising
+  \item The research workload of a faculty should rise linearly for a small number of research staff, and then rise non-linearly for a large number of research staff to account for the hierarchy effect
+  \item The research workload of a faculty should asymptotically approach a maximum value as beyond a certain number of research staff, the research workload of the faculty will not increase significantly
 
 \end{enumerate}
 
-The non-linear function that satisfies the above properties is the logistic function, which is defined as:
+The non-linear function that satisfies the above properties is the hyperbolic tangent function, which is defined as:
 
 \begin{equation*}
-      f(x) = \frac{L}{1 + e^{-k(x-x_0)}}
+  \tanh(x) = \frac{e^{2x} - 1}{e^{2x} + 1}
 \end{equation*}
 
-where $L$ is the maximum value of the function, $k$ is the steepness of the curve, and $x_0$ is the midpoint of the curve where the function increases linearly. The logistic function is plotted in \autoref{fig:logistic_function}.
+where $L$ is the maximum value of the function, $k$ is the steepness of the curve, and $x_0$ is the midpoint of the curve where the function increases linearly. The hyperbolic tangent function is plotted in \autoref{fig:tanh_full_function}.
 
 \begin{figure}[htpb]
-      \centering
-      \includegraphics[width=0.5\linewidth]{images/tanh_plot.png}
-      \caption{Logistic Function for L = 1, k = 1, x0 = 0}
-      \label{fig:logistic_function}
+  \centering
+  \includegraphics[width=0.5\linewidth]{images/tanh_fullplot.png}
+  \caption{\(\tanh(x)\) for \(x \in [-2, 2]\)}
+  \label{fig:tanh_full_function}
 \end{figure}
 
-For the research workload of a faculty, we apply the logistic function to the number of research staff that the faculty is supervising. We also normalize the function so that the maximum value of the function is 1, and the function has a midpoint of 0 since the research workload of a faculty should be 0 when they are not supervising any research staff. We also tweak the steepness of the curve so that the research workload so that the research workload approaches the maxima at around 10 research staff. The research workload of a faculty can be quantified using the following formula:
+We're only interested in the positive half of the hyperbolic tangent function, which has a constant slope for $x \to 0$, and is asymptotic to 1 as $x \to \infty$. The positive half of the hyperbolic tangent function is plotted in \autoref{fig:tanh_function}.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.5\linewidth]{images/tanh_plot.png}
+  \caption{\(\tanh(x)\) for \(x \in [0, 4]\)}
+  \label{fig:tanh_function}
+\end{figure}
+
+For the research workload of a faculty, the hyperbolic tangent function was applied to the number of research staff that the faculty is supervising. The function is also normalized so that the maximum value of the function is 1, and the function has a midpoint of 0 since the research workload of a faculty should be 0 when they are not supervising any research staff. The steepness of the curve was also tweaked so that the research workload so that the research workload approaches the maxima at around 10 research staff. The research workload of a faculty can be quantified using the following formula:
 
 \begin{equation}
-      R = \frac{2}{1 + e^{-x/3}} - 1
+  \begin{aligned}
+    R & = \tanh(x/6)
+  \end{aligned}
 \end{equation}
 
 where $ x = 0.5 \times N_{PD} +  N_{RA}$, $N_{PD}$ and $N_{RA}$ are the number of post-doctoral fellows and research assistants respectively that the faculty is supervising.
 
 \begin{figure}[htpb]
-      \centering
-      \includegraphics[width=0.5\linewidth]{images/research_workload_plot.png}
-      \caption{Research Workload ($R$)}
-      \label{fig:research_workload_plot}
+  \centering
+  \includegraphics[width=0.5\linewidth]{images/research_workload_plot.png}
+  \caption{Research Workload ($R$)}
+  \label{fig:research_workload_plot}
 \end{figure}
 
 
 \section{Modelling Service Workload}
+\label{sec:modelling_service_workload}
 
 The service workload of a faculty consists of the various service activities that they perform. The service activities of a faculty include but are not limited to the following:
 
 \begin{enumerate}
 
-      \item Departmental Service
+  \item \textbf{Departmental Service}
 
-            This is the various service activities that the faculty performs for the department. It includes serving on departmental committees, as well as performing administrative duties for the department.
+        This is the various service activities that the faculty performs for the department. It includes serving on departmental committees, as well as performing administrative duties for the department.
 
-      \item Administrative Duties
+  \item \textbf{Administrative Duties}
 
-            This is the various administrative duties that the faculty performs for the institution. It includes duties like serving on various committees and panels the admissions panel, the scholarship review panel and the examinations committee, coordinating a research center etc.
+        This is the various administrative duties that the faculty performs for the institution. It includes duties like serving on various committees and panels the admissions panel, the scholarship review panel and the examinations committee, coordinating a research center etc.
 
-      \item Research Service Duties
+  \item \textbf{Research Service Duties}
 
-            This is the various service activities that the faculty performs for the research community. It includes serving on the program committee of a conference, or the editorial board of a journal, or reviewing research papers for conferences and journals.
+        This is the various service activities that the faculty performs for the research community. It includes serving on the program committee of a conference, or the editorial board of a journal, or reviewing research papers for conferences and journals.
 
 \end{enumerate}
 
-The service workload of a faculty is dependent on the number of service duties that the faculty is performing, as well as the amount of effort required to perform each of these duties. Since the nature of each service duty is different, it is difficult to quantify the service workload of a faculty through a heuristic approach. Instead, we can use a simple weighted average of the service workload of each of these duties, where the weights correspond to the workload per semester for each of these duties. The service workload of a faculty can be quantified using the following formula:
+The service workload of a faculty is dependent on the number of service duties that the faculty is performing, as well as the amount of effort required to perform each of these duties. Since the nature of each service duty is different, it is difficult to quantify the service workload of a faculty through a heuristic approach. Instead, a simple weighted average of the service workload of each of these duties can be used, where the weights correspond to the workload per semester for each of these duties. The service workload of a faculty can be quantified using the following formula:
 
 \begin{equation*}
-      \text{Service Workload} = \sum_{i=1}^{N_{sd}} w_i
+  \text{Service Workload} = \sum_{i=1}^{N_{sd}} w_i
 \end{equation*}
 
 where $N_{sd}$ is the number of service duties that the faculty is performing, and $w_i$ is the workload per semester of the $i$-th service duty.
@@ -219,50 +174,175 @@ Some of the service duties are performed by all faculty members. For example, al
 Some of the service duties and their corresponding workload per semester are shown in \autoref{tab:service_duties}.
 
 \begin{table}[htpb]
-      \centering
-      \begin{tabular}{|l | l | r |}
-            \hline
-            Designation     & Service Duty                                  & Workload \\
-            \hline
-            Member          & Industrial Attachment Steering Committee      & 1.00     \\
-            Member          & Research Mentorship and Consultancy Committee & 1.00     \\
-            Member          & Nanyang Research Programme Committee          & 1.00     \\
-            Coordinator     & Final Year Projects                           & 1.00     \\
-            Director        & Research Centre                               & 1.00     \\
-            Group Lead      & Research Focus Group                          & 1.25     \\
-            Member          & Research Integrity Committee                  & 1.00     \\
-            Member          & Scholarship Interview Panel                   & 1.00     \\
-            Member          & School Review Committee                       & 1.00     \\
-            Member          & School Reappointment Committee                & 1.00     \\
-            Member          & School Search Committee                       & 1.00     \\
-            Chairperson     & Student Outreach Committee                    & 1.25     \\
-            Coordinator     & Time-Tabling                                  & 1.00     \\
-            Associate Chair & Associate Chair                               & 1.00     \\
-            \hline
-      \end{tabular}
-      \caption{Service Duties and Workload}
-      \label{tab:service_duties}
+  \centering
+  \begin{tabular}{|l | l | r |}
+    \hline
+    Designation     & Service Duty                                  & Workload \\
+    \hline
+    Member          & Industrial Attachment Steering Committee      & 1.00     \\
+    Member          & Research Mentorship and Consultancy Committee & 1.00     \\
+    Member          & Nanyang Research Programme Committee          & 1.00     \\
+    Coordinator     & Final Year Projects                           & 1.00     \\
+    Director        & Research Centre                               & 1.00     \\
+    Group Lead      & Research Focus Group                          & 1.25     \\
+    Member          & Research Integrity Committee                  & 1.00     \\
+    Member          & Scholarship Interview Panel                   & 1.00     \\
+    Member          & School Review Committee                       & 1.00     \\
+    Member          & School Reappointment Committee                & 1.00     \\
+    Member          & School Search Committee                       & 1.00     \\
+    Chairperson     & Student Outreach Committee                    & 1.25     \\
+    Coordinator     & Time-Tabling                                  & 1.00     \\
+    Associate Chair & Associate Chair                               & 1.00     \\
+    \hline
+  \end{tabular}
+  \caption{Service Duties and Workload}
+  \label{tab:service_duties}
 \end{table}
 
-\section{RTS Model for Faculty Workload}
+\section{Designing the Faculty Workload Model}
 
-With the research and service workload of a faculty quantified, we can model the overall workload of a faculty. In the absence of overtime, it is fair to assume that the total workload of a faculty should be closely comparable since it is the same number of working hours. Thus, the faculty workload model serves greater value in showing the comparative distribution of the workload of various faculty, and the corresponding distribution of their workload across teaching, research and service. Therefore, instead of trying to quantify the workload of the faculty in terms of the number of hours, we choose to quantify the ratio of the workload of the faculty across the various activities. This is because the workload of the faculty is a zero-sum game, and additional workload of the faculty in one activity will result in a reduction of workload in the other activities.
+\subsection{Principles Guiding the Faculty Workload Model}
+\label{sec:principles_guiding_workload_allocation_model}
 
-Thus, we define the workload of a faculty as a ratio of the workload of the faculty across Research ($R$), Service ($S$) and Teaching ($T$), where the total workload of the faculty sums up to 12 units i.e.
+To achieve the objectives of the workload allocation model, it is important to define a set of principles and attributes that the workload allocation model should satisfy. These principles and attributes are:
+
+\begin{enumerate}
+
+  \item \textbf{The workload allocation model should be consistent.}
+
+        The workload allocation model should be able to consistently quantify the workload of various faculty. This is important as the workload allocation model will influence the distribution of teaching workload to the faculty, and the allocation of resources to the various departments. An inaccurate workload allocation model will result in an unfair distribution of workload and resources.
+
+  \item \textbf{The workload allocation model should be transparent and easily understood.}
+
+        Complexity is the enemy of transparency. A complex workload allocation model might be able to accurately quantify the workload of the various activities, but it will be difficult for the faculty to understand how the workload is being allocated. This causes the faculty to lose confidence in the workload allocation model, and will result in a lack of buy-in from the faculty. Additionally, a complex workload allocation model will be difficult to fine-tune and adapt to the needs of the institution.
+
+  \item \textbf{The workload allocation model should be flexible and adaptable to the needs of the institution.}
+
+        Carrying on from the previous point, the workload allocation model should be flexible and adaptable to the needs of the institution. Different institutions have different priorities and needs, and the workload allocation model should be able to adapt to these needs. For example, a teaching-focused institution might want to place more emphasis on teaching workload, while a research-focused institution might want to place more emphasis on research workload. The workload allocation model should be able to adapt to these different needs.
+
+  \item \textbf{The workload allocation model should account for the zero-sum nature of teaching workload.}
+
+        The working hours of a faculty member are finite. As such, the workload of the various activities are zero-sum in nature. For example, a faculty member who spends more time on teaching will have less time to spend on research. The workload allocation model should account for this zero-sum nature of workload. This is important as the workload allocation model will influence the distribution of teaching workload to the faculty, and the allocation of resources to the various departments. An inaccurate workload allocation model will result in an unfair distribution of workload and resources.
+
+  \item \textbf{The workload allocation model should be inclusive and account for the contributions of all faculty members.}
+
+        An academic institution is made up of faculty members of different roles and seniority. The faculty are also broadly classified into lecturers and professors and the institution's goals and priorities for the faculty are influenced by the faculty's role and seniority. For example, a lecturer would be expected to spend more time on teaching than research, while a professor would be expected to make significant research and service contributions. The workload allocation model should be able to account for the contributions of all faculty members, regardless of their roles and seniority.
+
+\end{enumerate}
+
+\subsection{Defining the RTS Model for Faculty Workload}
+
+In the absence of overtime, it is fair to assume that the total workload of a faculty should be closely comparable since the faculty are expected to have the same number of working hours, self-allocating any extra time towards research. Thus, the faculty workload model serves greater value in showing the comparative distribution of the workload of various faculty, and the corresponding distribution of their workload across teaching, research and service.
+
+Instead of trying to quantify the workload of the faculty in terms of the number of hours, the ratio of the workload of the faculty across the various activities is quantified. To achieve this, the \textbf{RTS model} for faculty workload was defined as:
 
 \begin{equation*}
-      \begin{aligned}
-            \text{Faculty Workload} & = R:T:S \\
-            R + T + S               & = 12
-      \end{aligned}
+  \text{Faculty Workload} = R:T:S
 \end{equation*}
 
-% TODO
+where workload of a faculty is represented as a ratio of the workload of the faculty across Research ($R$), Service ($S$) and Teaching ($T$). This model follows the following principles:
 
-% 1. Define
+\begin{enumerate}
+  \item Workload is a zero sum game.
+
+        The sum of the $R$, $T$ and $S$ ratios always adds up to 12. This is because the workload of the faculty is constant, and spending extra time on one activity will result in a reduction of time spent on the other activities. In other words, the workload of the faculty is a zero-sum game.
+
+  \item Linear distribution of workload.
+
+        The workload of the faculty is distributed linearly across the various activities. This means that a faculty member with a ratio of $R:T:S = 8:2:2$ would be expected to have nearly double the research workload as compared to a faculty member with a ratio of $R:T:S = 4:4:4$.
+
+  \item Each Activity has a minimum workload.
+
+        The faculty is allocated a minimum of 2 units of workload for each of the activities. This is to ensure that the faculty are able to make meaningful contributions to the various activities. This also means that each activity has a maximum workload of 8 units, since the sum of the $R$, $T$ and $S$ ratios always adds up to 12.
+
+\end{enumerate}
+
+This RTS model serves not only as a method to quantify the workload of the faculty, but it also serves as a method to distribute the workload. In the scope of this project, since the focus is on the teaching workload of the faculty, the RTS model is used to quantify the research and service workload of the faculty, and accordingly distribute the teaching workload of the faculty as shown in the following sections.
+
+\subsubsection{Quantifying the Research Workload}
+
+It was previously found that the research supervision workload serves as an effective measure of the overall research workload. It was also found that due to the hierarchical nature of research staff management, the research supervision workload can be modelled using a hyperbolic tangent function which was normalized to have the range of $[0, 1]$.
+
+Since it is known that the range of the research workload is between 2 and 8, i.e. a range of 6 units, the research workload is rescaled to have a range of $[2, 8]$ resulting in the following formula:
+
+\begin{equation}
+  R  = 2 + 6\ \tanh(x/6)
+\end{equation}
+
+\begin{figure}[H]
+  \includegraphics[width=0.5\textwidth]{images/rts_research_plot.png}
+  \centering
+  \caption{Research Workload ($R$)}
+  \label{fig:rts_research_plot}
+\end{figure}
+
+\autoref{fig:rts_research_plot} shows the research workload of the faculty as a function of the number of research staff that the faculty is supervising. The research workload is a monotonically increasing function of the number of research staff that the faculty is supervising. The research workload rises linearly for a small number of research staff, and then rises non-linearly for a large number of research staff to account for the hierarchy effect. The research workload asymptotically approaches a maximum value of 8 as beyond a certain number of research staff, the research workload will not increase significantly.
+
+\subsubsection{Quantifying the Service Workload of the Faculty}
+
+It was found that each of the service duties has a particular impact on the workload of the faculty. For example, serving on the Industrial Attachment Steering Committee has an impact of 1 unit. In addition, even if the faculty is not performing any service duties, they are still expected to perform a minimum of 2 units of service workload. Thus, the service workload of the faculty can be quantified using the following formula:
+
+\begin{equation}
+  S = 2 + \sum_{i=1}^{N_{sd}} w_i
+\end{equation}
+
+where $N_{sd}$ is the number of service duties that the faculty is performing, and $w_i$ is the workload per semester of the $i$-th service duty.
+
+A maximum cap of 8 units is also imposed on the service workload of the faculty, since the sum of the $R$, $T$ and $S$ ratios always adds up to 12. This means that a faculty will only be rewarded for their service duties up to a certain extent. This is to ensure that the faculty are able to make meaningful research and teaching contributions as well, and not be overloaded with service duties.
 
 \section{Teaching Workload derived from RTS Model}
+
+The service and research workload of the faculty are predictive, i.e. they are leading indicators of the workload of the faculty for the upcoming semester. The number of staff that the faculty is supervising is indicative of how much research workload will be involved, and the number of service duties that the faculty is performing for the semester is indicative of how much service workload will be involved.
+
+While the research and service workload are pre-determined, we have the opportunity to use the teaching workload to balance the workload of the faculty. This allows the total workload of each faculty to be comparable, and ensures that the faculty are not overloaded with work. Thus, with the service and research workload of the faculty quantified, the teaching workload of the faculty can be derived from the RTS model. Since $R + T + S = 12$, the teaching workload of the faculty can be quantified using:
+
+\begin{equation}
+  T = 12 - R - S
+\end{equation}
+
+The teaching workload is also subject to the same minimum and maximum workload constraints as the research and service workload. This means that the teaching workload of the faculty is capped at a maximum of 8 units, and a minimum of 2 units. This is to ensure that the school is able to make use of their teaching expertise in their respective fields.
+
+
+\begin{figure}[H]
+  \includegraphics[width=0.5\textwidth]{images/faculty_wam.png}
+  \centering
+  \caption{Deriving Teaching Workload from RTS Model}
+  \label{fig:faculty_wam}
+\end{figure}
+
+
+% \subsection{Distinguishing Workload Patterns among Faculty Types}
+
+% An academic institution consists of faculty members of different roles and seniority. The faculty are broadly classified into lecturers and professors, and the institution's goals and priorities for the faculty are influenced by the faculty's role and seniority.
+
+% A professor would be expected to make significant research contributions, especially in later stages of their career. This includes publishing important research that furthers their field of study, acquiring research funding to support their research and supervision of research staff that work under them. A professor would also be expected to perform various service activities for the institution, such as serving on departmental committees, performing administrative duties for the institution and performing various research service duties for the research community. As a result, a professor would be expected to spend less time on teaching, playing an important role in teaching advanced courses related to their field of study, and supervising postgraduate students. They may occasionally teach foundational introductory courses that are important to the learning of the students.
+
+% In contrast, a lecturer would be expected to spend a lot more more time on teaching, forming an important part of the teaching workforce of the institution. They playing a role in teaching introductory and intermediate courses, and supervising undergraduate students in their final-year projects. They are rarely expected to make significant research contributions, or perform various service activities for the institution. They may occasionally perform administrative duties for the institution, such as participating in operational roles like time-tabling and student outreach, but these duties are not expected to take up a significant portion of their time.
+
+% A workload model should be able to account for such differences in the workload patterns of the various faculty types to ensure that the amount of work distributed to the faculty is fair and equitable. Faculty members who are expected to spend more time on teaching
 
 
 
 \section{Health Metrics Derived from the Workload Model}
+
+In addition to quantifying the teaching workload of the faculty, the workload model can also be used to derive important insights regarding the overall health and sustainability of the institution. Certain indicators like the fact that the faculty are overloaded with work, or that the faculty are not making significant research contributions, can be derived during the workload modelling process. These indicators can then be used to make important decisions regarding the allocation of resources to the various departments, and the hiring of new faculty.
+
+Some of these indicators are:
+
+\begin{enumerate}
+  \item \textbf{Disproportionate Distribution of Workload}
+
+        Even though we imposed a maximum cap of 8 units on the research, and service workload of the faculty, reaching the maximum cap is not necessarily a good thing.
+
+        If the maximum cap for service workload is reached, it means that the faculty is performing a disproportionately large amount of service duties. In certain circumstances, the dean of the school for example, redistribution of the service duty between two faculty might not be possible. In such cases, special exceptions need to be made to reduce the teaching and research workload below the thresholds that the RTS model allows for. In typical cases however, redistribution of the service duties between the faculty is possible, and should be done to reduce the service workload of the faculty.
+
+        Similarly, the research workload ceiling being reached means the faculty is handling a disproportionately large number of research staff. This is not necessarily a bad thing, as the faculty might be in a research area that is currently popular, and thus have a large number of research staff working under them. However, to maintain optimal research output, the workload should be redistributed between the faculty to ensure that the faculty are not overloaded with work.
+
+  \item \textbf{Faculty Overload}
+
+        In certain circumstances, the total workload limit of 12 may be exceeded. For example, if a faculty is supervising 4 post-doctoral fellows, while also handling multiple service duties, the RTS ratio of the faculty might approach $R:T:S = 8:2:8$, exceeding the maxima by 6 units. This is an indication that the faculty is overloaded with work, and the workload should be redistributed between the faculty to ensure that the faculty are not overloaded with work.
+
+  \item \textbf{Meeting Institution-wide Objectives}
+
+        The workload model can also be used to ensure that the institutional objectives are being appropriately achieved. To ensure this, the institution has an average RTS ratio that may be aimed towards. A research-intensive university may aim for an aggregate RTS Ratio of $R:T:S = 6:4:2$, and if the aggregate RTS Ratio is leaning towards $R:T:S = 4:6:2$, course-correction is required, by refocusing the efforts towards research, or by hiring additional research-intensive staff to maintain the direction of the institution.
+\end{enumerate}

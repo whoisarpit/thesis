@@ -1,23 +1,74 @@
 
 \chapter{Lecture Allocation}
 
-\section{Principles Guiding the Lecture Allocation Problem}
+\section{Introduction}
+
+The goal of the lecture allocation problem is to allocate the lectures of each course to the faculty members who are teaching the course in a way that ensures the students have a good learning experience and the faculty members are not overworked. The previous chapters have defined the amount of work involved in each activity of the teaching workload, as well as the amount of workload that each faculty member can handle. The lecture allocation process should take these factors into account when allocating the lectures of each course to the faculty members who are teaching the course. Additionally, it should also incorporate the preferences of the faculty members and the management.
+
+In this chapter, the lecture allocation problem will be defined and modelled as a multi-constraint optimization problem which can be solved using the Hungarian algorithm. To solve this, a course-faculty fit metric will be defined to determine the suitability of a faculty member to teach a course in regards to the student learning experience and the faculty preferences. The course-faculty fit metric will be used to define the objective function of the optimization problem. The lecture allocation problem will be solved using the Hungarian algorithm and the results will be analysed on the basis of optimality and scalability. The constraints of the optimization problem will be defined to ensure that the workload limits of the faculty members are not exceeded and the preferences of the faculty members and the management are taken into account. Various strategies will also be proposed to improve the quality of the allocation results.
+
+
+\section{Ensuring Course-Faculty Fit}
+
+The first step towards solving the allocation problem is defining what makes a faculty member suitable to teach a course. This should incorporate the priorities of the students, the management, and the faculty members. Additionally, it should also be easy to understand and explain, easy to collect the data required to compute it, and easy to compute. It should also be easy to tweak and improve, since the priorities of different institutions may be different.
+
+\subsection{Student Priorities}
+
+The students are the most important stakeholders in the decision of which faculty member should teach a course, since their learning experience and outcomes are directly affected by this decision. Their priorities are to be taught by a faculty member who is experienced at teaching and knowledgeable about the subject matter. This priority can be quantified by collecting the feedback of the students about the faculty member who taught the course in the past.
+
+At the end of a semester, the student feedback is collected on their learning experience in the courses they were taught. This feedback is collected in the form of a survey, which is filled by the students and submitted to the management. The survey contains questions about the faculty members who taught the course, the course content, the pace of the course and the overall learning experience. The feedback is collected for each course and faculty member combination. This feedback may also be collected periodically during the semester, especially for courses that are taught in multiple parts by different faculty members.
+
+Peer feedback is also collected from the faculty members of the department, which is used to evaluate the teaching skills of the faculty members. This includes questions about the teaching skills of the faculty members, and their knowledge of the subject matter.
+
+These feedback components are then combined into a \textbf{Teaching Performance Score} for each course-faculty combination, which is a number between 0 to 5. This score is calculated by taking a weighted average of the student feedback and the peer feedback, with student feedback being weighted more than the peer feedback, since the student feedback is more representative of the learning experience of the students.
+
+Since there are also faculty who are eligible to teach a course, but have never taught the course before, they will not have any student feedback. In this case, the peer feedback is combined with the average student feedback for the course to calculate the Teaching Performance Score.
+
+\subsection{Faculty Priorities}
+
+With manual allocation, faculty members are often left with no choice in the courses they teach. The largely static allocation process leaves faculty members with similar teaching assignments every semester, which may lead to a lack of motivation and interest in teaching. With the automated allocation process, faculty members can be given the opportunity to teach courses that they are interested in, which will lead to a better learning experience for the students and a better teaching experience for the faculty members.
+
+Before every semester, the faculty are asked to submit their preferences for the courses they would like to teach. This is done by asking the faculty members to rank the courses they are eligible to teach in the order of their preference. They are required to rank every course that they are eligible to teach, which also forms the basis for a course-eligibility criteria, since they should not be given courses that are completely out of their area of expertise. Additionally, the courses they have taught in the past are also treated as eligible courses, even if they are not directly ranked by the faculty. The management requires the faculty to provide a minimum number of preferences to ensure that courses are not left unallocated.
+
+These preference scores are then normalized to a number between 0 to 5 to form the \textbf{Faculty Preference Score} for each course-faculty combination. This score is calculated by taking the list of preferences provided by the faculty and linearly distributing it between 0 to 5, each course taking a score according to its respective position in the list. The courses that are not ranked by the faculty are given a score of 0.
+
+\subsection{Management Priorities}
+
+The management priority is to ensure the long-term learning path of the students is optimal throughout the duration of the program. This means establishing a strong foundation for the students in the early years of their program, and then building on that foundation in the later years. This is done by ensuring that the courses in the early years of the degree are taught by highly experienced faculty members with a good teaching performance score. The latter year courses on the other hand can be allocated with a higher priority to the faculty members who are more interested in teaching the course, since this is reflective of the faculty's research interests, which makes them more knowledgeable about the subject matter for the advanced courses in the program.
+
+This can be achieved by ensuring that the higher year courses are given a priority to be taught by the faculty members with the best ratings. This prioritization can be done in an absolute manner, where the courses are allocated in the sequence of their year of study, thus ensuring that the courses in the earlier years can reserve the best faculty members. This can also be done in a soft manner, biasing the allocation of earlier year courses towards the best faculty members by manipulating the course-faculty fit metric. This will be discussed in detail in the next section.
+
 
 \section{Modelling The Allocation Problem to The Hungarian Algorithm}
 
-\section{Handling Course Priority: Absolute and Soft Prioritization}
+\section{Course-Faculty Fit Metric (\(Q\))}
 
-\section{Scalability Analysis of Different Approaches}
+The course-faculty fit metric is a number between 0 to 5 that represents the suitability of a faculty member to teach a course. This metric is calculated by taking a weighted average of the Teaching Performance Score and the Faculty Preference Score, with the Teaching Performance Score being weighted more than the Faculty Preference Score. This is done to ensure that the student priorities are given more weightage than the faculty priorities. The Teaching Performance Score and the Faculty Preference Score are weighted by a factor of 9 and 1 respectively.
 
-\section{Enforcing Workload Limits and Equitable Distribution}
+\begin{equation}
+  \label{eq:course_faculty_fit}
+  \begin{aligned}
+    Q = \frac{9 \times \text{Perform} + 1 \times \text{Pref}}{10}
+  \end{aligned}
+\end{equation}
 
-\section{Accounting For Faculty Preferences}
+where, \textbf{Perform} is the Teaching Performance Score and \textbf{Pref} is the Faculty Preference Score, both of which have a range of 0 to 5. \(Q\), \textbf{Perform} and \textbf{Pref} are all calculated and evaluated for each course-faculty combination separately.
 
-\section{Issues Introduced by Absolute Prioritization of Courses and Remediation}
+Notably, this metric does not take into account the management priorities. The management priorities are instead incorporated into the allocation process by manipulating the course-faculty fit metric, which will be discussed in later sections.
 
+The course faculty fit metric is used to define the objective function of the optimization problem, which is to maximize the sum of the course-faculty fit metric of all the allocated courses. This ensures that the courses are allocated to the faculty members who are most suitable to teach them, thus ensuring a good learning experience for the students and a good teaching experience for the faculty members.
+
+\section{Enforcing Workload Limits}
+
+\section{Handling Year-wise Priority}
+
+\section{Rectifying Issues Introduced by Prioritization of Courses}
+
+\section{Addressing Unallocated Courses}
 \subsection{Pre-Allocation Strategies}
-
 \subsection{Post-Processing Allocation Results}
+
+\section{Dynamic Splitting of Courses}
 
 \section{Equal Misery: Equitable Overloading of Faculty to Ensure Allocation of Non-Critical Courses}
 

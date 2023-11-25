@@ -28,10 +28,7 @@
       "name": "pdflatex"
     },
     {
-      "args": [
-        "--shell-escape",
-        "%DOCFILE%"
-      ],
+      "args": ["--shell-escape", "%DOCFILE%"],
       "command": "bibtex",
       "env": {},
       "name": "bibtex"
@@ -41,5 +38,14 @@
   "latex-workshop.view.pdf.color.dark.backgroundColor": "#161616",
   "latex-workshop.view.pdf.color.dark.pageColorsBackground": "#242424",
   "latex-workshop.view.pdf.color.dark.pageColorsForeground": "#ccc",
-  "window.title": "Thesis"
+  "window.title": "Thesis",
+  "editor.tabSize": 2,
+  "editor.fontSize": 20,
+  "editor.wrappingStrategy": "advanced",
+  "editor.fontFamily": "Scope One",
+  "editor.fontWeight": "600",
+  "editor.indentSize": "tabSize",
+  "editor.detectIndentation": false,
+  "cSpell.language": "en-gb",
+  "cSpell.words": ["weightage"]
 }

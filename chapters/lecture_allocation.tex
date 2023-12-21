@@ -7,12 +7,13 @@ The goal of the lecture allocation problem is to allocate the lectures of each c
 
 In this chapter, the lecture allocation problem will be defined and modelled as a multi-constraint optimization problem which can be solved using the Hungarian algorithm. To solve this, a course-faculty fit metric will be defined to determine the suitability of a faculty member to teach a course in regards to the student learning experience and the faculty preferences. The course-faculty fit metric will be used to define the objective function of the optimization problem. The lecture allocation problem will be solved using the Hungarian algorithm and the results will be analysed on the basis of optimality and scalability. The constraints of the optimization problem will be defined to ensure that the workload limits of the faculty members are not exceeded and the preferences of the faculty members and the management are taken into account. Various strategies will also be proposed to improve the quality of the allocation results.
 
-
 \section{Ensuring Course-Faculty Fit}
 
 The first step towards solving the allocation problem is defining what makes a faculty member suitable to teach a course. This should incorporate the priorities of the students, the management, and the faculty members. Additionally, it should also be easy to understand and explain, easy to collect the data required to compute it, and easy to compute. It should also be easy to tweak and improve, since the priorities of different institutions may be different.
 
-\subsection{Student Priorities}
+
+
+\subsection{Student Feedback}
 
 The students are the most important stakeholders in the decision of which faculty member should teach a course, since their learning experience and outcomes are directly affected by this decision. Their priorities are to be taught by a faculty member who is experienced at teaching and knowledgeable about the subject matter. This priority can be quantified by collecting the feedback of the students about the faculty member who taught the course in the past.
 
@@ -20,17 +21,17 @@ At the end of a semester, the student feedback is collected on their learning ex
 
 Peer feedback is also collected from the faculty members of the department, which is used to evaluate the teaching skills of the faculty members. This includes questions about the teaching skills of the faculty members, and their knowledge of the subject matter.
 
-These feedback components are then combined into a \textbf{Teaching Performance Score} for each course-faculty combination, which is a number between 0 to 5. This score is calculated by taking a weighted average of the student feedback and the peer feedback, with student feedback being weighted more than the peer feedback, since the student feedback is more representative of the learning experience of the students.
+These feedback components are then combined into a \textbf{Student Feedback Score} for each course-faculty combination, which is a number between 0 to 5. This score is calculated by taking a weighted average of the student feedback and the peer feedback, with student feedback being weighted more than the peer feedback, since the student feedback is more representative of the learning experience of the students.
 
-Since there are also faculty who are eligible to teach a course, but have never taught the course before, they will not have any student feedback. In this case, the peer feedback is combined with the average student feedback for the course to calculate the Teaching Performance Score.
+Since there are also faculty who are eligible to teach a course, but have never taught the course before, they will not have any student feedback. In this case, the peer feedback is combined with the average student feedback for the course to calculate the Student Feedback Score.
 
-\subsection{Faculty Priorities}
+\subsection{Faculty Preference}
 
 With manual allocation, faculty members are often left with no choice in the courses they teach. The largely static allocation process leaves faculty members with similar teaching assignments every semester, which may lead to a lack of motivation and interest in teaching. With the automated allocation process, faculty members can be given the opportunity to teach courses that they are interested in, which will lead to a better learning experience for the students and a better teaching experience for the faculty members.
 
 Before every semester, the faculty are asked to submit their preferences for the courses they would like to teach. This is done by asking the faculty members to rank the courses they are eligible to teach in the order of their preference. They are required to rank every course that they are eligible to teach, which also forms the basis for a course-eligibility criteria, since they should not be given courses that are completely out of their area of expertise. Additionally, the courses they have taught in the past are also treated as eligible courses, even if they are not directly ranked by the faculty. The management requires the faculty to provide a minimum number of preferences to ensure that courses are not left unallocated.
 
-These preference scores are then normalized to a number between 0 to 5 to form the \textbf{Faculty Preference Score} for each course-faculty combination. This score is calculated by taking the list of preferences provided by the faculty and linearly distributing it between 0 to 5, each course taking a score according to its respective position in the list. The courses that are not ranked by the faculty are given a score of 0.
+These preference scores are then normalized to a number between 0 to 5 to form the \textbf{Faculty Preference Score} for each course-faculty combination. This score is calculated by taking the list of preferences provided by the faculty and linearly distributing it between 0 to 5, such that the first preference is given a score of 5, the tenth preference is given a score of 0. The preferences for courses beyond the tenth preference are given a score of 0. The courses that are not ranked by the faculty are also given a score of 0.
 
 \subsection{Management Priorities}
 
@@ -38,37 +39,611 @@ The management priority is to ensure the long-term learning path of the students
 
 This can be achieved by ensuring that the higher year courses are given a priority to be taught by the faculty members with the best ratings. This prioritization can be done in an absolute manner, where the courses are allocated in the sequence of their year of study, thus ensuring that the courses in the earlier years can reserve the best faculty members. This can also be done in a soft manner, biasing the allocation of earlier year courses towards the best faculty members by manipulating the course-faculty fit metric. This will be discussed in detail in the next section.
 
+\section{Defining The Allocation Problem}
 
-\section{Modelling The Allocation Problem to The Hungarian Algorithm}
+The lecture allocation involves allocating the lectures of each course to the faculty members who are teaching the course. It can be defined as a constrained multi-objective optimization problem, with a set of objectives that need to be optimized and a set of constraints that need to be satisfied.
 
-\section{Course-Faculty Fit Metric (\(Q\))}
+The primary objective of the allocation problem is to ensure that all the courses are allocated to the faculty members, since unallocated courses will lead to cancellation of the course. Additionally, the allocation problem should also ensure that the workload of the faculty members is distributed equitably, and they receive a similar workload in terms of lectures, tutorials and practicals. The allocation problem should also ensure that the earlier year courses are taught by the best faculty as per the management priorities. Finally, the allocation problem should ensure that the faculty members are allocated the courses that they are interested in teaching, which will lead to a better teaching experience for the faculty members. These objectives are described in detail in the following sections.
 
-The course-faculty fit metric is a number between 0 to 5 that represents the suitability of a faculty member to teach a course. This metric is calculated by taking a weighted average of the Teaching Performance Score and the Faculty Preference Score, with the Teaching Performance Score being weighted more than the Faculty Preference Score. This is done to ensure that the student priorities are given more weightage than the faculty priorities. The Teaching Performance Score and the Faculty Preference Score are weighted by a factor of 9 and 1 respectively.
+\begin{enumerate}
+  \item \textbf{Ensure all courses are allocated}
+
+        The allocation problem should ensure that all the courses are allocated to a faculty member. This is a hard constraint of the allocation problem, since unallocated courses will lead to cancellation of the course, which will adversely impact the learning experience of the students, and may impact their long-term learning path since some courses may form a prerequisite for other courses.
+
+        There are some prerequisites to this constraint - the allocation process cannot allocate a course if there are no eligible faculty members to teach the course, or if the maximum workload for the faculty members is already reached. However, given that these prerequisites are met, the allocation process should ensure that all the courses are allocated.
+
+  \item \textbf{Distribute workload in proportion to the relative teaching workload}
+
+        The relative teaching workload, defined in the previous chapter, is a measure of the amount of teaching workload that a faculty member can handle, relative to the other faculty members. Thus, distributing the workload in proportion to the relative teaching workload ensures that teaching workload is distributed equitably among the faculty members, ensuring that no faculty member is overworked.
+
+  \item \textbf{Distribute a similar proportion of lectures, tutorials and practicals to each faculty member}
+
+        A course consists of multiple teaching activities, such as lectures, tutorials, and practicals. Preferably, these teaching activities should be distributed equally among the faculty members, so that each faculty member has a similar teaching experience. This is a soft constraint of the allocation problem, since it is not as important as the other objectives, but it is still desirable to have a balanced teaching experience for the faculty members.
+
+  \item \textbf{Ensure that earlier year courses are taught by the best faculty members}
+
+        The management priority is to ensure that the earlier year courses are taught by the faculty members with the best ratings since this is the foundation for the students' learning path. This means that the earlier year courses should be allocated with a higher priority to the faculty members with the best ratings. This is a soft constraint of the allocation problem, since it is not as important as the other objectives, but it is still desirable to have the earlier year courses taught by the best faculty members.
+
+  \item \textbf{Maximize the faculty performance score}
+
+        The faculty performance score, defined in the previous section, is a measure of the suitability of a faculty member to teach a course. It is representative of the student learning experience, and thus, maximizing the total faculty performance score of the allocation ensures that the students have a good learning experience. This is the primary objective of the allocation problem.
+
+  \item \textbf{Maximize the faculty preference score}
+
+        The faculty preference score, defined in the previous section, is a measure of the preference of the faculty member to teach a course. Thus, maximizing the total faculty preference score of the allocation ensures that the faculty members are allocated the courses that they are interested in teaching, which will lead to a better teaching experience for the faculty members.
+
+        This is treated as a secondary objective of the allocation problem, since it is not as important as the primary objective of maximizing the faculty performance score. However, given that the faculty performance score is comparable between two allocations, the allocation with the higher faculty preference score is preferred.
+
+
+\end{enumerate}
+
+\section{Modelling The Allocation Problem}
+
+The lecture allocation problem can be modelled as an assignment problem, where the tasks are the lectures of each course, and the agents are the faculty members who are teaching the course. Each lecture's assignment to a faculty member should have a cost that represents the objectives of the allocation problem. Every lecture of a course must be assigned to exactly one faculty member, while each faculty member may be assigned to multiple lectures of multiple courses.
+
+The cost of assigning a course to a faculty member should represent the suitability of the faculty member to teach the course by taking into account the student feedback. It should also represent the preference of the faculty member to teach the course by using the faculty preference rankings provided by the faculty members. Additionally, allocation of low cost faculty members to earlier year courses should be prioritized to ensure that the earlier year courses are taught by the best faculty members.
+
+It also needs to be ensured that the workload is distributed among the faculty members in proportion to their relative teaching workload, which was defined in the previous chapter. This proportionality is achieved by ensuring that the workload of the faculty members does not exceed their workload limits, where the workload limits are defined proportional to the faculty's relative teaching workload.
+
+In the next section, we will define how this constrained cost-minimization problem can be solved using the Hungarian algorithm.
+
+\subsection{The Hungarian Algorithm}
+
+The Hungarian Algorithm, also known as the Kuhn-Munkres Algorithm, is a combinatorial optimization algorithm that solves the assignment problem in polynomial time. In comparison to other algorithms that solve the assignment problem, such as the genetic algorithm and the simulated annealing algorithm, the Hungarian algorithm is faster and more efficient, and is more deterministic in nature. This makes it a good choice for solving the lecture allocation problem, since the faculty, students and management expect the allocation to be deterministic.
+
+The Hungarian algorithm solves the assignment problem by finding the optimal assignment between the tasks and the agents, where each task is assigned to exactly one agent, and each agent is assigned to exactly one task. The optimal assignment is the one that minimizes the total cost of assigning the tasks to the agents. For an unequal number of tasks and agents, the Hungarian algorithm can be used to find the optimal assignment by adding dummy tasks or dummy agents, which are assigned a cost of 0. This ensures that the total cost of the assignment is not affected by the dummy tasks or dummy agents. This also means that for more tasks than agents, some of the tasks will be left unassigned.
+
+However, a university typically has more lectures than the number of faculty members, which means that each faculty member will have to teach multiple lectures of a course. Thus, the allocation problem is split into multiple iterations of the Hungarian algorithm, where each iteration allocates one lecture of each course to a faculty member.
+
+The cost matrix for the Hungarian algorithm is constructed by calculating the cost of assigning each course to each faculty member. The cost of assigning a course to a faculty member is calculated by taking the course-faculty fit metric, and subtracting it from 5. This is done to ensure that the cost of assigning a course to a faculty member is inversely proportional to the course-faculty fit metric, since the Hungarian algorithm minimizes the total cost of the assignment. The cost matrix is constructed using the algorithm shown in \autoref{alg:cost_matrix_construction}.
+
+\begin{algorithm}[H]
+  \caption{Cost Matrix Construction for Lecture Allocation}
+  \begin{algorithmic}[1]
+    \Procedure{ConstructMatrix}{$lectures$, $faculty$}
+    \For{$l \in lectures$}
+    \For{$f \in faculty$}
+    \If{$f \text{ can teach } l$}
+    \State $cost \gets Q(l, f)$
+    \Else
+    \State $cost \gets \infty$
+    \EndIf
+    \State $costMatrix[l][f] \gets cost$
+    \EndFor
+    \EndFor
+    \EndProcedure
+  \end{algorithmic}
+  \label{alg:cost_matrix_construction}
+\end{algorithm}
+
+where, \(lectures\) is the list of lectures of each course, \(faculty\) is the list of faculty members, and \(Q(l, f)\) is the cost function for assigning course lecture \(l\) to faculty member \(f\).
+
+With the cost matrix constructed, the Hungarian algorithm can be used to allocate the lectures of each course to the faculty members who are teaching the course. The allocation process is split into multiple iterations of the Hungarian algorithm, where each iteration allocates one lecture of each course to a faculty member.
+
+In each iteration of the loop, we use \autoref{alg:cost_matrix_construction} to construct the cost matrix, and then use the Hungarian algorithm to find the optimal assignment between the courses and the faculty members. Some of these assignments may be dummy assignments which are created due to the unequal number of courses and faculty members. These dummy assignments are ignored, and the remaining assignments are added to the list of all assignments. We run this loop until either all the lectures are allocated. However, if no new lectures are allocated in an iteration, then the loop is broken, since no progress is being made. This is shown in \autoref{alg:base_lec_alloc}.
+
+\begin{algorithm}[H]
+  \caption{Lecture Allocation Algorithm}
+  \begin{algorithmic}[1]
+    \Procedure{AllocateLectures}{$lectures$, $faculty$}
+    \State $unallocatedLectures \gets lectures$
+    \State $allocatedLectures \gets \emptyset$
+    \State $allAssignments \gets \emptyset$
+    \While {$unallocatedLectures \neq \emptyset$} \Comment{Iterate until all lectures are allocated}
+    \State $costMatrix \gets \text{ConstructMatrix}(unallocatedLectures, faculty)$
+    \State $assignments \gets \text{HungarianAlgorithm}(costMatrix)$
+    \State $assignedCount \gets 0$
+    \For {$assignment \in assignments$}
+    \If {$assignment \text{ is not a dummy assignment}$}
+    \State $allAssignments \gets allAssignments \cup assignment$
+    \State $allocatedLectures \gets allocatedLectures \cup assignment$
+    \State $unallocatedLectures \gets unallocatedLectures \setminus assignment$
+    \State $assignedCount \gets assignedCount + 1$
+    \EndIf
+    \EndFor
+    \If {$assignedCount = 0$}
+    \State \textbf{Break Loop}
+    \Comment{if no new lectures allocated, break the loop}
+    \EndIf
+    \EndWhile
+    \State \Return $allAssignments$
+    \EndProcedure
+  \end{algorithmic}
+  \label{alg:base_lec_alloc}
+\end{algorithm}
+
+where, \(lectures\) is the list of lectures of each course, \(faculty\) is the list of faculty members, \(unallocatedLectures\) is the list of lectures that are yet to be allocated, \(allocatedLectures\) is the list of lectures that are already allocated, and \(allAssignments\) is the list of all the assignments made by the Hungarian algorithm.
+
+This lecture allocation algorithm $AllocateLectures$ forms the basis for the lecture allocation process in the latter stages, and is used as the building block for the various strategies proposed in the following sections. It involves multiple iterations of the Hungarian algorithm, where each iteration allocates one lecture of each course to a faculty member.
+
+The Hungarian algorithm is run in each iteration until all the lectures are allocated. The assignments made by the Hungarian algorithm are then added to the list of all assignments, and the allocated lectures are removed from the list of unallocated lectures. This process is repeated until all the lectures are allocated.
+
+\subsection{Enforcing Workload Limits}
+
+With the lecture allocation algorithm defined in \autoref{alg:base_lec_alloc}, the lectures of each course are allocated to the faculty members who are teaching the course. However, this allocation does not take into account the existing workload of the faculty members, which may lead to disproportionate allocation of workload. To counter this, the allocation algorithm is modified to enforce the workload limits of the faculty members.
+
+To enforce the workload limits, we first define the workload limits of the faculty members using the relative teaching workload, which was defined in the previous chapter. Then we incorporate the workload limits into the lecture allocation algorithm by modifying the cost matrix construction algorithm to ensure that the workload of the faculty members does not exceed their workload limits.
+
+\subsubsection{Defining the Workload Limits}
+
+The workload limits of the faculty members are previously defined in \autoref{sec:determining_equitable_teaching_workload} as the relative teaching workload. The relative teaching workload is a measure of the amount of teaching workload that a faculty member can handle, relative to the other faculty members. However, the workload of the faculty members is defined in terms of workload units, while the workload limits are defined relative to the other faculty members. Thus, the workload limits need to be converted to workload units to be enforced.
+
+To convert the workload limits to workload units, the total workload units of the department are calculated, which is the sum of the workload units of all the courses. The workload limits of the faculty members are then converted to workload units by multiplying the workload limits with the total workload units of the department and dividing it by the total number of relative workload units of the faculty members. This is shown in \autoref{eq:workload_limits}.
+
+\begin{equation}
+  \label{eq:workload_limits}
+  \begin{aligned}
+    T_{total} & = \sum_{c \in courses} T_c               \\
+    R_{total} & = \sum_{f \in faculty} R_f               \\
+    T_f       & = R_f \times \frac{T_{total}}{R_{total}}
+  \end{aligned}
+\end{equation}
+
+where,
+\begin{align*}
+  T_{total} & = \text{Total workload units of the department}               \\
+  T_c       & = \text{Workload units of the course } c                      \\
+  R_{total} & = \text{Total relative workload units of the faculty members} \\
+  R_f       & = \text{Relative workload units of the faculty member } f     \\
+  T_f       & = \text{Workload units limit of the faculty member } f
+\end{align*}
+
+\subsubsection{Lecture Allocation with Workload Limits}
+
+With the workload limits of the faculty members defined in terms of workload units, the lecture allocation algorithm is modified to enforce the workload limits of the faculty members. This is done by ensuring that the workload of the faculty members does not exceed their workload limits at the time of cost matrix construction. This is shown in \autoref{alg:workload_limit_cost_matrix_construction}.
+
+\begin{algorithm}[H]
+  \caption{Cost Matrix Construction with Workload Limits}
+  \begin{algorithmic}[1]
+    \Procedure{ConstructMatrixWithWorkloadLimits}{}
+    \For{$l \in lectures$}
+    \For{$f \in faculty$}
+    \If{($f \text{ can teach } l) \text{ and } (existingWorkload[f] + T[l]$ \textless $workloadLimits[f]$)}
+    \State $cost \gets 5 - Q(l, f)$
+    \Else
+    \State $cost \gets \infty$
+    \EndIf
+    \State $costMatrix[l][f] \gets cost$
+    \EndFor
+    \EndFor
+    \Return $costMatrix$
+    \EndProcedure
+  \end{algorithmic}
+  \label{alg:workload_limit_cost_matrix_construction}
+\end{algorithm}
+
+where, \(lectures\) is the list of lectures of each course, \(faculty\) is the list of faculty members, \(existingWorkload\) is the already allocated workload of the faculty members, \(T[l]\) is the workload units of the lecture \(l\), and \(workloadLimits\) is the workload limits of the faculty members.
+
+By using this modified cost matrix construction algorithm, the workload limits of the faculty members are enforced every time the Hungarian algorithm is run. This ensures that the workload of the faculty members are ineligible to teach a course if their workload exceeds their workload limits.
+
+\subsection{Handling Management Priority}
+
+The management priority is to ensure that the earlier year courses are taught by the faculty members with the best ratings since this is the foundation for the students' learning path. This means that the earlier year courses should be allocated with a higher priority to the faculty members with the best ratings.
+
+Since the faculty has a finite workload limit, as defined in the previous section, the faculty members with the best ratings have to be allocated to the earlier year courses first, since the courses which are allocated first might fulfil the workload limits of the faculty members, thus making them ineligible to teach any courses that are allocated later. This is especially true for the faculty members with a low workload limit, since they can only teach a few courses, and thus, they have to be allocated to the earlier year courses first.
+
+To achieve this, the courses are allocated in the sequence of their year of study, thus ensuring that the courses in the earlier years can reserve the best faculty members. This is done by iterating over the courses in the order of their year of study, and allocating the courses in that order. This ensures that the courses in the earlier years are allocated first, and thus, they can reserve the best faculty members, meeting the hard constraint of the management priority.
+
+The lecture allocation algorithm is modified to incorporate this approach by filtering the list of courses to be allocated by the year of study, then iterating over the filtered list of courses year-wise, and allocating the courses in that order. This is shown in \autoref{alg:year_wise_lec_alloc}.
+
+\begin{algorithm}[H]
+  \caption{Year-wise Lecture Allocation Algorithm}
+  \begin{algorithmic}[1]
+    \Procedure{AllocateLecturesYearwise}{$lectures$, $faculty$}
+    \State $allAssignments \gets \emptyset$
+    \For{$year \gets 1$ to $maxYear$} \Comment{Iterate over the years}
+    \State $yearLectures \gets \text{FilterByYear}(lectures, year)$
+    \State $yearAllocations \gets AllocateLecturesWithWorkloadLimits(yearLectures, faculty)$
+    \State $allAssignments \gets allAssignments \cup yearAllocations$
+    \EndFor
+    \State \Return $allAssignments$
+    \EndProcedure
+  \end{algorithmic}
+  \label{alg:year_wise_lec_alloc}
+\end{algorithm}
+
+where, $AllocateLecturesWithWorkloadLimits$ is the lecture allocation algorithm defined in \autoref{alg:base_lec_alloc}, but using the cost matrix construction algorithm that uses the faculty workload limits, as defined in \autoref{alg:workload_limit_cost_matrix_construction}.
+
+% \subsection{Soft Priority}
+
+% In this approach, the courses are allocated in a soft manner, biasing the allocation of earlier year courses towards the best faculty members by manipulating the course-faculty fit metric. This is done by reducing the cost of assigning a course to a well rated faculty members and increasing the cost of low rated faculty members in earlier years courses.
+
+% This bias factor that is introduced in the course-faculty fit metric is kept as a configurable parameter, which is higher for the earlier year courses and lower for the later year courses. This ensures that the earlier year courses are allocated with a higher priority to the faculty members with the best ratings, while the later year courses are allocated with a lower priority to the faculty members with the best ratings. The biases used for the different years are shown in Table \autoref{tab:year_wise_bias}.
+
+% \begin{table}[H]
+%   \centering
+%   \begin{tabular}{|c|c|c|c|c|c|}
+%     \hline
+%     \textbf{Year} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
+%     \textbf{Bias} & 1          & 0.75       & 0.5        & 0.25       & 0          \\ \hline
+%   \end{tabular}
+%   \caption{Year-wise Bias}
+%   \label{tab:year_wise_bias}
+% \end{table}
+
+% Additionally, the best faculty members need to be defined, which is done by defining a threshold Teaching Performance Score. The faculty members with a Teaching Performance Score above the threshold are considered to be the best faculty members. This threshold is kept as a configurable parameter, which can be tweaked to suit the priorities of the institution. As a default, the threshold Teaching Performance Score is kept as 4.5, which filters out the top performing faculty members  from the rest.
+
+% With the biases and the threshold Teaching Performance Score defined, the cost matrix calculation algorithm is modified to incorporate the soft priority approach. This is shown in \autoref{alg:soft_priority_cost_matrix_construction}.
+
+% \begin{algorithm}[H]
+%   \caption{Soft Priority: Biased Cost Matrix Construction}
+%   \begin{algorithmic}[1]
+%     \Procedure{ConstructBiasMatrix}{$lectures$, $faculty$}
+%     \For{$l \in lectures$}
+%     \For{$f \in faculty$}
+%     \If{$f \text{ can teach } l$}
+%     \State $fitScore \gets Q(l, f)$
+%     \If{$fitScore \geq threshold$} \Comment{if faculty is one of the best faculty members}
+%     % sum of cost and bias
+%     \State $cost \gets cost - getBias(l.year)$
+%     \Else
+%     \State $cost \gets cost + getBias(l.year)$
+%     \EndIf
+%     \Else
+%     \State $cost \gets \infty$
+%     \EndIf
+%     \State $costMatrix[l][f] \gets cost$
+%     \EndFor
+%     \EndFor
+%     \EndProcedure
+%   \end{algorithmic}
+%   \label{alg:soft_priority_cost_matrix_construction}
+% \end{algorithm}
+
+\subsection{Defining the Cost Function (\(Q\))}
+\label{sec:defining_the_cost_function}
+
+To solve the lecture allocation problem using the Hungarian algorithm, a cost function \(Q\) needs to be defined, which represents the suitability of a faculty member to teach a course. This cost function is used to calculate the cost of assigning a course to a faculty member, which is used by the Hungarian algorithm to find the optimal assignment between the courses and the faculty members.
+
+To define the cost function, we first define a course-faculty fit metric. This course-faculty fit metric is a number between 0 to 5 that represents the suitability of a faculty member to teach a course. This metric is calculated by taking a weighted average of the Student Feedback Score and the Faculty Preference Score, with the Student Feedback Score being weighted more than the Faculty Preference Score. This is done to ensure that the student priorities are given more weightage than the faculty priorities. The Student Feedback Score and the Faculty Preference Score are weighted by a factor of 9 and 1 respectively.
 
 \begin{equation}
   \label{eq:course_faculty_fit}
   \begin{aligned}
-    Q = \frac{9 \times \text{Perform} + 1 \times \text{Pref}}{10}
+    FitScore = \frac{9 \times \text{Feedback} + 1 \times \text{Pref}}{10}
   \end{aligned}
 \end{equation}
 
-where, \textbf{Perform} is the Teaching Performance Score and \textbf{Pref} is the Faculty Preference Score, both of which have a range of 0 to 5. \(Q\), \textbf{Perform} and \textbf{Pref} are all calculated and evaluated for each course-faculty combination separately.
+where, \textbf{Feedback} is the Student Feedback Score and \textbf{Pref} is the Faculty Preference Score, both of which have a range of 0 to 5. \(FitScore\), \textbf{Perform} and \textbf{Pref} are all calculated and evaluated for each course-faculty combination separately.
 
-Notably, this metric does not take into account the management priorities. The management priorities are instead incorporated into the allocation process by manipulating the course-faculty fit metric, which will be discussed in later sections.
+The course faculty fit metric is used to define the cost function of the Hungarian algorithm, which is to maximize the sum of the course-faculty fit metric of all the allocated courses. This ensures that the courses are allocated to the faculty members who are most suitable to teach them, thus ensuring a good learning experience for the students and a good teaching experience for the faculty members.
 
-The course faculty fit metric is used to define the objective function of the optimization problem, which is to maximize the sum of the course-faculty fit metric of all the allocated courses. This ensures that the courses are allocated to the faculty members who are most suitable to teach them, thus ensuring a good learning experience for the students and a good teaching experience for the faculty members.
+It is important to note that the course-faculty fit metric is configurable and can be tweaked to suit the priorities of the institution. For example, if the institution prioritizes the faculty preferences over the student priorities, the Teaching Performance Score can be weighted less than the Faculty Preference Score. This can be done by changing the weightage of the Teaching Performance Score and the Faculty Preference Score in \autoref{eq:course_faculty_fit}
 
-\section{Enforcing Workload Limits}
+\subsection{Experimental Results}
 
-\section{Handling Year-wise Priority}
+The lecture allocation algorithm uses the Hungarian algorithm to allocate the lectures of each course to the faculty members who are teaching the course. The Hungarian algorithm is run in each iteration until all the lectures are allocated. The cost function for the Hungarian algorithm is defined in \autoref{sec:defining_the_cost_function}, which is used to calculate the cost matrix for the Hungarian algorithm. In this cost matrix construction, the workload limits of the faculty members are enforced to ensure that the workload of the faculty members does not exceed their workload limits. Additionally, the courses are allocated in the sequence of their year of study, thus ensuring that the courses in the earlier years can reserve the best faculty members.
 
-\section{Rectifying Issues Introduced by Prioritization of Courses}
+Using this approach, the lecture allocation algorithm was run on the dataset of the School of Computer Science and Engineering, Nanyang Technological University, Singapore. The results of this allocation are shown in \autoref{tab:lec_alloc_results}.
 
-\section{Addressing Unallocated Courses}
-\subsection{Pre-Allocation Strategies}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|r|}
+    \hline
+    \textbf{Year} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{Total} \\ \hline
+    Assigned      & 32         & 23         & 12         & 6          & 2          & 75             \\ \hline
+    Unassigned    & 8          & 8          & 12         & 20         & 12         & 60             \\ \hline
+    Avg Score     & 3.62       & 3.71       & 3.44       & 3.43       & 3.75       & 3.60           \\ \hline
+  \end{tabular}
+  \caption{Lecture Allocation Results}
+  \label{tab:lec_alloc_results}
+\end{table}
+
+This utilization is shown in figure \autoref{fig:faculty_utilization}.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        xlabel={Utilization},
+        ylabel={Count},
+        xmin=0, xmax=1,
+        ymin=0, ymax=50,
+        xtick={0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1},
+        ytick={0,10,20,30,40,50},
+        legend pos=north west,
+        ymajorgrids=true,
+        grid style=dashed,
+      ]
+
+      \addplot[
+        color=blue,
+        mark=square,
+      ]
+      coordinates {
+          (0, 47)(0.4, 2)(0.45, 4)(0.5, 1)(0.55, 10)(0.6, 9)(0.65, 2)(0.7, 4)(0.75, 6)(0.8, 4)(0.85, 4)(0.9, 6)(0.95, 6)(1, 9)
+        };
+
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Faculty Utilization}
+  \label{fig:faculty_utilization}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        ybar,
+        xlabel={Pref Order},
+        ylabel={No. of Allocated Lectures},
+        xtick=data,
+        xticklabels={1,2,3,4,5,6,7,8,9,10,10+},
+        ymin=0,
+        ymax=20,
+        width=10cm,
+        height=8cm,
+        bar width=0.5cm,
+        enlarge x limits=0.15,
+        legend style={at={(0.5,-0.15)},
+            anchor=north,legend columns=-1},
+        ymajorgrids=true,
+        grid style=dashed
+      ]
+      \addplot coordinates {
+          (1, 9)
+          (2, 10)
+          (3, 1)
+          (4, 9)
+          (5, 8)
+          (6, 3)
+          (7, 5)
+          (8, 2)
+          (9, 3)
+          (10, 5)
+          (11, 20)
+        };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Preference Order}
+  \label{fig:pref_order}
+\end{figure}
+
+
+
+\section{Rectifying Unallocated Courses}
+
+With the allocation approach defined so far, certain courses remain unallocated due to the year-wise prioritization of courses and the workload limits of the faculty.. These issues are caused by the fact that the courses in the earlier years are allocated first, which means that certain faculty members may reach their workload limits before the courses in the later years are allocated. However, allocating all the courses is a definite requirement of the allocation problem, which means that the courses in the later years have to be accounted for in the allocation process.
+
+Opting for soft-prioritization of earlier year courses is an alternative to the absolute prioritization can solve this issue to some extent, since if the courses of all the years are allocated together, Hungarian algorithm will prioritize the courses with shortage of faculty supply, since an unallocated course has infinitely higher cost than an allocated course. However, as previously discussed, absolute prioritization of earlier year courses is a management requirement, which means that it cannot be completely eliminated.
+
+There are other approaches to solve this issue. One such approach is to identify the courses with shortage of faculty supply in all the years, and allocate them first. This can be done by calculating the faculty supply for each course, which is the number of faculty members who are eligible to teach the course. The courses with the lowest faculty supply can then be allocated first, which will ensure that the courses with shortage of faculty supply are allocated first.
+
+Another approach is, after the allocation is completed, to check if there are any unallocated courses, and if, ny reshuffling some of the existing allocations, faculty members can be freed up to teach the unallocated courses. This is done by finding the courses that are allocated to the faculty members who are needed for the unallocated courses, and checking if their workload can be reduced.
+
+The third approach is to identify the courses that are allocated to the faculty members who are needed for the unallocated courses, and check if the workload of the faculty members can be reduced by splitting the courses and a part of the course can be allocated to another faculty member. This is especially useful for large courses that take up a large portion of the bandwidth of the faculty members.
+
+If all these approaches fail, then the unallocated courses can be allocated to the faculty members even if their workload exceeds their workload limits. This is done by relaxing the workload limits of the faculty members, and allocating the unallocated courses to the faculty members who are most suitable to teach them.
+
+These approaches are discussed in detail in the following sections.
+
+\subsection{Pre-Allocation Approach}
+\label{sec:pre_allocation}
+
+One of the reasons that the courses remain unallocated is that - since the earlier year courses are allocated first, certain faculty members may reach their workload limits before the courses in the later years are allocated due to a shortage of faculty supply. However, some of the courses with a shortage of faculty supply can be identified before the allocation process begins, and these courses can be allocated first.
+
+This can be done by calculating the faculty supply i.e. the number of faculty members who are eligible to teach the course. If the course has only one faculty member who is eligible to teach the course and also has the workload bandwidth to teach the course, then this course is to be allocated immediately as part of the pre-allocation process. This pre-allocation is done without filtering for the year of study, since the courses of one year may impact the supply of faculty for the courses of all years.
+
+As an example, consider Course $A$, a third-year course which can be taught by only one faculty member. This course will thus be allocated in the very first iteration of the first year in the allocation process, since it can only be taught by the one faculty member, and allocating all courses is the highest priority of the allocation process.
+
+As another example, consider Course $B$, a fourth-year course which can be taught by any of 3 faculty members. However, during the first two iterations of the allocation process for the second year courses, 2 of the 3 faculty members are allocated to other courses, exhausting their workload limits. Thus, in the third iteration of the allocation process, Course $B$ will be allocated to the remaining faculty member in the pre-allocation phase, since now it can only be taught by one faculty member.
+
+The pre-allocation process is defined in \autoref{alg:pre_allocation}. The pre-allocation process takes the list of lectures and checks if only one faculty member is eligible to teach the course. If this is the case, then the course is allocated to the faculty member in the pre-allocation phase.
+
+\begin{algorithm}[H]
+  \caption{Pre-Allocation Algorithm}
+  \begin{algorithmic}[1]
+    \Procedure{PreAllocate}{$lectures$, $faculty$}
+    \State $assignments \gets \emptyset$
+    \For {$l \in lectures$}
+    \State $eligibleFaculty \gets \emptyset$
+    \For {$f \in faculty$}
+    \If {$f \text{ can teach } l$}
+    \State $eligibleFaculty \gets eligibleFaculty \cup f$
+    \EndIf
+    \EndFor
+    \If {$eligibleFaculty.size = 1$}
+    \State $assignments \gets assignments \cup (l, eligibleFaculty[0])$
+    \EndIf
+    \EndFor
+    \State \Return $assignments$
+    \EndProcedure
+  \end{algorithmic}
+  \label{alg:pre_allocation}
+\end{algorithm}
+
+The results are shown in \autoref{tab:pre_alloc_results}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|c|c|c|c|c|c|}
+    \hline
+           &            & Total & 1    & 2    & 3    & 4    & 5    \\ \hline
+           & Assigned   & 84    & 26   & 18   & 16   & 12   & 12   \\
+    After  & Unassigned & 51    & 14   & 13   & 8    & 14   & 2    \\
+           & Score      & 3.61  & 3.64 & 3.62 & 3.56 & 3.43 & 3.76 \\ \hline
+           & Assigned   & 75    & 32   & 23   & 12   & 6    & 2    \\
+    Before & Unassigned & 60    & 8    & 8    & 12   & 20   & 12   \\
+           & Avg Score  & 3.60  & 3.62 & 3.71 & 3.44 & 3.43 & 3.75 \\
+    \hline
+  \end{tabular}
+  \caption{Pre-Allocation Results}
+  \label{tab:pre_alloc_results}
+\end{table}
+
+\subsection{Dynamic Splitting of Lectures}
+\label{sec:dynamic_splitting}
+
+One reason that a lecture may go unallocated is that the lecture has too high a workload to be accommodated by the eligible faculty members within their workload limits. This might be due to the eligible faculty members having a low workload limit, or if they are already allocated to other courses, leaving them with less bandwidth to teach a new lecture.
+
+In such cases, the workload impact of the lecture can be reduced by splitting the lecture into two (or more) parts, and allocating both parts to different faculty members. This will lead to a reduction in the workload impact of the lecture by a factor of the number of parts that the lecture is split into, each of which should be within the workload limits of the faculty members.
+
+To achieve this, we introduce a Dynamic Splitting step as a pre-processing step for every iteration of the Hungarian algorithm. However, there are certain prerequisites for the Dynamic Splitting step to be performed. Firstly, splitting only takes place if the lecture doesn't have any eligible faculty with enough bandwidth to teach the entire lecture. Secondly, the lecture is split only if there are other eligible faculty members who can teach the lecture if it is split into two or three parts. Thirdly, dynamic splitting of lectures is skipped if the lecture is already split into two or more parts by the static splitting process defined in \autoref{ch:teaching_workload}. Finally, a lecture should not be split into parts that are too small, since this will lead to an unnecessarily large number of parts. Thus, the lecture is split only if the workload of each part is greater than a minimum workload limit.
+
+The Dynamic Splitting step is defined in \autoref{alg:dynamic_splitting}. The Dynamic Splitting step takes the list of lectures and for each lecture, checks if the lecture can be taught by a single faculty. If this is not the case, then we check if the lecture can be split into two parts such that there are eligible faculty members who can teach both parts. If this is the case, then the lecture is split into two parts. If this is not the case, then we similarly check if the lecture can be split into three parts. If this is the case, then the lecture is split into three parts.
+
+\begin{algorithm}[H]
+  \caption{Dynamic Splitting Algorithm}
+  \begin{algorithmic}[1]
+    \Procedure{DynamicSplit}{$unallocatedLectures$, $faculty$}
+    \For {$l \in unallocatedLectures$}
+    \State $lecWorkload = T(l)$
+    \If {$eligibleFaculty(l, lecWorkload).size \geq 1$}
+    \State Skip Dynamic Splitting
+    \Comment{can be taught by a single faculty}
+    \ElsIf {$lecWorkload/2 < minWorkloadLimit$}
+    \State Skip Dynamic Splitting
+    \Comment{min workload limit is too low}
+    \ElsIf {$eligibleFaculty(l, lecWorkload/2).size \geq 2$}
+    \State $SplitLecture(l, 2)$
+    \ElsIf {$lecWorkload/3 < minWorkloadLimit$}
+    \State Skip Dynamic Splitting
+    \Comment{min workload limit is too low}
+    \ElsIf {$eligibleFaculty(l, lecWorkload/3).size \geq 3$}
+    \State $SplitLecture(l, 3)$
+    \EndIf
+    \EndFor
+    \EndProcedure
+  \end{algorithmic}
+  \label{alg:dynamic_splitting}
+\end{algorithm}
+
+where, $eligibleFaculty(l, lecWorkload)$ is the list of faculty members who are eligible to teach the lecture $l$ with workload of $lecWorkload$ units, without exceeding their workload limits. $minWorkloadLimit$ is the minimum workload that a lecture can have. $SplitLecture(l, n)$ is the function that splits the lecture $l$ into $n$ parts.
+
+\subsection{Relaxing Workload Limits}
+\label{sec:workload_limit_relaxation}
+
+One of the big reasons that a lecture may go unallocated is that the demand for a faculty and the supply of the faculty are not balanced. This means that the faculty members who are best to teach multiple lectures may also be have a lot of research or service contributions, thus reducing their bandwidth to teach lectures. This leads to some low  demand faculty members' workload limits being exhausted quickly, while the high demand faculty members' remain underutilized.
+
+This supply shortage cannot be solved by the allocation process, since the allocation process only allocates on the basis of the data that is provided to it. However, this supply shortage can be accounted for by relaxing the workload limits of the faculty members if the existing lectures cannot be accommodated within the workload limits of the faculty members.
+
+This is done by relaxing the workload limits of the faculty members by a relaxation factor of 1.5, which means that the workload limits of the faculty members are increased by 50\%. This ensures that the faculty members who are needed to teach the unallocated courses are allocated to the courses, even if their workload exceeds their workload limits. This relaxation factor is kept as a configurable parameter, which can be tweaked to suit the priorities of the institution.
+
+However,
+
 \subsection{Post-Processing Allocation Results}
+\label{sec:post_allocation}
 
-\section{Dynamic Splitting of Courses}
+Another approach to rectify the unallocated courses is to check if there are any unallocated courses, and if, by reshuffling some of the existing allocations, faculty members can be freed up to teach the unallocated courses. This is done by finding secondary courses that are allocated to the faculty members who are needed for the unallocated courses, and checking these secondary courses can be allocated to other faculty members.
+
+However, it is important to consider that the secondary courses should not be adversely impacted by this reshuffling. This means that the secondary courses should be allocated to faculty members who are nearly as suitable to teach the course as the original faculty member. This is done by checking the cost of assigning the secondary course to the other faculty members, and only reallocating the secondary course if the cost increase is within a certain threshold.
+
+As an example, consider Course $A$, a third-year course which can be taught by a particular faculty member $F_1$. However, during the first two iterations of the allocation process for the second year courses, $F_1$ is allocated to two other courses $B$ and $C$, exhausting their workload limits. In the pre-allocation process, we find that Course $B$ can be taught by another faculty member $F_2$ without cost increase of 0.2, which is within the threshold of 0.5. Thus, Course $B$ is allocated to $F_2$ in the pre-allocation phase, freeing up $F_1$ to teach Course $A$.
+
+For the pre-allocation process, we first define \autoref{alg:reassign_faculty}, which takes a faculty member and the list of their existing assignments. It then iterates over the list of existing assignments for the faculty, and checks if the lecture can be allocated to another faculty member without violating the cost threshold. If this is the case, then the lecture is allocated to the other faculty member.
+
+\begin{algorithm}[H]
+  \caption{Reassign Faculty Algorithm}
+  \begin{algorithmic}[1]
+    \Procedure{ReassignFaculty}{$facultyMember$, $facultyAssignments$}
+    \For {$assignment \in facultyAssignments$}
+    \State $lecture \gets assignment.lecture$
+    \State $currentCost \gets Q(lecture, facultyMember)$
+    \For {$f \in eligibleFaculty(lecture, exclude=facultyMember)$}
+    \State $newCost \gets Q(lecture, f)$
+    \If {$newCost - currentCost \leq costThreshold$}
+    \Return $(lecture, f)$
+    \EndIf
+    \EndFor
+    \EndFor
+    \State \Return $null$
+    \EndProcedure
+  \end{algorithmic}
+  \label{alg:reassign_faculty}
+\end{algorithm}
+
+where, $eligibleFaculty(lecture, exclude=facultyMember)$ is the list of faculty members who are eligible to teach the lecture without exceeding their workload limits, excluding the faculty member $facultyMember$.
+
+With \autoref{alg:reassign_faculty} defined, we can define \autoref{alg:post_allocation} which takes the list of unallocated lectures and for each unallocated lecture, checks if the lecture can be allocated to another faculty member without violating the cost threshold using \autoref{alg:reassign_faculty}. If this is the case, then the lecture is allocated to the other faculty member, and the existing faculty member is allocated to the unallocated lecture.
+
+\begin{algorithm}[H]
+  \caption{Post-Allocation Algorithm}
+  \begin{algorithmic}[1]
+    \Procedure{PostAllocate}{$unallocatedLectures$, $existingAssignments$}
+    \State $assignments \gets existingAssignments$
+    \For {$l \in unallocatedLectures$}
+    \For {$f \in eligibleFaculty(l)$}
+    \State $existingLectures \gets assignments.filter(faculty=f)$
+    \State $replacement \gets \text{ReassignFaculty}(f, existingLectures)$
+    \If {$replacement \neq null$}
+    \State $assignments \gets assignments \setminus (replacement.lecture, f)$
+    \State $assignments \gets assignments \cup replacement$
+    \State $assignments \gets assignments \cup (l, f)$
+    \EndIf
+    \EndFor
+    \EndFor
+    \State \Return $assignments$
+    \EndProcedure
+  \end{algorithmic}
+  \label{alg:post_allocation}
+\end{algorithm}
+
+where, $eligibleFaculty(l)$ is the list of faculty members who are eligible to teach the lecture $l$ without exceeding their workload limits.
+
+
+\subsection{Overview of the Allocation Process}
+
+The allocation process receives the list of lectures, the list of faculty members, the student feedback scores and the faculty preference scores as input. The lectures might already be split into multiple parts by the static splitting process defined in \autoref{sec:lecture_splitting}. Each of the lectures also has a workload associated with it, which is the number of workload units that the lecture has. This workload was defined in \autoref{ch:teaching_workload}. Additionally, it receives the relative workload limits of the faculty members as input, which are set using the approach defined in \autoref{sec:determining_equitable_teaching_workload}.
+
+Using these inputs, the allocation process allocates the lectures to the faculty members. The allocation process is defined as follows:
+
+\begin{enumerate}
+  \item \textbf{Setup}\\
+        Set the workload limits of all the faculty members using their relative workload units set in \autoref{sec:determining_equitable_teaching_workload}. Set the cost of assigning a course to a faculty member using the cost function defined in \autoref{sec:defining_the_cost_function}.
+  \item \textbf{Pre-allocate}\\
+        To avoid the workload limits of the faculty members being reached before all the courses are allocated, pre-allocate the courses that can be allocated immediately as defined in \autoref{sec:pre_allocation}.
+  \item \textbf{Year-wise allocation}\\
+        Allocate the courses with the Hungarian algorithm, using the cost matrix construction algorithm which uses the workload limits, as defined in \autoref{alg:workload_limit_cost_matrix_construction}. The lecture allocation algorithm is defined in \autoref{alg:year_wise_lec_alloc}.
+  \item \textbf{Dynamic splitting}\\
+        If unallocated courses remain, check if other faculty members can be allocated to the unallocated courses by splitting the courses as defined in \autoref{sec:dynamic_splitting}.
+  \item \textbf{Workload limit relaxation}\\
+        If unallocated courses remain, the workload limits are reached for all the faculty members. Relax the workload limits of the faculty members as defined in \autoref{sec:workload_limit_relaxation} before continuing to the next step.
+  \item \textbf{Post-process the allocation results}\\
+        If unallocated courses remain, check if the unallocated courses can be allocated by reshuffling the existing allocations, as defined in \autoref{sec:post_allocation}.
+\end{enumerate}
+
+This allocation process is summarized in \autoref{fig:allocation_process_flowchart}.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}[node distance=1.5cm]
+      \node (start) [startstop] {Start};
+      \node (set_workload_limits) [process, below of=start] {$SetWorkloadLimits(faculty)$};
+      \draw [arrow] (start) -- (set_workload_limits);
+      \node (set_lecture_costs) [process, below of=set_workload_limits] {$SetLectureCosts(lectures, feedback, preferences)$};
+      \draw [arrow] (set_workload_limits) -- (set_lecture_costs);
+      \node (year_start) [process, below of=set_lecture_costs] {Iterate over years};
+      \draw [arrow] (set_lecture_costs) -- (year_start);
+      \node (input) [io, below of=year_start] {Input: Year Lectures, Faculty, Costs, Workload Limits};
+      \draw [arrow] (year_start) -- (input);
+      \node (pre_alloc) [process, below of=input] {$PreAllocate(yearLectures)$};
+      \draw [arrow] (input) -- (pre_alloc);
+      \node (dynamic_split) [process, below of=pre_alloc] {$splitLectures = DynamicSplit(yearLectures)$};
+      \draw [arrow] (pre_alloc) -- (dynamic_split);
+      \node (alloc) [process, below of=dynamic_split] {$AllocateLectures(splitLectures)$};
+      \draw [arrow] (dynamic_split) -- (alloc);
+      \node (post_alloc) [process, below of=alloc] {$PostAllocate(splitLectures)$};
+      \draw [arrow] (alloc) -- (post_alloc);
+      \node (unallocated_check) [decision, below of=post_alloc, yshift=-1.5cm, align=center] {Year\\Lectures\\Allocated?};
+      \draw [arrow] (post_alloc) -- (unallocated_check);
+      \node (relax_check) [decision, right of=unallocated_check, xshift=3cm, align=center] {Workload\\Limits\\Reached?};
+      \draw [arrow] (unallocated_check) -- node[anchor=south] {No} (relax_check);
+      \node (relax) [process, below of=relax_check, yshift=-1.5cm] {$RelaxWorkloadLimits(faculty)$};
+      \draw [arrow] (relax_check) -- node[anchor=east] {Yes} (relax);
+      \node [summingpoint, right of=relax_check, xshift=1.5cm] (sum) {};
+      \draw [arrow] (relax.east) -| (sum.south);
+      \draw [arrow] (relax_check.east) -- node[anchor=south] {No} (sum);
+      \draw [arrow] (sum.north) |- (pre_alloc.east);
+      \node (output) [io, below of=unallocated_check, yshift=-3cm] {Output: Assignments};
+      \draw [arrow] (unallocated_check) -- node[anchor=east] {Yes} (output);
+      \node[draw, dotted, fit=(input) (sum) (output), inner sep=0.3cm, label=75:Year Allocation Process] {};
+    \end{tikzpicture}
+  }
+  \caption{Allocation Process Flowchart}
+  \label{fig:allocation_process_flowchart}
+\end{figure}
 
 \section{Equal Misery: Equitable Overloading of Faculty to Ensure Allocation of Non-Critical Courses}
 

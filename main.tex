@@ -24,6 +24,9 @@
 
 \usepackage{amsmath}        %for math symbols
 
+\usepackage[chapter]{algorithm}
+\usepackage[noend]{algpseudocode} %for writing algorithms
+
 \usepackage{breakcites}     %to avoid citations extending into the margin
 \usepackage{rotating}
 
@@ -48,8 +51,29 @@ style=ieee,
 \usepackage{enumitem} % for customizing lists
 \usepackage{changepage} % for changing margins for specific sections
 \usepackage{tikz} % for drawing diagrams
+\usetikzlibrary{shapes.geometric, arrows, fit, patterns}
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\definecolor{FlowChartBlue}{rgb}{.5,.8,1}
+\tikzset{
+  summingpoint/.style={
+    circle,
+    draw=FlowChartBlue!50!black,
+    fill=FlowChartBlue,
+    minimum size=1cm,
+    path picture={
+      \draw [FlowChartBlue!50!black]
+            (path picture bounding box.135) -- (path picture bounding box.315)
+            (path picture bounding box.45) -- (path picture bounding box.225);
+    }
+  }
+}
 \usepackage{pgfplots} % for drawing plots
 \usepackage{hyperref}       % to create a linked table of contents
+\newcommand{\algorithmautorefname}{Algorithm}
 
 \hypersetup{
     colorlinks,
@@ -98,6 +122,8 @@ style=ieee,
 \singlespacing          % keep pre-content single spaced
 \listoffigures          % generate list of figures
 \addcontentsline{toc}{section}{\textbf{List of Figures}}
+\listofalgorithms
+\addcontentsline{toc}{section}{\textbf{List of Algorithms}}
 \newpage
 \listoftables           % generate list of tables
 \addcontentsline{toc}{section}{\textbf{List of Tables}}

@@ -1,10 +1,59 @@
 \chapter{Tutorial and Lab Allocation}
 
-\section{Ensuring Equitable Distribution of Tutorial, Lab, and Lecture Workloads}
-\section{Defining Workload Constraints}
-\section{Achieving Uniform Allocation through Weight Biasing}
-\section{Incorporating Global Workload Boundaries}
-\section{Optimization via Batching Strategies}
-\section{Lecture Splitting to Ensure Equitable Workload Distribution}
+\section{Introduction}
+
+Talks about how, now that lecture allocation is done, we can move on to the next step of the allocation process, which is the allocation of tutorials and labs. That tutorials and labs are smaller pieces of work, thus play an important role in balancing out the workload of faculty.
+
+\section{Defining the Tutorial and Lab Allocation Problem}
+
+Talks about how the tutorial and lab allocation problem is similar to the lecture allocation problem, but with a few differences. Explains those differences.
+
+The differences are how tutorial and lab sessions are smaller pieces of work and need to be batched together.
+
+That consistency has to be maintained so that lectures, tutorials and labs of the same course are allocated to the same faculty ideally.
+
+Defines the need to distribute a similar proportion of lectures, tutorials and labs to each faculty.
+
+That faculty provide separate preferences for tutorials and labs. And that there are also a separate set of student feedback for tutorials and labs.
+
+\section{Modelling the Tutorial and Lab Allocation Problem}
+
+Defines how the tutorial and lab allocation problem is modeled similar to the lecture allocation problem
+
+Borrows the cost function and the workload limits from the lecture allocation problem.
+
+\subsection{Maintaining Consistency of Courses}
+
+Talks about how the consistency of courses is maintained by biasing the allocation of tutorials and labs to the same faculty who was allocated the lectures of the same course.
+
+Defines how we allocate each course's tutorials and labs one batch at a time instead of all batches together, to avoid the tutorials of the same course from being allocated to different faculty, since hungarian allocates only one batch to one faculty at a time.
+
+\subsection{Handling Management Priority}
+
+Talks about how doing year-wise allocation of tutorials and labs is not the best idea, since it would lead to a lot of iterations and cause local optima. Thus, the allocation is done for all years at once. Introduces the concept of skewing the cost function to prioritize better faculty for earlier years.
+
+\subsection{Batching Tutorials and Labs}
+
+Talks about how tutorials and labs are smaller pieces of work and need to be batched together to avoid too many iterations. Also talks about how the batch size is determined.
+
+
+\subsection{Distributing Workload Equitably}
+
+Talks about how the workload of faculty is distributed equitably by ensuring that a similar proportion of lectures, tutorials and labs are allocated to each faculty.
+
+This is done by putting global workload boundaries on the number of lectures, tutorials and labs that can be allocated to each faculty, along with a limit on total number of teaching activities that can be allocated to each faculty.
+
 \section{Dynamically Adjusting Workload Limits for Feasibility}
-\section{An Overview of Lecture, Tutorial and Lab Allocation Process}
+
+Talks about how the workload limits are dynamically adjusted to ensure that the allocation is feasible. This is done by adjusting the workload limits and the constraint on the total number of teaching activities that can be allocated to each faculty.
+
+Talks about how this is done through iterative adjustment, detecting if the workload limit or the max allocation limit is responsible for the infeasibility and adjusting the workload limit or the max allocation limit accordingly.
+
+\section{Comprehensive approach to Tutorial and Lab Allocation}
+
+Describes the entire process of tutorial and lab allocation, along with the figure of the steps involved.
+
+\section{Overview of Course Allocation Process}
+
+
+\section{Summary}

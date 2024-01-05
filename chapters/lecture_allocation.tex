@@ -42,7 +42,7 @@ This can be achieved by ensuring that the higher year courses are given a priori
 \section{Defining The Allocation Problem}
 \label{sec:defining_the_allocation_problem}
 
-The lecture allocation involves allocating the lectures of each course to the faculty members who are teaching the course. It can be defined as a constrained multi-objective optimization problem, with a set of objectives that need to be optimized and a set of constraints that need to be satisfied.
+The lecture allocation involves allocating the lectures of each course to the faculty members who are eligible for teaching the course. It can be defined as a constrained multi-objective optimization problem, with a set of objectives that need to be optimized and a set of constraints that need to be satisfied.
 
 The primary objective of the allocation problem is to ensure that all the courses are allocated to the faculty members, since unallocated courses will lead to cancellation of the course. Additionally, the allocation problem should also ensure that the workload of the faculty members is distributed equitably, and they receive a similar workload in terms of lectures, tutorials and practicals. The allocation problem should also ensure that the earlier year courses are taught by the best faculty as per the management priorities. Finally, the allocation problem should ensure that the faculty members are allocated the courses that they are interested in teaching, which will lead to a better teaching experience for the faculty members. These objectives are described in detail in the following sections, in the order of their priority.
 
@@ -88,7 +88,7 @@ It also needs to be ensured that the workload is distributed among the faculty m
 
 In the next section, we will define how this constrained cost-minimization problem can be solved using the Hungarian algorithm.
 
-\subsection{The Hungarian Algorithm}
+\subsection{Allocating using the Hungarian Algorithm}
 
 The Hungarian Algorithm, also known as the Kuhn-Munkres Algorithm, is a combinatorial optimization algorithm that solves the assignment problem in polynomial time. In comparison to other algorithms that solve the assignment problem, such as the genetic algorithm and the simulated annealing algorithm, the Hungarian algorithm is faster and more efficient, and is more deterministic in nature. This makes it a good choice for solving the lecture allocation problem, since the faculty, students and management expect the allocation to be deterministic.
 

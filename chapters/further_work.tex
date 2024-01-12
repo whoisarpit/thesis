@@ -1,24 +1,71 @@
+\chapter{Conclusion and Future Work}
 
-\section{Health Metrics Derived from the Workload Model}
+\section{Conclusion}
 
-In addition to quantifying the teaching workload of the faculty, the workload model can also be used to derive important insights regarding the overall health and sustainability of the institution. Certain indicators like the fact that the faculty are overloaded with work, or that the faculty are not making significant research contributions, can be derived during the workload modelling process. These indicators can then be used to make important decisions regarding the allocation of resources to the various departments, and the hiring of new faculty.
+In this thesis, the problem of automated teaching workload allocation to faculty members was addressed. In the process of solving this problem, fair and equitable allocation of teaching workload was ensured, while prioritizing the student feedback, the faculty preferences and the management priorities. The problem was split into four sub-problems - the quantification of the workload involved in the teaching activities of a course, determining how much workload each faculty member should be assigned, allocating lectures to the faculty members, and allocating tutorials and lab sessions to the faculty members.
 
-Some of these indicators are:
+To quantify the workload involved in the teaching activities of a course, the activity was divided into four distinct stages, namely - Preparation Workload i.e. the work involved in preparing the teaching materials at the start of a semester, Review Workload i.e. the time spent reviewing of materials before delivering the class, Delivery Workload i.e. the actual time spent delivering the class, and Grading Workload - the work involved in grading and evaluation of the student performance. The preparation workload and grading workload were only applicable to the course lecturer, while the review workload and delivery workload were applicable to all faculty members involved in the teaching of the course.
 
-\begin{enumerate}
-  \item \textbf{Disproportionate Distribution of Workload}
+For each of these stages, the factors affecting the workload were identified. These factors were the Course Newness i.e. whether the course is being taught for the first time by the faculty, and is the course being taught for the first time in the department, the Class Size i.e. the number of students enrolled in the course, the Activity Type i.e. whether the teaching activity is a lecture, a tutorial, or a lab session. Using these factors, a model was developed to quantify the workload involved in the three teaching activities of the course in the form of Workload Units.
 
-        Even though we imposed a maximum cap of 8 units on the research, and service workload of the faculty, reaching the maximum cap is not necessarily a good thing.
+The workload of tutorials and lab sessions was found to be typically 20-40 units. It was found that the workload of a lecture can range anywhere from 80 to 600 units, being higher for larger class sizes, and if the course is being taught for the first time. Since the workload of a lecture can be as high as 20 to 30 times that of a tutorial, which can make it difficult to allocate the lecture to a faculty. To alleviate this, a lecture splitting algorithm was developed, that splits the workload of a lecture into 2-3 smaller lectures, which can be allocated to multiple faculty members.
 
-        If the maximum cap for service workload is reached, it means that the faculty is performing a disproportionately large amount of service duties. In certain circumstances, the dean of the school for example, redistribution of the service duty between two faculty might not be possible. In such cases, special exceptions need to be made to reduce the teaching and research workload below the thresholds that the RTS model allows for. In typical cases however, redistribution of the service duties between the faculty is possible, and should be done to reduce the service workload of the faculty.
+To determine how much workload each faculty member should be assigned, other parts of the faculty workload were also quantified. These parts were the research workload, and the service workload. The research workload was quantified in terms of the number of research staff that the faculty is supervising. Due to organizational hierarchy, the workload of a faculty member was found to increase non-linearly, the impact of each additional research staff being lower than the previous one. The service workload was quantified in terms of the service duties that the faculty is performing. Each service duty was quantified in terms of the impact on the workload, and the total service workload was found to be the sum of the impact of all the service duties.
 
-        Similarly, the research workload ceiling being reached means the faculty is handling a disproportionately large number of research staff. This is not necessarily a bad thing, as the faculty might be in a research area that is currently popular, and thus have a large number of research staff working under them. However, to maintain optimal research output, the workload should be redistributed between the faculty to ensure that the faculty are not overloaded with work.
+The workload of the faculty was modelled into an RTS ratio, where $R$ is the research workload, $T$ is the teaching workload, and $S$ is the service workload, the sum of the three components always being 12 since the total workload of each faculty is comparable. The RTS ratio was found to be a good representation of the workload of the faculty. The RTS ratio was then used to determine the $T$ ratio, by subtracting the research and service workload from the total workload of the faculty i..e 12. This $T$ ratio is the teaching workload that should be allocated to the faculty in relative terms.
 
-  \item \textbf{Faculty Overload}
+To allocate lectures to the faculty members, the allocation was solved using the Hungarian Algorithm, allocating one lecture per faculty member in every iteration. Every iteration involves we determine a cost for allocating a lecture to a faculty, which represents the student feedback and the faculty preferences. This is used to construct a cost matrix, which is then solved by the Hungarian Algorithm. To handle the management priority of earlier year courses being given the best faculty, the allocation is done one year at a time, giving earlier years the best faculty, and then moving on to the next year.
 
-        In certain circumstances, the total workload limit of 12 may be exceeded. For example, if a faculty is supervising 4 post-doctoral fellows, while also handling multiple service duties, the RTS ratio of the faculty might approach $R:T:S = 8:2:8$, exceeding the maxima by 6 units. This is an indication that the faculty is overloaded with work, and the workload should be redistributed between the faculty to ensure that the faculty are not overloaded with work.
+The $T$ ratio of the faculty, combined with the workload of the lecture, is used to determine the workload limit for the faculty. Between iterations of the Hungarian Algorithm, the workload limit is used to determine if a faculty can be allocated another lecture.
 
-  \item \textbf{Meeting Institution-wide Objectives}
+It was found that lectures remained unallocated in certain cases, due to various reasons. In one case, 44\% of the lectures remained unallocated. To handle this, various techniques were developed. The first technique was to pre-allocate certain lectures which face shortage of eligible faculty, before the allocation of all lectures begins. The second technique was dynamic splitting, where if a lecture remains unallocated, it is checked if the workload of the lecture can be split into two smaller lectures, which can then be allocated to the faculty. The third technique was to allow the workload limit to be exceeded by a small amount, to allow the allocation of the lecture to the faculty. The fourth technique was to post-process the allocation, looking for possibilities of swapping lectures between faculty, to reduce the workload of the faculty, and thus allow additional lectures to be allocated to the faculty.
 
-        The workload model can also be used to ensure that the institutional objectives are being appropriately achieved. To ensure this, the institution has an average RTS ratio that may be aimed towards. A research-intensive university may aim for an aggregate RTS Ratio of $R:T:S = 6:4:2$, and if the aggregate RTS Ratio is leaning towards $R:T:S = 4:6:2$, course-correction is required, by refocusing the efforts towards research, or by hiring additional research-intensive staff to maintain the direction of the institution.
-\end{enumerate}
+As a result of these techniques, up to 98\% of the lectures were allocated to the faculty. As a final step, an equal misery approach was devised, which involves overloading the faculty right from the start, which allows the workload to be distributed more evenly between the faculty, and thus allows more lectures to be allocated to the faculty. This approach was found to be very effective, and allowed up to 99\% of the lectures to be allocated to the faculty.
+
+Allocation of tutorials was implemented similar to the lecture allocation, using the hungarian algorithm and cost matrix construction to allocate one tutorial session per faculty in every iteration, while ensuring that the workload limits of the faculty are not exceeded.  However, the iterations were restructured to allocate only one session of a tutorial in an iteration, to allow the same faculty to be allocated multiple sessions of the same tutorial.
+
+However, there was still an issue with fragmentation i.e. the tutorials of the same course being taught by multiple different faculty. It was found that on average, a course had 4.5 different faculty teaching the tutorials of the course. To avoid this, additional measures were taken, which involved batching of tutorials into groups of up to 6 tutorials of the same course, and adding a consistency bias, which favors allocating the tutorials of the same course to the same faculty. These measures were found to be very effective, and reduced the number of faculty teaching the tutorials of the same course to 1.2 faculty per course.
+
+Since iterations of allocating tutorial were done one session of tutorial at a time, instead of iterating over the tutorials one year at a time, the management priority of earlier year courses being given the best faculty, was handled by adding additional biases to favour allocating the best faculty to earlier year courses. However, the biases were found to not be very effective, only improving the average score of Year 1 courses by only 0.5\%. Teaching duty limits were also imposed on the faculty, to ensure that the faculty are not overloaded with smaller teaching duties, which would add a lot of overhead.
+
+Additionally, pre-allocation of tutorials was also implemented, similar to lecture pre allocation, which was able to improve tutorial allocation by an additional 3\%, from 73\% to 76\%. However, workload relaxation was avoided, in favour of a dynamic limit adjustment approach, which adjusts the workload limits and teaching duty limits of faculty in a targeted manner to allow allocation of additional tutorials to the faculty. The dynamic limit adjustment approach was found to be very effective, and was able to improve tutorial allocation from 76\% to 100\%, allocating all tutorials to the faculty, without adversely affecting the workload limits of the faculty.
+
+The allocation of labs was identical to tutorial allocation, and with the combination of pre-allocation, dynamic limit adjustment, consistency bias and all the other techniques, 100\% of the lab sessions were allocated to the faculty, with an average an average 1.4 faculty teaching the labs of the same course.
+
+With the allocation of all teaching activities to the faculty using the Hungarian Algorithm, incorporating the RTS ratio and measuring the workload impact of the teaching activities, an allocation was achieved that was fair and equitable, while prioritizing the student feedback, the faculty preferences and the management priorities.
+
+\section{Future Work}
+
+The allocation of teaching workload to faculty is a complex problem, and while the allocation achieved in this thesis is fair and equitable, there are still certain areas of improvement that can be made. Some of these areas are discussed below.
+
+\subsection{Workload Analysis from the RTS Model}
+
+The RTS Model provides a lot of insight into the workload of the faculty, and can be used to derive important metrics regarding the health of the institution. It can be used to determine if the overall organizational objectives of the institution are met, by ensuring that the aggregate RTS ratio of the institution is in the right direction. A research intensive university may aim for an aggregate RTS Ratio of $R:T:S = 6:4:2$, for example.
+
+It can also be used to determine if the faculty are overloaded with work, by checking if the RTS ratio corresponds to the actual workload self-reported by the faculty. A misalignment between the two can indicate that the faculty are overloaded with work, and can be used to determine if additional faculty need to be hired.
+
+\subsection{Better prioritization of earlier year courses}
+
+Many techniques such as pre-allocation, dynamic splitting, and workload relaxation, needed to be developed to overcome unallocated lectures which were a result of absolute prioritization of earlier year courses. Primitive analysis of allocating all years together showed that many of the unallocated lectures would be allocated if the lectures weren't allocated year-wise. But as shown in tutorial allocation, an year-wise bias was not very effective.
+
+If a better way of prioritizing earlier year courses can be found, it would be possible to allocate all lectures together, instead of allocating lectures year-wise, which could yield better results. This can be explored in future work.
+
+\subsection{Prioritization of Foundational Courses}
+
+Certain courses are considered to be foundational courses, which are important for the students to learn, and are also important for the students to perform well in, as they are prerequisites for other courses, and play an important part in the students' learning journey. Allocating earlier year courses to the best faculty is a broadly serves to prioritize such foundational courses, but it is not very targeted.
+
+An analysis of course prerequisites can be performed, to determine which courses are foundational courses, and can be given a higher priority in the allocation process. Exploring these interdependencies, such as analysing the effect of student performance in a foundational course on the student performance in the subsequent courses, can highlight other valuable insights, which can be used to improve the allocation process and learning outcomes for the students.
+
+\subsection{Prioritizing Faculty with Prior Experience in the Course}
+
+As shown in the course workload model, faculty who have previously taught a course have a lower workload than faculty who are teaching the course for the first time. Thus, prioritizing faculty who have previously taught a course can be an additional consideration in avoiding fragmentation of tutorials and labs. This can also be incorporated into lecture allocation, as it has the potential of lowering overall teaching workload in the institution, and can be explored in further.
+
+\subsection{Timetabling Constraints}
+
+Timetabling of the courses is carried out separately, independent of the allocation of teaching workload to faculty. However, the two processes are interdependent, and if two courses are timetabled at the same time, they cannot be taught by the same faculty. This can be incorporated into the allocation process, to ensure that the courses are timetabled in a way that allows the courses to be taught by the same faculty.
+
+Other timetabling constraints like the distance between classrooms can also be incorporated into the allocation process, to ensure that faculty have adequate time to reach the classroom after teaching another class. This can be explored in future work.
+
+\subsection{Workforce Gap Analysis}
+
+Techniques like pre-allocation highlighted the shortage of eligible faculty for certain courses. This can be used to perform a workforce gap analysis, which can be used to determine the number of additional faculty that need to be hired to ensure that all courses can be taught by eligible faculty. This, in combination with the need for systematic overloading of faculty, show the possibility for a more targeted hiring process, which can be beneficial for the institution.

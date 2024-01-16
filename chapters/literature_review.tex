@@ -1,96 +1,191 @@
 \chapter{Literature review}
 
-Allocation of teaching activities consists of multiple stages like estimation of faculty's available workload, defining a faculty's appropriateness to teach individual courses, and using algorithms to allocate the teaching activities. This section lists and critically analyses the existing work related to each of these, and investigates the problems in said work, if any, and to find solutions/methodologies to overcome the same.
+\section{Introduction}
 
-\section{Workload Distribution}
+The course allocation process is a complex process that involves multiple stakeholders, each with their own set of expectations. The key stakeholders are the faculty, the students, and the management. The faculty expects a fair allocation of courses that aligns with their research interests and teaching preferences. The students expect the best possible teaching experience, with faculty that have good feedback in the past. The management expects a optimal utilization of faculty, and to ensure the long term learning outcomes of the students are met.
 
-When it comes to teaching allocation, the first question that arises is how much teaching workload should be given to each faculty. The working life of a university faculty comprises primarily three parts – Service, Research, and Teaching, so the simplest solution to equal distribution of workload between faculties (or equal misery) in all three areas \cite{gray1989university}. However, as different faculties do not display an equal affinity or competency towards these areas \cite{finlay1994management}, equal distribution would lead to inefficient use of the faculties' skill-sets. Moreover, it is seen that research-active faculty ends up doing more research at the cost of overloading and diminishing the quality of teaching. Thus, an equitable approach to workload distribution will account for the amount of work done by faculty in research and service areas to distribute teaching work. Several Workload Allocation Models (WAMs) have been developed that facilitate in quantifying said work.
-
-\section{Existing Workload Allocation Models}
-
-\cite{vardi2009impacts} broadly categorizes existing WAMs into three categories:
+The allocation process has various prerequisites that need to be provided for the allocation to be effective. The course allocation process can be divided into multiple different sub-problems, each with their own set of objectives and constraints. These sub-problems are:
 
 \begin{enumerate}
+  \item \textbf{Course Workload Modelling}
 
-    \item \textbf{Contact Hours based}
+        The first step in the allocation process is to quantify the workload that is involved in teaching a course. This involves quantifying the time required for each of the activities involved in teaching a course. This is a key step in the allocation process, as it provides a clear picture of the workload involved in teaching a course. This is critical in ensuring that the faculty is not overloaded with courses, and that the faculty is not under-utilized.
 
-          These models focus on only the time required for course-related activities (lectures, tutorials, and labs). Fixed concessions may be given for related activities (preparation of assignments and lectures, assessment etc.), but they fail to account for the additional factors like class size, faculty's familiarity to the course etc. These models entirely ignore non-teaching activities of the faculty workload.
+  \item \textbf{Workload Distribution}
 
-    \item \textbf{Actual Hours based}
+        The next step in the allocation process is to distribute the workload among the faculty. This involves quantifying the non-teaching aspects of their workload like Research and Service, and then distributing the teaching workload among the faculty based on their non-teaching workload. This is a key step in the allocation process, as it ensures that the distribution of the teaching workload is fair and equitable.
 
-          These are time based models that aim to account for all aspects of the faculty's workload by estimating the time required for each of these activities. However, these approaches are largely ad-hoc in nature and require a considerable amount of effort required to model each faculty's workload. They are also generally perceived as micromanaging by being prescriptive about the exact amount of time spent on each activity.
+  \item \textbf{Allocation}
 
-    \item \textbf{Points based}
-
-          These are similar to actual-hours based models, but quantify the activities in terms of points instead of hours. The equivalence between points and hours is loose, which allows some leeway in the time spent on the respective activities. However, the lack of a clear correlation between the two is not well-received by the faculty due to lack of transparency. The points are also biased towards activities with higher budgetary allocations and returns.
-
-          The STAR Model (Service, Teaching, Administration, Research) proposed by \cite{finlay1994management} was a key stepping stone in defining the non-teaching parts of a faculty's workload. It focused more on allocating research time as a function of the other three activities. However, the approaches towards calculating each of the constituents were primitive.
-
-          \cite{rohan2017} proposed an approach of treating research and service workloads in directly relaxing the teaching workload expectations from a faculty. It also proposes novel techniques to include factors like course newness, class size and the type of teaching activity concerned. It also proposes a unique view, where the number of research staff supervised by a faculty is as the proxy for research workload. However, even though the teaching workload relaxation approach works great in practice, it fails to give a comprehensive view of the faculty's workload to drive organizational decisions
-
-          \begin{equation}
-              T_c + T_a + T_p + S_i + S_p + S_c+R = C
-              \label{griffith_wam}
-          \end{equation}
-
-          Recently, \cite{griffith2020framework} goes much further in describing the constituents of Service Workload as \textbf{Professional}, and \textbf{Community} Service Workload (\(S_p, S_c\)), and the constituents of Teaching workload as \textbf{Classroom}, \textbf{Administrative} and \textbf{Preparation} Teaching Workload (\(T_c, T_a, T_p\)) as shown in \autoref{griffith_wam}. This provides much needed clarity into the nature of the work involved in each of these constituents. It also highlights key problems the academic community faces in each of the workload constituents. However, it omits the inclusion of faculty-specific deviations to the teaching workload and the variation in workload depending on the faculty type.
+        The final step in the allocation process is to allocate the courses to the faculty. This involves taking into account the preferences of the faculty and the student feedback, and then allocating the courses to the faculty. This also involves taking into account the constraints of the faculty, like the amount of workload they can handle, while ensuring optimal utilization of the faculty. This allocates the lectures, tutorials, and labs to the faculty.
 
 \end{enumerate}
 
-\section{Workload Inequity as a systemic problem}
-\cite{jensen2009overload, kenny2014effectiveness} identify that workload modelling and distribution fails to make an impact due to the lack of additional resources made available to address workload inequities. The lack of available expertise in key areas disproportionately overloads certain faculty with said expertise, essentially punishing faculty for being skilled.
+In this literature review, we will look into the existing approaches to each of these sub-problems, and identify the key issues with the existing approaches. We will look into the existing models of quantifying the workload involved in teaching a course, and identify the key issues with the existing models. We will also look into the existing approaches to distributing the workload among the faculty. Finally, we will look into the existing approaches to allocating the courses to the faculty, as well as the existing algorithms for allocation problems, and their applicability to the course allocation problem. We will also look into the basis of the allocation priorities that are used in the allocation process.
 
-\cite{vardi2009impacts, houston2006academic} clearly identify that even with the mandated use of WAMs in Australian universities, overloading of faculty is a widespread problem due to under-supply issues.\cite{kenny2014effectiveness} also notes that defining realistic time limits is a necessary step towards ensuring welfare of academic staff.
+\section{Quantifying Course Workload}
+
+A systematic review on burnout of university teaching staff by \textit{Watts et al.} \cite{watts2011burnout} identified various factors that contribute to burnout of university teaching staff, including the necessity to teach large volume of students with bad student-staff ratios. \textit{Jensen et al.} identified that staff not being given adequate time to account for the preparation and marking of courses was a key problem unrecognized by the management, which led to undue stress for the faculty members \cite{jensen2009vanishing}.
+
+In a case study for the development of a quantifiable academic workload model, \textit{Kenny et al.} state that a lack of clarity about how to quantify academic workload leads to deterioration of academic performance\cite{kenny2012placing}. They also stated that the nature and extent of academic work must be accounted for in a credible and transparent way, and that allocation of workload should account for these factors.
+
+\textit{Houston et al.} \cite{houston2006academic} argued that the diversity of academic work makes it difficult to arrive at a clear standardised quantification of academic workload. However, several attempts have since been made to quantify the academic workload. \textit{Vardi} \cite{vardi2009impacts} broadly categorizes existing workload models into three categories:
+
+\begin{enumerate}
+
+  \item \textbf{Contact Hours based}
+
+        This is a time-based approach used to standardize teaching commitments, relying on typical values without accounting for the nature of the contact, such as lectures, tutorials, or labs, or other variables like class size or course novelty. This model includes standardized additions for tasks like preparation and assessment, and administrators may provide additional support for factors like class size outside of this system. Its aim is to maintain relative fairness among staff through a straightforward system. While effective when teaching expectations are reasonable and allowances for supplementary activities are possible, it struggles to incorporate non-direct duties like research, community work, and clinical trials. These models primarily consider the time needed for course-related tasks and make fixed allowances for associated activities but overlook crucial elements like class size or a faculty member's familiarity with the course.
+
+  \item \textbf{Actual Hours based}
+
+        The 'Actual hours' model is a more detailed time-based approach that takes into account the specific nature of a faculty member's activities. These models strive to cover all facets of a faculty's workload by estimating the time required for each task. For example, they consider the type of assessment and the number of students for marking tasks, as well as the time spent in student consultations and responding to emails. This results in a comprehensive system that aligns more closely with human resourcing and costing. Yet, these approaches tend to be ad-hoc and demand significant effort to accurately model each faculty member's workload.  However, its complexity reduces transparency, leading some faculty members to perceive it as a sign of distrust from the administrators. Additionally, they are viewed as micromanaging, being overly prescriptive about the exact amount of time allocated to each activity. This perception stems from their granular approach to time allocation, which may feel restrictive to faculty members.
+
+  \item \textbf{Points based}
+
+        The 'Points model' is an alternative method for quantifying workload, using a system that converts various faculty activities into 'points', loosely based on the hours of effort required. Faculty members accrue points for different tasks, but this system has been deemed the least effective by both faculty and administrators. Similar in concept to actual-hours models, although the Points model offers some flexibility in time allocation for respective tasks, Faculty members criticize the vague correlation between 'hours' and 'points', alongside a perceived bias favouring activities with greater financial or budgetary returns, highlighting a disconnect between the model's metrics and the diverse responsibilities of faculty members. Administrators find the model inadequate in identifying faculty who are overburdened or underutilized, and are concerned about the neglect of activities that don't earn points.
+\end{enumerate}
+
+
+\textit{Vardi} stated that while a simple model is highly desirable for ease of use, it is important to ensure that the model is not too simple to be ineffective. The model has to account for the variance and complexity of the academic workload among different faculty, and a simple model would fail to do so \cite{vardi2009impacts}.
+
+\textit{Griffith et al.} \cite{griffith2020framework} proposed a framework for quantifying the course workload which divides the teaching workload into three parts - classroom workload ($T_c$), administrative workload ($T_a$), and preparation workload ($T_p$). ($T_c$) is calculated by the total number of hours spent in the classroom and labs per week multiplied by the number of weeks that teaching is required during the contracted period. ($T_a$) is approximated by multiplying the total number of semester credits taught as prescribed by payroll purposes during the contracted period by the 16 weeks in a typical semester. ($T_p$) is estimated by the number of unique courses taught in a contracted period multiplied by four weekly hours and then multiplied by the number of semester credit hours assigned to each course.
+
+\subsection{Limitations of current methods}
+
+\textit{Jensen et al.} mentioned the lack of time being provided for marking of courses, and preparation of courses \cite{jensen2009vanishing}. This led to faculty investing their personal time to mark courses, and felt under-recognized for the time and effort they put into the preparation of contemporary, quality course material. This is a key issue with the contact hour based approach, as it fails to account for the time spent on these activities.
+
+The actual hours approach has issues with effectiveness, due to difficulties in enforcing the model. The key reason being the need to accurately quantify the time spent on a plethora of activities in the form of hours, some of which are not directly measurable \cite{kenny2014effectiveness}. This leads to ambiguity and a case by case approach to workload allocation, which is not scalable and leads to lack of transparency.
+
+In a 2021 study on the emerging state of workload allocation \cite{kenny2021emerging}, Kenny et al. identify that the workload allocation's inability to identify key tasks involved in teaching, such as preparation and marking of courses was stated as the primary challenge towards a fair workload allocation.  This emphasizes a need for a more comprehensive quantification of course workload that accounts for all the activities involved in teaching.
+
+While the approach used by \textit{Griffith et al.} provides a comprehensive view of the teaching workload, it also fails to account for class size, course newness, and faculty familiarity with the course. However, the division of teaching workload into three parts - classroom workload ($T_c$), administrative workload ($T_a$), and preparation workload ($T_p$) is a key step in the right direction, as it provides a clear picture of the workload involved in teaching a course, and indicates towards the impact of different factors to each of these constituents.
+
+None of the models incorporate several important factors. Class size i.e. the number of students in a class which will have a proportional impact on the marking workload for a course, since every student needs to be marked separately - the work required for marking the exams of a course with 30 students is significantly less than that of a course with 300 students. It also needs to be considered whether new material needs to be developed for the class, and the faculty's familiarity with the course, since preparation of a new course adds a significant burden to the faculty. These factors are critical in determining the amount of time required for teaching a course. \textit{Lowenthal et al.} \cite{lowenthal2019does} also clearly identified the impact of class size on the workload, with 75.7\% of the faculty stating that class size has an impact on the workload.
+
+Several of the models were also retrospective in nature and aimed at surveying and quantifying the workload of the faculty in the previous year. However, for the purposes of workload allocation, it is important to quantify the workload of the faculty in the upcoming year, which might not be the same as the previous year. As a result, the workload model needs to be prospective in nature, and should be able to quantify the workload of the faculty in the upcoming year as a function of the factors involved, which was only solved by \textit{Griffith et al.} \cite{griffith2020framework}.
+
+Overall, due to the lack of a comprehensive workload model that accounts for all factors, the need for a new workload model that accounts for all the teaching activities involved, while accounting for class size, course newness and faculty familiarity is felt.
+
+\section{Workload Models}
+
+There are several key steps to allocating teaching workload to the faculty. The first step is to quantify the workload involved in teaching a course. The second step is to identify the non-teaching workload of the faculty, which includes research and service workload. Using these two, the teaching workload of the faculty is calculated. In this section, we will look into the existing approaches to quantifying the research and service workload of the faculty.
+
+Additionally, some of the existing research looks into workload models, which aim to provide a framework for quantifying and distributing the workload among the faculty. Some of these models are discussed in the following sections, along with the shortcomings and scope of improvement for these models.
+
+\subsection{Research and Service Workload}
+
+The working life of a university faculty comprises primarily three parts - Service, Research, and Teaching. Each university has a different set of expectations from the faculty in each of these areas, but broadly speaking, the contributions towards furthering the university's research outputs is considered as Research Workload, and all other workload except from Teaching and Research is considered as Service Workload. This includes administrative duties, community service, and other activities that are not directly related to teaching or research.
+
+The simplest solution to equal distribution of workload between faculties (or equal misery) in all three areas \cite{gray1989university}. However, as different faculties do not display an equal affinity or competency towards these areas \cite{finlay1994management}, equal distribution would lead to inefficient use of the faculties' skill-sets. Additionally, \textit{Deem et al.} \cite{deem2020new} identified that placing pressures on academic staff to increase their number of publications is viewed unfavourably, as it leads to a focus on quantity over quality. This is a key issue with the research workload, as it is difficult to quantify. Moreover, it is seen that research-active faculty ends up doing more research at the cost of overloading and diminishing the quality of teaching.
+
+\textit{R. Sood} \cite{rohan2017} proposed a novel approach to quantifying the research workload, by treating the number of research staff supervised by a faculty as a proxy for the research workload. This is a key step in the right direction, as it provides a clear picture of the research workload of the faculty. However, an analysis of the research workload of faculty showed that beyond a point, economies of scale that are achieved due to the inherent hierarchical nature of research supervision, with the faculty supervising a few senior researchers, who in turn supervise a few junior researchers. Thus, additional considerations need to be made to account for these economies of scale.
+
+\cite{rohan2017} proposed an approach of treating research and service workloads in directly relaxing the teaching workload expectations from a faculty. However, even though the teaching workload relaxation approach works great in practice for allocating teaching workload, it fails to provide a clear picture of the workload distribution among the faculty. This is because the teaching workload relaxation approach is a reactive approach, and does not aim to analyze the workload distribution among the faculty.
+
+The STAR Model (Service, Teaching, Administration, Research) proposed by \cite{finlay1994management} was a key stepping stone in defining the non-teaching parts of a faculty's workload. It focused more on allocating research time as a function of the other three activities. However, the approaches towards calculating each of the constituents were not provided, and the model was not widely adopted. \textit{Burgess et al.} found that a simpler TRO - Teaching, Research, and Other model was preferred by faculty \cite{burgess2003academic} because of its contemporary nature and official sanction in the Transparency Review.
+
+\begin{equation}
+  T_c + T_a + T_p + S_i + S_p + S_c+R = C
+  \label{griffith_wam}
+\end{equation}
+
+Recently, \textit{Griffith et al.} goes much further in describing the constituents of Service Workload as \textbf{Professional}, and \textbf{Community} Service Workload (\(S_p, S_c\)), and the constituents of Teaching workload as \textbf{Classroom}, \textbf{Administrative} and \textbf{Preparation} Teaching Workload (\(T_c, T_a, T_p\)) as shown in \autoref{griffith_wam} \cite{griffith2020framework}. This provides much needed clarity into the nature of the work involved in each of these constituents. It also highlights key problems the academic community faces in each of the workload constituents. However, it omits the inclusion of faculty-specific deviations to the teaching workload and the variation in workload depending on the faculty type. Additionally, it doesn't provide a framework for quantifying the research workload and the service workload of the faculty.
+
+In a 2021 journal, \textit{Narasimhan et al.} explored a new TRASE model, accounting for Teaching, Research, Administration, Service, and Entrepreneurship \cite{narasimhan32trase}. This provided a workload factor for each of the constituents, given for a level of participation and workload in each of the constituents. "if a person wants to have a teaching load of 30\%, research load of 50\% and service load of 20\%, then s/he has to have: i) two subjects per semester, ii) three conference papers or 1-3 journal papers per year with one paper in Tier-I level and obtain funding to the tune of 4,00,000/year and have two PhD/MS students and iii) participate in 2 committees and perform at least one other significant activity."
+
+\subsection{Issues with current workload models}
+
+\textit{Doyle et al.} and \textit{Winefield et al} reported time pressures and lack of time for research \cite{doyle1998occupational,winefield2003occupational}. This was also reported by \textit{Jensen et al.} \cite{jensen2009vanishing}, who identified that the lack of time for research was a key factor in the burnout of faculty.
+
+However, it was found that although there exist several approaches to quantifying the teaching workload, there is a lack of approaches to quantifying the research workload and the service workload. Additionally, most of the proposed approaches to quantifying various types of workload fail to bring them to a common scale, which makes it difficult to compare the workload of different faculty. Burgess \cite{burgess2003academic} stated that transparency in workload allocation is critical to ensure wider acceptance of the workload model by the faculty members.
+
+Thus, the need for a comprehensive workload model that accounts for all the teaching activities, as well as the research and service workload, was felt. This workload model should also be able to quantify the workload of the faculty on a common scale to allow for comparison of the workload of different faculty. \textit{Kenny et al.} \cite{kenny2021emerging} identified issues with the workload allocation processes to identify and equitably account for the key tasks involved in the faculty workload. A comprehensive workload model can help highlight the distribution of workload among the key areas and improve visibility of staff workload.
+
+Overall, the key issues with the existing WAMs can be summarized as follows:
+
+\begin{enumerate}
+
+  \item \textbf{Inability to accurately quantify research workload}
+
+        Most WAMs do not account for the research workload. The few models that quantify the research aim to do so using the research output. However, these approaches assume an equal amount of time required for different research work and, thus, fail to account for the varying amounts of time different research activities require. It's also dangerous to base teaching output on the number of publications, since it incentivizes quantity over quality. In this regard, the approach adopted by \textit{R. Sood} \cite{rohan2017} had merit, as it quantified the research workload as a function of the number of research staff supervised by a faculty which is difficult to abuse, because hiring additional research staff is expensive.
+
+  \item \textbf{Teaching Centric}
+
+        Various models were Teaching Centric, and fail to give a clear picture of the workload distribution by treating service and research workloads as concessions to teaching, and thus fail to provide organizational insights into the overall workload distribution. \cite{rohan2017}. Since the final output of such models is the teaching workload, it leads to a lack of transparency in the workload distribution among the faculty, and thus may lead to lack of acceptance of the workload model by the faculty.
+
+  \item \textbf{Lack of organizational insights}
+
+        Various approaches attempting to quantify the areas of workload also fail to bring them to a common scale, which makes it difficult to compare the workload of different faculty. Seeing each of the areas of workload as a separate entity may result in the management's failure to recognize the areas of workload that are classically prone to overload, such as research and service. This may lead to the management's lack of organizational insights into the workload distribution among the faculty. The TRASE model \cite{narasimhan32trase} is a step in the right direction, putting all the constituents of workload on a common scale.
+
+  \item \textbf{Retrospective approach}
+
+        Of the few models that manage to quantify the research workload, most are retrospective in nature and have an inability to account for unpublished research. This leads to inaccuracies, since the rewards for research are retrospective and don't reflect the current workload. eventually align to a Garbage-In-Garbage-Out due to their dependence on research output. This ensures that the current year will only be able to reach a research output similar to the previous year due to a proportional amount of teaching work allocated in this year. Additionally, it causes issues with periodicity. For example, in the worst case, looking at the research output of a faculty in the fall semester might seem high due to major conferences being held in that period, which will reduce their workload for spring semester, but lack of research output in the spring semester might lead to a high workload in the fall semester, which is undesirable.
+
+\end{enumerate}
+
+\subsection{Workload Inequity as a systemic problem}
+
+\textit{Jensen et al.} \cite{jensen2009overload} and \textit{Kenny et al.} \cite{jensen2009overload, kenny2014effectiveness} identify that workload modelling and distribution fails to make an impact due to the lack of additional resources made available to address workload inequities. The lack of available expertise in key areas disproportionately overloads certain faculty with said expertise, essentially punishing faculty for being skilled.
+
+\cite{vardi2009impacts, houston2006academic} clearly identify that even with the mandated use of WAMs in Australian universities, overloading of faculty is a widespread problem due to under-supply issues.\cite{kenny2014effectiveness} also notes that defining realistic time limits is a necessary step towards ensuring welfare of academic staff. One of the big reasons for this was identified as budgetary concerns, with universities being unwilling to hire additional faculty to address the workload inequity \cite{kenny2012placing}.
+
+This is a key issue with the workload allocation, as workload inequity is a systemic problem that cannot be solved by the workload allocation process alone. In the absence of additional resources, the best the workload allocation process can do is to ensure that the workload is distributed equitably among the faculty, overloading them on an equitable basis. However, it was found that this is not a sustainable solution, as it leads to faculty burnout and attrition.
 
 \section{Allocation Priorities}
 
-\cite{harwood1975optimizing} identifies the three key stakeholders of workload allocation and their expectations from the teaching workload distribution. \cite{schniederjans1987goal, badri1998multi} further go into the role faculty preferences play in this distribution.
+\cite{harwood1975optimizing} identifies the three key stakeholders of workload allocation as the faculty, the students, and the administration. The faculty expects a fair allocation of courses that aligns with their research interests. The students expect a variety of courses that allows them to customize their academic journey, and expect the best possible teaching experience, with faculty that have good feedback in the past. The administration expects a optimal utilization of faculty, but are largely in alignment with the faculty and student expectations.
+
+\textit{Schniederjans et al.} and \textit{Badri et al.} \cite{schniederjans1987goal, badri1998multi} further go into the role faculty preferences play in this distribution, with the faculty being able to express their preferences for the courses they want to teach.
+
+\textit{R. Sood} \cite{rohan2017} identified another management priority - the need to ensure that the best faculty are allocated to earlier year courses, which are critical in setting the foundation for the students' academic journey. This is a key priority, as it ensures that the students get the right amount of guidance in the early years, while they gain more autonomy and independence in the later years, and build the skills to self-learn. Additionally, a bias was identified towards allocating faculty to courses they have taught in the past, as they are familiar with the course material and the teaching style, and thus require less work to prepare for the course.
+
+With this in mind, the following allocation priorities were identified:
 
 \begin{enumerate}
-    \item Faculty\\
-          — Faculty course preferences are important as they allow them to align their teaching with their areas of research interest\\
-          — Schedule preferences also allow them to create windows in their schedule for focused research and administrative work that fits their work styles
-    \item Student Body\\
-          — Students expect a minimum variety of courses that allows them to customize their academic journey
-    \item Administration\\
-          — Maintain equitable distribution of work among the staff and lack of bias
+  \item Faculty
+
+        — Faculty course preferences are important as they allow them to align their teaching with their areas of research interest
+
+        — Faculty should be allocated to courses that they have taught in the past, as they are familiar with the course material and the teaching style, and thus require less work to prepare for the course
+
+        — Schedule preferences also allow them to create windows in their schedule for focused research and administrative work that fits their work styles
+
+        — Faculty should not be overloaded with courses, as it leads to lack of time towards research, which is important for their career progression
+
+  \item Student Body
+
+        — Students expect a minimum variety of courses that allows them to customize their academic journey
+
+        — Students expect the best possible teaching experience, with faculty that have good feedback in the past
+
+  \item Administration
+
+        — Maintain equitable distribution of work among the staff and lack of bias
+
+        — Ensure that the best faculty are allocated to earlier year courses, which are critical in setting the foundation for the students' academic journey
+
+        — Ensure optimal utilization of faculty
+
+        — Ensure that the faculty are not overloaded with courses, as it leads to burnout and attrition
+
 \end{enumerate}
 
-\section{Existing Allocation Algorithms}
+These priorities establish a good basis for the allocation process, providing the key objectives and constraints for the allocation process. There is a need to mathematically quantify these priorities to allow for allocation algorithms to use them as a basis for the allocation process. Additionally, a prioritization needs be defined for these objectives and constraints, as they are not of equal importance. For example, the need to ensure that the faculty are not overloaded with courses is more important than ensuring their preferences are met.
 
-\cite{schniederjans1987goal} originally proposed a goal-programming algorithm for solving a preference-aware course allocation algorithm. Due to its matrix optimization methodology, however, it fails to apply on large-scale universities due to its high time complexity. It also suffers from an inability to deal with allocation priorities.
+\section{Existing Approaches to Course Allocation}
 
-\cite{rohan2017} opted for a greedy solution due to the massive complexity involved in expressing a many-to-many allocation with multiple levels of course-priority in a goal-programming solution. The greedy solution involved iterating through the courses and allocating the best faculty available. The solutions produced by this approach were observed to be low-quality, with a tendency to converge local minima. This was countered using an Iterated Greedy algorithm inspired by the \cite{ruiz2007simple}, which goes through multiple phases of random destruction and reconstruction of the solution to converge towards a better solution.
+\textit{Schniederjans et al.} \cite{schniederjans1987goal} originally proposed a goal-programming algorithm for solving a preference-aware course allocation algorithm. This was a good approach that resulted in balanced assignments that aim to satisfy the requirements of both the department, and the faculty preferences. Although much more efficient than the traditional subjective approaches however, it fails to apply on large-scale universities due to its high time complexity due to its matrix optimization methodology. Additionally, the high complexity of the model makes it difficult to implement, especially in departments with a large number of faculty members and courses.
 
-\cite{munkres1957algorithms} is the go-to algorithm for matrix-optimization problems. However, it fails to apply to many-to-many solutions with inter-dependent allocations. Recently, \cite{zhu2016solving} has proposed an approach of applying the Munkres algorithm to many-to-many allocations, with promising results. However, due to the varying levels of course-priority present in teaching allocation, its applicability remains to be evaluated.
+\textit{Sood R.} \cite{rohan2017} opted for a greedy solution due to the massive complexity involved in expressing a many-to-many allocation with multiple levels of course-priority in a goal-programming solution. The greedy solution involved iterating through the courses and allocating the best faculty available. The solutions produced by this approach were observed to be satisfactory, but had a tendency to converge local minima. This was countered using an Iterated Greedy algorithm inspired by the \cite{ruiz2007simple}, which goes through multiple phases of random destruction and reconstruction of the solution to converge towards a better solution. However, the inherent greediness of allocating courses one-at-a-time leads to sub-optimal solutions, as it fails to account for the inter-dependencies between courses.
+
+\textit{Sood R.} also explored the application of the Kuhn-Munkres algorithm, commonly known as the Hungarian algorithm, to allocating Student Final-Year Projects. However, this wasn't explored for the course allocation problem \cite{rohan2017}. It is also important to note that the Hungarian Algorithm \cite{munkres1957algorithms} is the go-to algorithm for one-to-one matrix-optimization problems, but it fails to directly apply to many-to-many solutions with inter-dependent allocations. Hence, great care needs to be taken to orchestrate the many-to-many allocation problem into a one-to-one matrix-optimization problem.
+
+\textit{Mallicka et al.} \cite{mallicka2021claps} explored the application of the Hungarian algorithm to build a "Course and Lecture Assignment Problem Solver". For this, the considerations include faculty expertise, effectiveness in course delivery, and the goal of minimizing preparation time while maximizing teaching effectiveness. It failed to address the problem of many-to-many allocations, and thus remains limited to an idealistic one-to-one allocation problem. Additionally, it relied on a self-rated effectiveness score, which is subjective and difficult to quantify, and also didn't account for other factors that affect the allocation like faculty preferences and availability. However, the study demonstrates the usefulness of the Hungarian method in solving the course assignment problem in an institution.
+
+Recently, \textit{Zhu et al.} \cite{zhu2016solving} proposed an approach of applying the Munkres algorithm with backtracking to many-to-many allocations, with promising results. However, it explored a generic assignment problem whose applicability remains to be seen in the course allocation problem. There are inherent interdependencies present in the course allocation problem regarding faculty availability i.e. the allocation of faculty to one course might make them unavailable for another course, since the faculty can only teach a limited amount of workload. This is a key interdependency that needs to be accounted for in the allocation process.
 
 \cite{dofadar2021hybrid} has recently applied a combination of the Local Repair Algorithm and the Modified Genetic Algorithm, which shows promising results in the absence of any priority list in the algorithm. However, due to the absence of priority-optimization, it cannot be applied to a faculty-preference-aware allocation system.
-
-\section{Issues with current WAMs}
-
-\begin{enumerate}
-
-    \item \textbf{Inability to accurately quantify Research Workload}
-
-          Most WAMs do not account for the research workload. The few models that quantify the research aim to do so using the research output. However, these approaches assume an equal amount of time required for different research work and, thus, fail to account for the varying amounts of time different research activities require. It's also dangerous to base teaching output on the number of publications, since it incentivizes quantity over quality. Also, the inability to account for unpublished research is problematic.
-
-    \item \textbf{Teaching Centric}
-
-          Teaching Centric Models fail to give a clear picture of the workload distribution by treating service and research workloads as concessions to teaching, and thus fail to provide organizational insights into the overall workload distribution. \cite{rohan2017}
-
-    \item \textbf{Misalignment with organizational goals}
-
-          A University has organizational expectations set for most faculty types in the faculty handbook \cite{griffith2020framework}. However, most models fail to align to these organizational goals and do not establish a baseline of what is expected out of the faculty.
-
-    \item \textbf{Retrospective approach}
-
-          Of the few models that manage to quantify the research workload, most are retrospective in nature and eventually align to a Garbage-In-Garbage-Out due to their dependence on research output. This ensures that the current year will only be able to reach a research output similar to the previous year due to a proportional amount of teaching work allocated in this year.
-
-    \item \textbf{Lack of realistic limits}
-
-          \cite{vardi2009impacts} identifies that a key failure of workload models is the inability to recognize limits of workload a faculty can handle. This is largely due to treating workload as a zero-sum game without the key recommendation that more faculty needs to be hired to maintain equity.
-\end{enumerate}
-
 
 \section{Summary}
 

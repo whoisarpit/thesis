@@ -35,14 +35,34 @@
   ],
   "latex-workshop.view.pdf.color.dark.pageBorderColor": "#6f6f6f1f",
 
-  "latex-workshop.view.pdf.color.dark.backgroundColor": "#161616",
-  "latex-workshop.view.pdf.color.dark.pageColorsBackground": "#242424",
-  "latex-workshop.view.pdf.color.dark.pageColorsForeground": "#ccc",
+  // "latex-workshop.view.pdf.color.dark.backgroundColor": "#161616",
+  // "latex-workshop.view.pdf.color.dark.pageColorsBackground": "#242424",
+  // "latex-workshop.view.pdf.color.dark.pageColorsForeground": "#ccc",
 
   "window.title": "Thesis",
   "editor.tabSize": 2,
   "editor.indentSize": "tabSize",
   "editor.detectIndentation": false,
   "cSpell.language": "en-gb",
-  "cSpell.words": ["startstop", "Vardi", "weightage"]
+  "cSpell.words": [
+    "incentivizes",
+    "Munkres",
+    "startstop",
+    "TRASE",
+    "Vardi",
+    "weightage"
+  ],
+  "grammarly.selectors": [
+    {
+      "language": "latex",
+      "scheme": "file"
+    }
+  ],
+  "grammarly.config.documentDialect": "british",
+  "grammarly.config.documentDomain": "academic",
+  "grammarly.config.suggestionCategories.oxfordComma": "on",
+  "grammarly.config.suggestionCategories.passiveVoice": "on",
+  "grammarly.config.suggestionCategories.personFirstLanguage": "off",
+  "grammarly.config.suggestionCategories.stylisticFragments": "on",
+  "grammarly.files.exclude": ["**/main.tex"]
 }

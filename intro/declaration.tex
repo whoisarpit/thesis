@@ -1,14 +1,14 @@
 
 \newcommand*{\signaturetable}[1][default]{
-    \begingroup
-    \noindent
-    \renewcommand{\arraystretch}{0} % to reduce the spacing between rows
-    \begin{tabular}{p{0.35\linewidth}p{0.1\linewidth}p{0.55\linewidth}}
-        \makecell{\submissiondate \vspace{0.2cm}} &  & \includegraphics[width=\linewidth]{images/logos/ase_watermark.png} \\
-        \hrule                                    &  & \hrule                                                             \\
-        \makecell[t]{Date}                        &  & \makecell[t]{ #1 }                                                 \\
-    \end{tabular}
-    \endgroup
+  \begingroup
+  \noindent
+  \renewcommand{\arraystretch}{0} % to reduce the spacing between rows
+  \begin{tabular}{p{0.35\linewidth}p{0.1\linewidth}p{0.55\linewidth}}
+    \makecell{\submissiondate \vspace{0.2cm}} &  & \includegraphics[width=\linewidth]{images/logos/ase_watermark.png} \\
+    \hrule                                    &  & \hrule                                                             \\
+    \makecell[t]{Date}                        &  & \makecell[t]{ #1 }                                                 \\
+  \end{tabular}
+  \endgroup
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -17,8 +17,8 @@ I hereby certify that the work embodied in this thesis is the result of original
 \vfill
 
 \signaturetable[{
-            \authorname \\ \deptname \\ \schoolname
-        }]
+      \authorname \\ \deptname \\ \schoolname
+    }]
 \vspace{2cm}
 
 \chapter*{Supervisor declaration}
@@ -28,8 +28,8 @@ I have reviewed the content and presentation style of this thesis and declare it
 
 
 \signaturetable[{
-            \supervisorname \\ \deptname \\ \schoolname
-        }]
+      \supervisorname \\ \deptname \\ \schoolname
+    }]
 \vspace{2cm}
 
 
@@ -46,6 +46,6 @@ This thesis does not contain any materials from papers published in peer-reviewe
 % Date section on the left and watermarked signature on the right
 
 \signaturetable[{
-            \authorname \\ \deptname \\ \schoolname
-        }]
+      \authorname \\ \deptname \\ \schoolname
+    }]
 \vspace{2cm}

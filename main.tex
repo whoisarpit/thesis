@@ -90,7 +90,6 @@ style=ieee,
 \graphicspath{ {images/} }  % Direct to the main image folder, always good to create sub-folders to organize images for individual chapters
 
 
-\singlespacing  %making text double spaces
 
 \def\thesistitle{Holistic Teaching Workload Allocation for Research-Intensive Universities}
 \def\authorname{Arpit Roopchandani}
@@ -98,54 +97,54 @@ style=ieee,
 \def\deptname{School of Computer Science and Engineering}
 \def\supervisorname{Prof. Thambipillai Srikanthan}
 \def\schoolname{Nanyang Technological University}
-\def\submissionyear{2023}
-\def\submissionmonth{September}
-\def\submissiondate{20 \submissionmonth, \submissionyear}
+\def\submissionyear{2024}
+\def\submissionmonth{January}
+\def\submissiondate{23 \submissionmonth, \submissionyear}
 
 
 % End of preamble
 %-------------------------------------------------------------------------------------------
 \begin{document}
-
-% Making title page
-\input{intro/cover.tex}
-\input{intro/titlepage.tex}
-
+\onehalfspacing
+\setlength{\parskip}{1em}   % 1em is the height of the letter 'M'
+{
+  \singlespacing
+  % Making title page
+  \input{intro/cover.tex}
+  \input{intro/titlepage.tex}
+}
 
 % Starting front matter
-% Abstract goes here
-\onehalfspacing
+\pagenumbering{roman}
+{
+  \input{intro/declaration.tex}
+  % \input{intro/acknowledgements.tex}
+  \input{intro/abstract.tex}
+}
 
-\pagenumbering{roman}   % Roman page numbering to start from abstract onwards
+{
+  \singlespacing
+  \setlength{\parskip}{0em}
 
-\input{intro/declaration.tex}
+  \pdfbookmark{\contentsname}{toc}
+  \tableofcontents
 
-\newpage
-\singlespacing          % keep pre-content single spaced
-\listoffigures          % generate list of figures
-\addcontentsline{toc}{section}{\textbf{List of Figures}}
-\listofalgorithms
-\addcontentsline{toc}{section}{\textbf{List of Algorithms}}
-\newpage
-\listoftables           % generate list of tables
-\addcontentsline{toc}{section}{\textbf{List of Tables}}
-\newpage
-\pdfbookmark{\contentsname}{toc}
-\tableofcontents
+  \listoffigures
+  \addcontentsline{toc}{section}{\textbf{List of Figures}}
 
-\onehalfspacing
+  \listofalgorithms
+  \addcontentsline{toc}{section}{\textbf{List of Algorithms}}
 
-\newpage
-\pagenumbering{arabic}    % We want Arabic numerals for main matter page numbering
+  \listoftables           % generate list of tables
+  \addcontentsline{toc}{section}{\textbf{List of Tables}}
+}
 
-\input{intro/abstract.tex}
+
 
 % Starting main matter
 
 \newpage
-
-\setlength{\parskip}{1em}   % 1em is the height of the letter 'M'
-
+\pagenumbering{arabic}
 \input{chapters/introduction.tex}
 \input{chapters/literature_review.tex}
 \input{chapters/teaching_workload.tex}
@@ -154,10 +153,11 @@ style=ieee,
 \input{chapters/tutorial_lab_allocation.tex}
 \input{chapters/further_work.tex}
 
-\singlespacing
-% Insert bibliography here
-\printbibliography
-
+{
+  \singlespacing
+  % Insert bibliography here
+  \printbibliography
+}
 \end{document}
 
 % End of document

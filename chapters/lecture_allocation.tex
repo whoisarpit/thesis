@@ -3,9 +3,15 @@
 
 \section{Introduction}
 
-The goal of the lecture allocation problem is to allocate the lectures of each course to the faculty members who are teaching the course in a way that ensures the students have a good learning experience and the faculty members are not overworked. The previous chapters have defined the amount of work involved in each activity of the teaching workload, as well as the amount of workload that each faculty member can handle. The lecture allocation process should take these factors into account when allocating the lectures of each course to the faculty members who are teaching the course. Additionally, it should also incorporate the preferences of the faculty members and the management.
+The goal of the lecture allocation problem is to allocate course lectures to faculty members in a way that ensures the students have a good learning experience and the faculty members are not overworked. The previous chapter identified the amount of workload that each faculty member can handle. In this chapter, the lecture allocation process is designed to incorporate this workload limit, along with the student feedback for the faculty members.
 
-In this chapter, the lecture allocation problem will be defined and modeled as a multi-constraint optimization problem which can be solved using the Hungarian algorithm. To solve this, a course-faculty fit metric will be defined to determine the suitability of a faculty member to teach a course regarding the student learning experience and the faculty preferences. The course-faculty fit metric will be used to define the objective function of the optimization problem. The lecture allocation problem will be solved using the Hungarian algorithm and the results will be analyzed based on optimality and scalability. The constraints of the optimization problem will be defined to ensure that the workload limits of the faculty members are not exceeded and the preferences of the faculty members and the management are taken into account. Various strategies will also be proposed to improve the quality of the allocation results.
+Additionally, it will also incorporate the faculty preference towards certain courses, and the management priority of ensuring that the earlier-year courses are taught by the best faculty members, all while ensuring that the lectures are allocated equitably among the faculty members.
+
+The lecture allocation problem will be defined and modeled as a multi-constraint optimization problem which will be solved using the Hungarian algorithm. The course-faculty fit metric will be defined to represent the suitability of a faculty member to teach a course, which will be used by the Hungarian algorithm.
+
+Additional constraints will be added to the technique to honor the workload limits of the faculty, and additional techniques will be introduced to ensure the allocation of all course lectures without exceeding these workload limits.
+
+In the following sections, these techniques will be discussed in detail and the experimental results of the lecture allocation process applied to real-world data will be analyzed.
 
 \section{Factors affecting Course-Faculty Fit}
 

@@ -3,11 +3,15 @@
 
 \section{Introduction}
 
-To allocate the teaching workload in a fair and transparent manner, the first step is to accurately quantify the teaching workload to ensure that important parts of the teaching workload are not overlooked. Previous attempts at computing the teaching workload have been made, but they have been largely retrospective, looking at the activities performed by faculty in the past to compute the teaching workload. However, for allocating a teaching workload, a prospective approach is required, computing the teaching workload as a function of the activities that need to be performed and the factors that affect them.
+The first step towards an equitable course allocation is to quantify the workload involved in teaching a course. Existing research shows that failing to accurately quantify this workload leads to considerable faculty dissatisfaction \cite{watts2011burnout}. Thus, accuracy and comprehensiveness of the workload calculation are essential, ensuring that the primary activities involved in teaching a course are accounted for, providing the faculty with an appropriate amount of time to perform each of these activities adequately.
 
-Teaching activities have previously been classified into the buckets of classroom contact hours (delivery of lectures etc), course administration workload (grading examinations, etc), and preparation workload (preparing and revising course material) \cite{griffith2020framework}. However, a need to further divide the teaching workload into more granular activities was felt. This was done to better account for the distribution of workload between the different faculty involved in teaching a course - lecturers, tutors, and lab instructors.
+Many previous attempts at computing the teaching workload have been retrospective, quantifying the course workload for analytic purposes. For course allocation, however, a prospective approach is required, computing the teaching workload as a function of the activities that need to be performed and the factors that affect them.
 
-An analysis of various courses revealed that the teaching workload could be divided into granular activities. These include preparing the course material, delivering the course material, grading the examinations and assignments, and consultation. In the following sections, we will discuss the various activities involved in teaching a course and how they are distributed between the different faculty involved in teaching a course.
+\textit{Griffith et al.} proposed a prospective approach, classifying the teaching workload into preparation, delivery, and grading \cite{griffith2020framework}. This research proposes a technique that builds upon this approach, adding additional granularity to more accurately account for the different types of teaching activity - lectures, tutorials, and labs.
+
+Additionally, various factors are analyzed, and their impact on the teaching workload is incorporated into the technique. These factors are class size - which has a significant impact on the grading workload; faculty familiarity with the course material - which has a significant impact on the preparation workload; and type of teaching activity - which identifies the responsibilities of the faculty.
+
+In the following sections, these components of course workload, and the factors affecting them are discussed in detail. The workload calculation technique is then demonstrated with real-world examples.
 
 \section{Components of Teaching Workload}
 

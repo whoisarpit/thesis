@@ -17,23 +17,21 @@ In the following sections, these techniques will be discussed in detail and the 
 
 The first step towards solving the allocation problem is defining what makes a faculty member suitable to teach a course. This should incorporate the priorities of the students, the management, and the faculty members. Additionally, it should also be easy to understand and explain, easy to collect the data required to compute it, and easy to compute. It should also be easy to tweak and improve, since the priorities of different institutions may be different.
 
-
-
 \subsection{Student Feedback}
 
 The students are the most important stakeholders in the decision of which faculty member should teach a course since their learning experience and outcomes are directly affected by this decision. Their priorities are to be taught by a faculty member who is experienced at teaching and knowledgeable about the subject matter. This priority can be quantified by collecting the feedback of the students about the faculty member who taught the course in the past.
 
 At the end of a semester, the student feedback is collected on their learning experience in the courses they were taught. This feedback is collected in the form of a survey, which is filled out by the students and submitted to the management. The survey contains questions about the faculty members who taught the course, the course content, the pace of the course, and the overall learning experience. The feedback is collected for each course and faculty member combination. This feedback may also be collected periodically during the semester, especially for courses that are taught in multiple parts by different faculty members.
 
-Peer feedback is also collected from the faculty members of the department, which is used to evaluate the teaching skills of the faculty members. This includes questions about the teaching skills of the faculty members and their knowledge of the subject matter.
+Peer feedback collected from the faculty members of the department can also be used to evaluate the teaching performance of the faculty members. This includes questions about the teaching performance of the faculty members and their knowledge of the subject matter.
 
 These feedback components are then combined into a \textbf{Student Feedback Score} for each course-faculty combination, which is a number between 0 to 5. This score is calculated by taking a weighted average of the student feedback and the peer feedback, with student feedback being weighted more than the peer feedback since the student feedback is more representative of the learning experience of the students.
 
 Since there are also faculty who are eligible to teach a course but have never taught the course before, they will not have any student feedback. In this case, the peer feedback is combined with the average student feedback for the course to calculate the Student Feedback Score.
 
-\subsection{Faculty Preference}
+\subsection{Faculty Preference and Expertise}
 
-With manual allocation, faculty members are often left with no choice in the courses they teach. The largely static allocation process leaves faculty members with similar teaching assignments every semester, which may lead to a lack of motivation and interest in teaching. With the automated allocation process, faculty members can be given the opportunity to teach courses that they are interested in, which will lead to a better learning experience for the students and a better teaching experience for the faculty members.
+With manual allocation, faculty members are often left with courses they prefer not to teach. The largely static allocation process leaves faculty members with similar teaching assignments every semester, which may lead to a lack of motivation and interest in teaching. With the automated allocation process, faculty members will be considered to teach courses that they are interested in, which will lead to a better learning experience for the students and a better teaching experience for the faculty members.
 
 Before every semester, the faculty are asked to submit their preferences for the courses they would like to teach. This is done by asking the faculty members to rank the courses they are eligible to teach in the order of their preference. They are required to rank every course that they are eligible to teach, which also forms the basis for the course-eligibility criteria since they should not be given courses that are completely out of their area of expertise. Additionally, the courses they have taught in the past are also treated as eligible courses, even if they are not directly ranked by the faculty. The management requires the faculty to provide a minimum number of preferences to ensure that courses are not left unallocated.
 
@@ -41,50 +39,11 @@ These preference scores are then normalized to a number between 0 to 5 to form t
 
 \subsection{Management Priorities}
 
-The management priority is to ensure the long-term learning path of the students is optimal throughout the program. This means establishing a strong foundation for the students in the early years of their program and then building on that foundation in the later years. This is done by ensuring that the courses in the early years of the degree are taught by highly experienced faculty members with good teaching performance scores. The latter-year courses on the other hand can be allocated with a higher priority to the faculty members who are more interested in teaching the course since this is reflective of the faculty's research interests, which makes them more knowledgeable about the subject matter for the advanced courses in the program.
+The management priority is to ensure the long-term learning path of the students is optimal throughout the program. This means establishing a strong foundation for the students in the early years of their program and then building on that foundation in the later years. This is done by ensuring that the course lectures in the early years of the degree are taught by highly experienced faculty members with good teaching performance scores. The latter-year course lectures on the other hand can be allocated with a higher priority to the faculty members who are more interested in teaching the course since this is reflective of the faculty's research interests, which makes them more knowledgeable about the subject matter for the advanced courses in the program.
 
-This can be achieved by ensuring that the higher-year courses are given priority to be taught by the faculty members with the best ratings. This prioritization can be done in an absolute manner, where the courses are allocated in the sequence of their year of study, thus ensuring that the courses in the earlier years can reserve the best faculty members. This can also be done in a soft manner, biasing the allocation of earlier-year courses towards the best faculty members by manipulating the course-faculty fit metric. This will be discussed in detail in the next section.
+This can be achieved by ensuring that the higher-year courses are given priority to be taught by the faculty members with the best ratings. This prioritization is done in an absolute manner, where the courses are allocated in the sequence of their year of study, thus ensuring that the courses in the earlier years can reserve the best faculty members. This will be discussed in detail in the next section.
 
-\section{Defining The Allocation Problem}
-\label{sec:defining_the_allocation_problem}
-
-The lecture allocation involves allocating the lectures of each course to the faculty members who are eligible to teach the course. It can be defined as a constrained multi-objective optimization problem, with a set of objectives that need to be optimized and a set of constraints that need to be satisfied.
-
-The primary objective of the allocation problem is to ensure that all the courses are allocated to the faculty members since unallocated courses will lead to the cancellation of the course. Additionally, the allocation problem should also ensure that the workload of the faculty members is distributed equitably and that they receive a similar workload in terms of lectures, tutorials, and practicals. The allocation problem should also ensure that the earlier-year courses are taught by the best faculty as per the management priorities. Finally, the allocation problem should ensure that the faculty members are allocated the courses that they are interested in teaching, which will lead to a better teaching experience for the faculty members. These objectives are described in detail in the following sections, in the order of their priority.
-
-\begin{enumerate}
-  \item \textbf{Ensure all courses are allocated}
-
-        The allocation problem should ensure that all the courses are allocated to a faculty member. This is a hard constraint of the allocation problem since unallocated courses will lead to cancellation of the course, which will adversely impact the learning experience of the students, and may impact their long-term learning path since some courses may form a prerequisite for other courses.
-
-        There are some prerequisites to this constraint - the allocation process cannot allocate a course if there are no eligible faculty members to teach the course, or if the maximum workload for the faculty members is already reached. However, given that these prerequisites are met, the allocation process should ensure that all the courses are allocated.
-
-  \item \textbf{Distribute workload in proportion to the relative teaching workload}
-
-        The relative teaching workload, defined in the previous chapter, is a measure of the amount of teaching workload that a faculty member can handle, relative to the other faculty members. Thus, distributing the workload in proportion to the relative teaching workload ensures that the teaching workload is distributed equitably among the faculty members, ensuring that no faculty member is overworked.
-
-  \item \textbf{Distribute a similar proportion of lectures, tutorials, and practicals to each faculty member}
-
-        A course consists of multiple teaching activities, such as lectures, tutorials, and practicals. Preferably, these teaching activities should be distributed equally among the faculty members, so that each faculty member has a similar teaching experience. This is a soft constraint of the allocation problem since it is not as important as the other objectives, but it is still desirable to have a balanced teaching experience for the faculty members.
-
-  \item \textbf{Ensure that earlier-year courses are taught by the best faculty members}
-
-        The management priority is to ensure that the earlier-year courses are taught by the faculty members with the best ratings since this is the foundation for the learning path of the students. This means that the earlier-year courses should be allocated with a higher priority to the faculty members with the best ratings. This is a soft constraint of the allocation problem since it is not as important as the other objectives, but it is still desirable to have the earlier-year courses taught by the best faculty members.
-
-  \item \textbf{Maximize the faculty performance score}
-
-        The faculty performance score, defined in the previous section, is a measure of the suitability of a faculty member to teach a course. It is representative of the student learning experience, and thus, maximizing the total faculty performance score of the allocation ensures that the students have a good learning experience. This is the primary objective of the allocation problem.
-
-  \item \textbf{Maximize the faculty preference score}
-
-        The faculty preference score, defined in the previous section, is a measure of the preference of the faculty member to teach a course. Thus, maximizing the total faculty preference score of the allocation ensures that the faculty members are allocated the courses that they are interested in teaching, which will lead to a better teaching experience for the faculty members.
-
-        This is treated as a secondary objective of the allocation problem since it is not as important as the primary objective of maximizing the faculty performance score. However, given that the faculty performance score is comparable between the two allocations, the allocation with the higher faculty preference score is preferred.
-
-
-\end{enumerate}
-
-\section{Modelling The Allocation Problem}
+\section{Modelling Lecture Allocation Problem}
 
 The lecture allocation problem can be modeled as an assignment problem, where the tasks are the lectures of each course, and the agents are the faculty members who are teaching the course. Each lecture's assignment to a faculty member should have a cost that represents the objectives of the allocation problem. Every lecture of a course must be assigned to exactly one faculty member, while each faculty member may be assigned to multiple lectures of multiple courses.
 
@@ -94,7 +53,7 @@ It also needs to be ensured that the workload is distributed among the faculty m
 
 In the next section, we will define how this constrained cost-minimization problem can be solved using the Hungarian algorithm.
 
-\subsection{Allocating using the Hungarian Algorithm}
+\subsection{Hungarian Algorithm for Optimal Allocation}
 
 The Hungarian Algorithm, also known as the Kuhn-Munkres Algorithm, is a combinatorial optimization algorithm that solves the assignment problem in polynomial time. In comparison to other algorithms that solve the assignment problem, such as the genetic algorithm and the simulated annealing algorithm, the Hungarian algorithm is faster, more efficient, and more deterministic. This makes it a good choice for solving the lecture allocation problem since the faculty, students, and management expect the allocation to be deterministic.
 
@@ -165,6 +124,44 @@ This lecture allocation algorithm $AllocateLectures$ forms the basis for the lec
 
 The Hungarian algorithm is run in each iteration until all the lectures are allocated. The assignments made by the Hungarian algorithm are then added to the list of all assignments, and the allocated lectures are removed from the list of unallocated lectures. This process is repeated until all the lectures are allocated.
 
+\section{Lecture Allocation Objectives}
+\label{sec:defining_the_allocation_problem}
+
+The lecture allocation involves allocating the lectures of each course to the faculty members who are eligible to teach the course. It can be defined as a constrained multi-objective optimization problem, with a set of objectives that need to be optimized and a set of constraints that need to be satisfied.
+
+The primary objective of the allocation problem is to ensure that all the courses are allocated to the faculty members since unallocated courses will lead to the cancellation of the course. Additionally, the allocation problem should also ensure that the workload of the faculty members is distributed equitably and that they receive a similar workload in terms of lectures, tutorials, and practicals. The allocation problem should also ensure that the earlier-year courses are taught by the best faculty as per the management priorities. Finally, the allocation problem should ensure that the faculty members are allocated the courses that they are interested in teaching, which will lead to a better teaching experience for the faculty members. These objectives are described in detail in the following sections, in the order of their priority.
+
+\begin{enumerate}
+  \item \textbf{Allocation of all lectures}
+
+        The allocation problem should ensure that all the lectures are allocated to a faculty member. This is a hard constraint of the allocation problem since unallocated lectures will lead to cancellation of the course, which will adversely impact the learning experience of the students, and may impact their long-term learning path since some lectures may form a prerequisite for other courses.
+
+        There are some prerequisites to this constraint - the allocation process cannot allocate a course if there are no eligible faculty members to teach the course, or if the maximum workload for the faculty members is already reached. However, given that these prerequisites are met, the allocation process should ensure that all the courses are allocated.
+
+  \item \textbf{Proportionate distribution of teaching workload}
+
+        The relative teaching workload, defined in the previous chapter, is a measure of the amount of teaching workload that a faculty member can handle, relative to the other faculty members. Thus, distributing the workload in proportion to the relative teaching workload ensures that the teaching workload is distributed equitably among the faculty members, ensuring that no faculty member is overworked.
+
+  \item \textbf{Proportionate distribution of lectures, tutorials, and practicals to each faculty member}
+
+        A course consists of multiple teaching activities, such as lectures, tutorials, and practicals. Preferably, these teaching activities should be distributed equally among the faculty members, so that each faculty member has a similar teaching experience. This is a soft constraint of the allocation problem since it is not as important as the other objectives, but it is still desirable to have a balanced teaching experience for the faculty members.
+
+  \item \textbf{Preferential allocation of earlier-year courses}
+
+        The management priority is to ensure that the earlier-year courses are taught by the faculty members with the best ratings since this is the foundation for the learning path of the students. This means that the earlier-year courses should be allocated with a higher priority to the faculty members with the best ratings. This is a soft constraint of the allocation problem since it is not as important as the other objectives, but it is still desirable to have the earlier-year courses taught by the best faculty members.
+
+  \item \textbf{Maximizing faculty performance score}
+
+        The faculty performance score, defined in the previous section, is a measure of the suitability of a faculty member to teach a course. It is representative of the student learning experience, and thus, maximizing the total faculty performance score of the allocation ensures that the students have a good learning experience. This is the primary objective of the allocation problem.
+
+  \item \textbf{Maximizing faculty preference score}
+
+        The faculty preference score, defined in the previous section, is a measure of the preference of the faculty member to teach a course. Thus, maximizing the total faculty preference score of the allocation ensures that the faculty members are allocated the courses that they are interested in teaching, which will lead to a better teaching experience for the faculty members.
+
+        This is treated as a secondary objective of the allocation problem since it is not as important as the primary objective of maximizing the faculty performance score. However, given that the faculty performance score is comparable between the two allocations, the allocation with the higher faculty preference score is preferred.
+
+\end{enumerate}
+
 \subsection{Enforcing Workload Limits}
 
 With the lecture allocation algorithm defined in \autoref{alg:base_lec_alloc}, the lectures of each course are allocated to the faculty members who are teaching the course. However, this allocation does not take into account the existing workload of the faculty members, which may lead to a disproportionate allocation of workload. To counter this, the allocation algorithm is modified to enforce the workload limits of the faculty members.
@@ -223,7 +220,7 @@ where, \(lectures\) is the list of lectures of each course, \(faculty\) is the l
 
 By using this modified cost matrix construction algorithm, the workload limits of the faculty members are enforced every time the Hungarian algorithm is run. This ensures that the workload of the faculty members are ineligible to teach a course if their workload exceeds their workload limits.
 
-\subsection{Handling Management Priority}
+\subsection{Incorporating Management Priority}
 
 The management priority is to ensure that the earlier-year courses are taught by the faculty members with the best ratings since this is the foundation for the learning path of the students. This means that the earlier-year courses should be allocated with a higher priority to the faculty members with the best ratings.
 
@@ -342,37 +339,7 @@ As visible in the results, there are 60 unallocated lectures, which is 44\% of t
   \centering
   \begin{tikzpicture}
     \begin{axis}[
-        xlabel={Utilization (\%)},
-        ylabel={Count},
-        xmin=0, xmax=100,
-        ymin=0, ymax=50,
-        xshift=0.5cm,
-        legend pos=north west,
-        ymajorgrids=true,
-        grid style=dashed,
-      ]
-
-      \addplot[
-        color=blue,
-        mark=square,
-      ]
-      coordinates {
-          (0, 47)(5, 0)(10, 0)(15, 0)(20, 0)(25, 0)(30, 0)(35, 0)(40, 2)(45, 4)(50, 1)(55, 10)(60, 9)(65, 2)(70, 4)(75, 6)(80, 4)(85, 4)(90, 6)(95, 6)(100, 9)
-        };
-
-    \end{axis}
-  \end{tikzpicture}
-  \caption{Faculty Utilization}
-  \label{fig:faculty_utilization}
-\end{figure}
-
-The utilization of faculty members, shown in figure \autoref{fig:faculty_utilization}, also highlights this asymmetry. As visible in the figure, there are 47 faculty members with a utilization of 0, which means that they are not allocated any lectures. This is partially due to the demand and supply asymmetry, but also because some lectures might have a workload too high for a single faculty member to handle, which means that multiple faculty members have to be allocated to the lecture. This problem and its solution are discussed in detail in the next section.
-
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}
-    \begin{axis}[
-        xlabel={Pref Order},
+        xlabel={Preference Order by Faculty},
         ylabel={No. of Allocated Lectures},
         xmin=0, xmax=17,
         ymin=0,
@@ -404,7 +371,7 @@ The utilization of faculty members, shown in figure \autoref{fig:faculty_utiliza
         } ;
     \end{axis}
   \end{tikzpicture}
-  \caption{Preference Order}
+  \caption{Allocation of Lectures by Faculty Preference Order}
   \label{fig:pref_order}
 \end{figure}
 
@@ -414,6 +381,35 @@ The utilization of faculty members, shown in figure \autoref{fig:faculty_utiliza
 \label{sec:rectifying_unallocated_courses}
 
 With the allocation approach defined so far, certain courses remain unallocated due to the year-wise prioritization of courses and the workload limits of the faculty. These issues are caused by the fact that the courses in the earlier years are allocated first, which means that certain faculty members may reach their workload limits before the courses in the later years are allocated. However, allocating all the courses is a definite requirement of the allocation problem, which means that the courses in the later years have to be accounted for in the allocation process.
+
+\autoref{fig:faculty_utilization} shows the utilization of the faculty members, i.e. the workload allocated to the faculty members as a percentage of their workload limits. The figure shows that there are 47 faculty members with a utilization of 0, which means that they are not allocated any lectures. This is partially due to the demand and supply asymmetry, but also because some lectures might have a workload too high for a single faculty member to handle, which means that multiple faculty members have to be allocated to the lecture.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        xlabel={Utilization (\%)},
+        ylabel={Count},
+        xmin=0, xmax=100,
+        ymin=0, ymax=50,
+        xshift=0.5cm,
+        legend pos=north west,
+        ymajorgrids=true,
+        grid style=dashed,
+      ]
+
+      \addplot[
+        color=blue,
+        mark=square,
+      ]
+      coordinates {
+          (0, 47)(5, 0)(10, 0)(15, 0)(20, 0)(25, 0)(30, 0)(35, 0)(40, 2)(45, 4)(50, 1)(55, 10)(60, 9)(65, 2)(70, 4)(75, 6)(80, 4)(85, 4)(90, 6)(95, 6)(100, 9)
+        };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Faculty Utilization}
+  \label{fig:faculty_utilization}
+\end{figure}
 
 Opting for soft-prioritization of earlier-year courses is an alternative to absolute prioritization can solve this issue to some extent, since if the courses of all the years are allocated together, the Hungarian algorithm will prioritize the courses with a shortage of faculty supply since an unallocated course has an infinitely higher cost than an allocated course. However, as previously discussed, absolute prioritization of earlier-year courses is a management requirement, which means that it cannot be completely eliminated.
 
@@ -583,74 +579,35 @@ However, if there remain unallocated courses after the allocation process is com
 
 \begin{figure}[H]
   \centering
-  \resizebox{\textwidth}{!}{
 
-    \begin{tikzpicture}
-      \begin{axis}[
-          xlabel={Utilization (\%)},
-          ylabel={Count},
-          xmin=0, xmax=150,
-          ymin=0,
-          ymax=50,
-          width=20cm,
-          height=8cm,
-          enlarge x limits=0.05,
-          legend style={at={(0.5,-0.2)},
-              anchor=north,legend columns=-1},
-          ymajorgrids=true,
-          grid style=dashed
-        ]
-        \addplot[blue, mark=*] coordinates {
-            (0, 47)
-            (10, 0)
-            (20, 0)
-            (30, 0)
-            (40, 3)
-            (50, 8)
-            (60, 16)
-            (70, 10)
-            (80, 7)
-            (90, 10)
-            (100, 13)
-            (110, 0)
-            (120, 0)
-            (130, 0)
-            (140, 0)
-            (150, 0)
-          };
-        \addlegendentry{Before Relaxation}
-        \addplot[red, mark=square*] coordinates {
-            (0, 33)
-            (10, 0)
-            (20, 0)
-            (30, 0)
-            (40, 1)
-            (50, 5)
-            (60, 8)
-            (70, 5)
-            (80, 6)
-            (90, 6)
-            (100, 12)
-            (110, 6)
-            (120, 9)
-            (130, 7)
-            (140, 8)
-            (150, 8)
-          };
-        \addlegendentry{After Relaxation}
-      \end{axis}
-    \end{tikzpicture}
-  }
+  \begin{tikzpicture}
+
+    \begin{axis}
+      [
+        ybar,
+        ymin=10,
+        enlargelimits=0.15,
+        ylabel={Number of Unallocated Faculty},
+        symbolic x coords={Before Relaxation, After Relaxation},
+        xtick=data,
+        xshift=2.5cm,
+        nodes near coords,
+        nodes near coords align={vertical},
+      ]
+      \addplot coordinates {(Before Relaxation,47) (After Relaxation,33)};
+
+    \end{axis}
+  \end{tikzpicture}
   \caption{Faculty Utilization with Workload Relaxation}
   \label{fig:faculty_utilization_workload_relaxation}
 \end{figure}
 
-\autoref{fig:faculty_utilization_workload_relaxation} shows the utilization of faculty members with and without workload relaxation. As visible in the figure, the number of faculty members with utilization of 0 has decreased from 47 to 33, which means that multiple faculty members were not allocated any lectures due to their workload limits being too low to accommodate any lectures at all, which is a problem also resolved by the dynamic splitting approach.
+\autoref{fig:faculty_utilization_workload_relaxation} shows the number of unutilized faculty members before and after workload relaxation. As visible in the figure, the number of faculty members with utilization of 0 has decreased from 47 to 33, which means that multiple faculty members were not allocated any lectures due to their workload limits being too low to accommodate any lectures at all, which is a problem also resolved by the dynamic splitting approach.
 
 Additionally, the split of over-utilized and underutilized faculty members is 64 and 38 faculty members respectively, which points to the fact that the workload relaxation doesn't lead to a large number of faculty members being over-utilized. This is because the workload relaxation is only applied to the faculty members who are needed to teach the unallocated courses, thus only affecting a small number of faculty members.
 
 
-\subsection{Post-Processing Allocation Results}
+\subsection{Dynamic Swapping Results}
 \label{sec:post_allocation}
 
 Another approach to rectify the unallocated courses is to check if there are any unallocated courses, and if, by reshuffling some of the existing allocations, faculty members can be freed up to teach the unallocated courses. This is done by finding secondary courses that are allocated to the faculty members who are needed for the unallocated courses, and checking whether these secondary courses can be allocated to other faculty members.
@@ -686,7 +643,7 @@ where, $eligibleFaculty(lecture, exclude=facultyMember)$ is the list of faculty 
 With \autoref{alg:reassign_faculty} defined, we can define \autoref{alg:post_allocation} which takes the list of unallocated lectures and for each unallocated lecture, checks if the lecture can be allocated to another faculty member without violating the cost threshold using \autoref{alg:reassign_faculty}. If this is the case, then the lecture is allocated to the other faculty member, and the existing faculty member is allocated to the unallocated lecture.
 
 \begin{algorithm}[H]
-  \caption{Post-Allocation Algorithm}
+  \caption{Dynamic Swapping Algorithm}
   \begin{algorithmic}[1]
     \Procedure{PostAllocate}{$unallocatedLectures$, $existingAssignments$}
     \State $assignments \gets existingAssignments$
@@ -724,13 +681,13 @@ where $eligibleFaculty(l)$ is the list of faculty members who are eligible to te
     \textbf{Avg Score}        & 3.61                         & 3.71                        \\
     \hline
   \end{tabular}
-  \caption{Experimental Results of Post-Allocation}
+  \caption{Experimental Results of Dynamic Swapping}
   \label{tab:post_allocation_results}
 \end{table}
 
-\autoref{tab:post_allocation_results} shows the results of the post-allocation approach. The first column shows the results before, while the second column shows the results after the post-allocation approach is applied.
+\autoref{tab:post_allocation_results} shows the results of the Dynamic Swapping approach. The first column shows the results before, while the second column shows the results after the Dynamic Swapping approach is applied.
 
-As can be seen from the results, the number of allocated lectures has increased from 75 to 78. Although a small increase in the count of allocated lectures, the percentage of allocated hours has increased from 46.6\% to 62.2\%, which is a significant improvement. This was found to be because the courses that were allocated by the post-allocation approach were large courses that had a large impact on the utilization of the faculty members.
+As can be seen from the results, the number of allocated lectures has increased from 75 to 78. Although a small increase in the count of allocated lectures, the percentage of allocated hours has increased from 46.6\% to 62.2\%, which is a significant improvement. This was found to be because the courses that were allocated by the Dynamic Swapping approach were large courses that had a large impact on the utilization of the faculty members.
 
 \begin{figure}[H]
   \centering
@@ -781,13 +738,13 @@ As can be seen from the results, the number of allocated lectures has increased 
       \end{axis}
     \end{tikzpicture}
   }
-  \caption{Faculty Utilization with Post-Allocation}
-  \label{fig:faculty_utilization_post_allocation}
+  \caption{Faculty Utilization with Dynamic Swapping}
+  \label{fig:faculty_utilization_dynamic_swapping}
 \end{figure}
 
-\autoref{fig:faculty_utilization_post_allocation} shows the utilization of faculty members with and without post-allocation processing. As visible in the figure, the number of faculty members with a utilization of 0 has decreased from 47 to 41, which means that multiple faculty members were not allocated any lectures due to their workload limits being too low to latter year courses, which were found to be too large to be allocated to some faculty members. Additionally, the overall utilization of faculty members has increased, reaching closer to optimal utilization.
+\autoref{fig:faculty_utilization_dynamic_swapping} shows the utilization of faculty members with and without Dynamic Swapping processing. As visible in the figure, the number of faculty members with a utilization of 0 has decreased from 47 to 41, which means that multiple faculty members were not allocated any lectures due to their workload limits being too low to latter year courses, which were found to be too large to be allocated to some faculty members. Additionally, the overall utilization of faculty members has increased, reaching closer to optimal utilization.
 
-\subsection{Overview of the Allocation Process}
+\subsection{Automated Lecture Allocation Process}
 \label{sec:allocation_process}
 
 The allocation process receives the list of lectures, the list of faculty members, the student feedback scores, and the faculty preference scores as input. The lectures might already be split into multiple parts by the static splitting process defined in \autoref{sec:lecture_splitting}. Each of the lectures also has a workload associated with it, which is the number of workload units that the lecture has. This workload was defined in \autoref{ch:teaching_workload}. Additionally, it receives the relative workload limits of the faculty members as input, which are set using the approach defined in \autoref{sec:determining_equitable_teaching_workload}.
@@ -805,8 +762,8 @@ Using these inputs, the allocation process allocates the lectures to the faculty
         If unallocated courses remain, check if other faculty members can be allocated to the unallocated courses by splitting the courses as defined in \autoref{sec:dynamic_splitting}.
   \item \textbf{Workload limit relaxation}\\
         If unallocated courses remain, the workload limits are reached for all the faculty members. Relax the workload limits of the faculty members as defined in \autoref{sec:workload_limit_relaxation} before continuing to the next step.
-  \item \textbf{Post-process the allocation results}\\
-        If unallocated courses remain, check if the unallocated courses can be allocated by reshuffling the existing allocations, as defined in \autoref{sec:post_allocation}.
+  \item \textbf{Dynamic Swapping}\\
+        If unallocated courses remain, check if the unallocated courses can be allocated by swapping the existing allocations, as defined in \autoref{sec:post_allocation}.
 \end{enumerate}
 
 This allocation process is summarized in \autoref{fig:allocation_process_flowchart}.
@@ -824,7 +781,7 @@ This allocation process is summarized in \autoref{fig:allocation_process_flowcha
       \node (relax_check) [decision, below=of split_check, align=center] {All Allocated?};
       \node (relax) [process, right=of relax_check, xshift=0.5cm] {Relax Workload Limits};
       \node (post_check) [decision, below=of relax_check, align=center] {All Allocated?};
-      \node (post_alloc) [process, right=of post_check, xshift=0.5cm] {Post Allocate Lectures};
+      \node (post_alloc) [process, right=of post_check, xshift=0.5cm] {Dynamic Swapping};
       \node (output) [io, below=of post_check] {Output: Allocated Lectures};
       \node (stop) [startstop, below=of output] {Stop};
       \draw [arrow] (start) edge (input) (input) edge (pre_alloc) (pre_alloc) edge (alloc) (alloc) edge (split_check) (split_check) edge node[anchor=south] {No} (split) (split_check) edge node[anchor=east] {Yes} (relax_check) (split) edge[out=-90, in=90] (relax_check) (relax_check) edge node[anchor=south] {No} (relax) (relax_check) edge node[anchor=east] {Yes} (post_check) (relax) edge[out=-90, in=90] (post_check) (post_check) edge node[anchor=south] {No} (post_alloc) (post_check) edge node[anchor=east] {Yes} (output) (post_alloc) edge[out=-90, in=90] (output) (output) edge (stop);
@@ -848,7 +805,7 @@ The experimental results of the allocation process are shown in \autoref{tab:ove
       \textbf{With Preallocate} & 84 (1640 hrs)                 & 51 (966 hrs)                    & 3.61               \\ \hline
       \textbf{Split}            & 122 (2132 hrs)                & 35 (474 hrs)                    & 3.59               \\ \hline
       \textbf{Overshoot}        & 143 (2398 hrs)                & 14 (208 hrs)                    & 3.60               \\ \hline
-      \textbf{Post-Allocation}  & 154 (2540 hrs)                & 3 (66 hrs)                      & 3.60               \\ \hline
+      \textbf{Post-Swapping}    & 154 (2540 hrs)                & 3 (66 hrs)                      & 3.60               \\ \hline
     \end{tabular}
   }
   \caption{Experimental Results}
@@ -863,71 +820,17 @@ The third row shows the results of the allocation process with the dynamic split
 
 The fourth row shows the results of the allocation process with the workload relaxation approach used after the dynamic splitting approach. As can be seen from the results, the allocated lectures have increased from 2174 hours to 2398 hours, increasing from 83.2\% to 91.9\% of the total number of hours. This is because the workload relaxation approach selectively relaxes the workload limits of the faculty members who are needed to teach the unallocated courses, thus increasing the number of allocated hours.
 
-The fifth row shows the results of the allocation process with the post-allocation approach used after the workload relaxation approach. As can be seen from the results, the allocated lectures have increased from 2398 hours to 2566 hours, increasing from 91.9\% to 98.4\% of the total number of hours. Other experiments have shown that the post-allocation approach is important for workload relaxation to be effective, since a large number of faculty members, who were previously unavailable to teach larger courses, are now available to teach these courses, thus increasing the scope for reshuffling the existing allocations.
+The fifth row shows the results of the allocation process with the Dynamic Swapping approach used after the workload relaxation approach. As can be seen from the results, the allocated lectures have increased from 2398 hours to 2566 hours, increasing from 91.9\% to 98.4\% of the total number of hours. Other experiments have shown that the Dynamic Swapping approach is important for workload relaxation to be effective, since a large number of faculty members, who were previously unavailable to teach larger courses, are now available to teach these courses, thus increasing the scope for reshuffling the existing allocations.
 
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}
-    \begin{axis}[
-        xlabel={Percentage},
-        ylabel={Count},
-        xmin=0, xmax=150,
-        ymin=0, ymax=25,
-        legend style={at={(0.5,-0.25)},
-            anchor=north,legend columns=-1},
-        width=14cm,
-        height=6cm,
-        ymajorgrids=true,
-        grid style=dashed,
-        cycle list name=exotic,
-      ]
-      \addplot coordinates {
-          (0,47)
-          (10,0)
-          (20,0)
-          (30,0)
-          (40,3)
-          (50,8)
-          (60,16)
-          (70,10)
-          (80,7)
-          (90,10)
-          (100,13)
-          (110,0)
-          (120,0)
-          (130,0)
-          (140,0)
-          (150,0)
-        };
-      \addlegendentry{Base}
-
-      \addplot coordinates {(0,43) (10,0) (20,0) (30,0) (40,1) (50,4) (60,17) (70,8) (80,10) (90,9) (100,20) (110,0) (120,2) (130,0) (140,0) (150,0)};
-      \addlegendentry{With Preallocate}
-
-      \addplot coordinates {(0,16) (10,0) (20,0) (30,0) (40,0) (50,5) (60,14) (70,10) (80,21) (90,23) (100,23) (110,0) (120,2) (130,0) (140,0) (150,0)};
-      \addlegendentry{Split}
-
-      \addplot coordinates {(0,10) (10,0) (20,0) (30,0) (40,0) (50,4) (60,11) (70,8) (80,17) (90,23) (100,21) (110,1) (120,5) (130,5) (140,2) (150,7)};
-      \addlegendentry{Overshoot}
-
-      \addplot coordinates {(0,5) (10,0) (20,0) (30,0) (40,1) (50,5) (60,6) (70,6) (80,13) (90,14) (100,19) (110,8) (120,8) (130,16) (140,5) (150,8)};
-      \addlegendentry{Remedy}
-
-    \end{axis}
-  \end{tikzpicture}
-  \caption{Faculty Utilization at Different Stages of Allocation}
-  \label{fig:faculty_utilization_at_different_stages_of_allocation}
-\end{figure}
-
-\section{Equal Misery: Equitable Overloading of Faculty to Ensure Allocation of Non-Critical Courses}
+\section{Equitable Overloading of Faculty to Resolve Unallocated Lectures}
 
 The allocation process defined in \autoref{sec:allocation_process} allocates the courses to the faculty members in a way that doesn't overload the faculty members. This is done by setting the workload limits of the faculty members, and ensuring that the workload of the faculty members doesn't exceed their workload limits. In exceptional cases where the workload limits of the faculty members are reached and the courses cannot be allocated, the workload limits of the faculty members are relaxed as defined in \autoref{sec:workload_limit_relaxation}. This is done at the expense of bandwidth for teaching tutorials and labs for these faculty members, and in the worst case, the faculty members might be overloaded.
 
 However, this approach is not equitable, since it leads to some faculty members being disproportionately overloaded, while not affecting the workload of other faculty members. Additionally, this approach may be suboptimal since the earlier stages of the allocation process don't account for the availability of additional workload bandwidth being available in the later stages of the allocation process. This can result in some courses being unallocated, even though they could have been allocated if the workload limits of the faculty members were relaxed.
 
-To solve this problem, we introduce the concept of Equal Misery, which is the equitable overloading of faculty members to ensure that all the courses are allocated. This is done by relaxing the workload limits of the faculty members at the start of the allocation process and then allocating the courses to the faculty members using the same process as defined in \autoref{sec:allocation_process}. If the workload limits of the faculty members are still reached, then the workload limits of the faculty members are relaxed again by a marginal amount to accommodate the outlying courses.
+To solve this problem, we introduce the concept of Equal Misery, which is the equitable overloading of faculty members to ensure that all the courses are allocated. The Equal Misery approach is only applied if even after the Dynamic Swapping approach, there still remain unallocated courses. This is because the Equal Misery approach may lead to more faculty members being overloaded, which is not desirable.
 
-The Equal Misery approach is only applied if even after the post-allocation approach, there still remain unallocated courses. This is because the Equal Misery approach may lead to more faculty members being overloaded, which is not desirable.
+If the allocations are not resolved at the end of dynamic swapping, all existing allocations are discarded and the workload limits are relaxed for all the faculty members at the start of the allocation process followed by allocating the courses to the faculty members using the same process as defined in \autoref{sec:allocation_process}. If the workload limits of the faculty members are still reached, then the workload limits of the faculty members are relaxed again by a marginal amount to accommodate the outlying courses.
 
 Thus, the overall approach can be revised as shown in \autoref{fig:allocation_process_flowchart_equal_misery}.
 
@@ -964,7 +867,7 @@ Thus, the overall approach can be revised as shown in \autoref{fig:allocation_pr
       \textbf{With Preallocate} & 122 (2370)                    & 13 (236)                        & 3.65               \\ \hline
       \textbf{Split}            & 129 (2456)                    & 10 (150)                        & 3.65               \\ \hline
       \textbf{Overshoot}        & 131 (2480)                    & 8 (126)                         & 3.64               \\ \hline
-      \textbf{Post-Allocation}  & 137 (2591)                    & 2 (15)                          & 3.66               \\ \hline
+      \textbf{Dynamic Swapping} & 137 (2591)                    & 2 (15)                          & 3.66               \\ \hline
     \end{tabular}
   }
   \caption{Experimental Results of Equal Misery}
@@ -975,49 +878,13 @@ Thus, the overall approach can be revised as shown in \autoref{fig:allocation_pr
 
 Another notable insight from the results is that the average score of the allocated lectures is higher than the average score of the allocated lectures in the base allocation process. This is because, with the Equal Misery approach, the workload limits of the faculty members are relaxed, thus increasing the bandwidth of high-performing faculty members to teach more courses as well, thus increasing the average score of the allocated lectures.
 
-It is important to note that for the dataset used in this thesis, the Equal Misery approach led to only marginal improvements in the allocation results. However, this approach is important to consider, since it ensures that the workload of the faculty members is distributed equally, and no faculty member is disproportionately overloaded. This impact on the overloading patterns of the faculty members can also be seen in \autoref{fig:faculty_utilization_equal_misery}.
-
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}
-    \begin{axis}[
-        xlabel={Percentage},
-        ylabel={Count},
-        xmin=0, xmax=170,
-        ymin=0, ymax=20,
-        legend style={at={(0.5,-0.25)},
-            anchor=north,legend columns=-1},
-        width=14cm,
-        height=6cm,
-        ymajorgrids=true,
-        grid style=dashed,
-        cycle list name=exotic,
-      ]
-      \addplot coordinates {};
-
-      \addplot coordinates {(0, 20) (10, 0) (20, 0) (30, 0) (40, 2) (50, 5) (60, 5) (70, 2) (80, 4) (90, 3) (100, 17) (110, 14) (120, 13) (130, 13) (140, 9) (150, 7) (160, 0) (170, 0)};
-      \addlegendentry{With Preallocate}
-
-      \addplot coordinates {(0, 16) (10, 0) (20, 0) (30, 0) (40, 2) (50, 4) (60, 5) (70, 2) (80, 5) (90, 3) (100, 16) (110, 16) (120, 13) (130, 13) (140, 12) (150, 7) (160, 0) (170, 0)};
-      \addlegendentry{Split}
-
-      \addplot coordinates {(0, 14) (10, 0) (20, 0) (30, 0) (40, 2) (50, 4) (60, 5) (70, 2) (80, 5) (90, 3) (100, 16) (110, 16) (120, 13) (130, 13) (140, 12) (150, 7) (160, 1) (170, 1)};
-      \addlegendentry{Overshoot}
-
-      \addplot coordinates {(0, 12) (10, 0) (20, 0) (30, 0) (40, 3) (50, 5) (60, 4) (70, 4) (80, 6) (90, 4) (100, 15) (110, 12) (120, 7) (130, 15) (140, 7) (150, 10) (160, 6) (170, 4)};
-      \addlegendentry{Remedy}
-
-    \end{axis}
-  \end{tikzpicture}
-  \caption{Faculty Utilization with Equal Misery}
-  \label{fig:faculty_utilization_equal_misery}
-\end{figure}
+It is important to note that for the dataset used in this thesis, the Equal Misery approach led to only marginal improvements in the allocation results. However, this approach is important to consider, since it ensures that the workload of the faculty members is distributed equally, and no faculty member is disproportionately overloaded.
 
 \section{Summary}
 
 In this chapter, we defined the various priorities that decide which faculty is suited to teach which course. We then defined the allocation problem and all of the constraints and objectives that it aims to optimize. Using this, we modeled the allocation process and used the Hungarian Algorithm to solve the allocation problem. We further refined the allocation process, adding a mechanism to honor the workload limits and a mechanism to handle the management priority of allocating earlier-year courses to the best faculty, before defining the cost function which represents the priorities of the students and the faculty.
 
-We found various shortcomings in the allocation process which resulted in unallocated lectures. We then defined various approaches to rectify these shortcomings. These included the pre-allocation approach which prioritizes the allocation of courses with an under-supply of faculty members, the dynamic splitting approach which splits the courses which are not allocated due to the workload limits of the faculty members being reached, the workload relaxation approach which relaxes the workload limits of the faculty members to accommodate the unallocated courses, and the post-allocation approach which reshuffles the existing allocations to accommodate the unallocated courses.
+We found various shortcomings in the allocation process which resulted in unallocated lectures. We then defined various approaches to rectify these shortcomings. These included the pre-allocation approach which prioritizes the allocation of courses with an under-supply of faculty members, the dynamic splitting approach which splits the courses that are not allocated due to the workload limits of the faculty members being reached, the workload relaxation approach which relaxes the workload limits of the faculty members to accommodate the unallocated courses, and the Dynamic Swapping approach which reshuffles the existing allocations to accommodate the unallocated courses.
 
 We implemented these approaches as part of the allocation process and found that the allocation process with all of these approaches was able to allocate 98.4\% of the total number of hours, a substantial increase from the 46.6\% of the total number of hours allocated by the allocation process originally. We also found that the Equal Misery approach, which equitably overloads the faculty members to ensure that all the courses are allocated, was able to allocate 98.4\% of the total number of hours as well, with the average score of the allocated lectures being higher than the average score of the allocated lectures in the base allocation process.
 

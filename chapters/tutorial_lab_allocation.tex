@@ -16,11 +16,11 @@ An additional technique of dynamic limit relaxation is also introduced, which in
 
 In this chapter, a comprehensive approach to tutorial and lab allocation is discussed, which uses the Hungarian algorithm to allocate the tutorials and labs to faculty, while utilizing the techniques discussed above to meet the objectives and constraints of the tutorial and lab allocation problem. These techniques are then applied to a real-world dataset to evaluate their effectiveness.
 
-\section{Defining the Tutorial Allocation Problem}
+\section{Tutorial Allocation Objectives}
 
 The tutorial allocation involves allocating tutorials to faculty members who are eligible to deliver them. Tutorial allocation is similar to lecture allocation, which means that the objectives and constraints of the tutorial allocation problem are similar to the lecture allocation problem. This means that the tutorial allocation problem is also a multi-objective optimization problem, with a set of objectives that need to be optimized and a set of constraints that need to be satisfied.
 
-The objectives of the lecture allocation - ensure that all courses are allocated, ensure that the workload of faculty is distributed equitably, ensure that the proportion of lectures, tutorials, and labs allocated to each faculty is similar, ensure that earlier-year courses are allocated to the best faculty, to maximize the student feedback score and to maximize the faculty preferences - are also the objectives of the tutorial allocation problem.
+The objectives of the lecture allocation - ensure that all courses are allocated, ensure that the workload of faculty is distributed equitably, ensure that the proportion of lectures, tutorials, and labs allocated to each faculty is similar, to maximize the student feedback score and to maximize the faculty preferences - are also the objectives of the tutorial allocation problem.
 
 However, there are a few additional considerations that need to be taken into account while modeling the tutorial allocation problem. These considerations are:
 
@@ -29,13 +29,13 @@ However, there are a few additional considerations that need to be taken into ac
 
         Tutorials require less expertise in a particular subject area than lectures. Thus, tutorials can be delivered by a broader range of faculty. This allows for more flexibility in the allocation of tutorials. Thus, the tutorial allocation problem should be modeled in a way that the tutorials can be allocated to a broader range of faculty.
 
-  \item \textbf{Preferring towards already allocated courses}
+  \item \textbf{Preferring faculty who already teach lectures of the course}
 
         The lectures, tutorials, and labs of the same course should ideally be allocated to the same faculty. This is because the faculty would have to familiarise themselves with the course material of each course that they are allocated. Additionally, having the same faculty deliver the lectures, tutorials, and labs of the same course would ensure that the students have a consistent experience across all the components of the course. Thus, the tutorial allocation problem should be modeled in a way that if the lectures of a course are allocated to a faculty, then they should get a higher preference for the tutorials of the same course.
 
-  \item \textbf{Batching Tutorials}
+  \item \textbf{Avoiding Fragmentation}
 
-        Tutorials are smaller pieces of work that are more numerous than lectures. Thus, it is not feasible to allocate tutorials one at a time, since it would lead to too many iterations. Additionally, allocating tutorials one at a time may lead to every tutorial session being allocated to a different faculty, which would lead to a lot of faculty having to familiarise themselves with the course material of a lot of courses, and the students. Thus, the tutorial allocation problem should be modeled in a way that the tutorials are allocated in batches.
+        Fragmentation is the allocation of the tutorials of the same course to different faculty. This should be avoided because the faculty would have to familiarise themselves with the course material of each course that they are allocated, which adds additional overhead to their workload. Additionally, it leads to an inconsistent experience for the students, because different students in the course would have different faculty for their tutorials, with their own teaching styles and preferences. Thus, the tutorial allocation problem should be modeled in a way that the tutorials of the same course are allocated to the same faculty.
 
 \end{itemize}
 
@@ -45,9 +45,7 @@ As a result, the tutorial allocation problem is modeled differently from the lec
 
 The tutorial allocation problems, similar to the lecture allocation problem, can be modeled as an assignment problem where the tasks are the tutorials, and the resources are the faculty. Every tutorial will be assigned to exactly one faculty, but multiple tutorials or labs can be assigned to the same faculty, i.e. the tutorial allocation problems are many-to-one assignment problems.
 
-The cost of allocating a tutorial to a faculty should take into consideration the student feedback and the faculty preferences. Additionally, the cost should be modeled such that consistency of courses can be maintained for tutorials.
-
-The allocation process should also handle the management priority of allocating earlier-year courses to the best faculty. Additionally, the allocation process should ensure that the workload of faculty is distributed equitably and that a similar proportion of lectures, tutorials, and labs are allocated to each faculty.
+The cost of allocating a tutorial to a faculty should take into consideration the student feedback and the faculty preferences. Additionally, the cost should be modeled such that consistency of courses can be maintained for tutorials, the workload of faculty is distributed equitably, and a similar proportion of lectures, tutorials, and labs are allocated to each faculty.
 
 \subsection{Allocating using the Hungarian Algorithm}
 
@@ -81,7 +79,7 @@ As a result, the tutorial allocation process is modified to allocate only one se
 
 where, $tutorials$ is the set of all tutorials, and $faculty$ is the set of all faculty. The $constructCostMatrix$ function is defined as shown in \autoref{alg:cost_matrix_construction}. In every iteration, the allocation process takes the first unallocated tutorial session of each course and allocates it to a faculty. This ensures that the same faculty gets the opportunity to teach multiple sessions of the same tutorial.
 
-In the next section, the cost function is modified to improve the consistency of courses, prioritize earlier-year courses, and ensure equitable distribution of workload.
+In the next section, the cost function is modified to improve the consistency of courses and ensure equitable distribution of workload.
 
 \section{Designing the Cost Function}
 
@@ -89,9 +87,7 @@ As mentioned in the previous section, the course-faculty fit metric is used and 
 
 Firstly, to maintain the consistency of courses, the cost function is modified to bias the allocation of tutorials to the same faculty who was allocated the lectures, tutorials, or labs of the same course. This is done by reducing the cost of allocating a tutorial to the faculty by a certain bias if the faculty was allocated any existing tutorials or labs of the same course. Additionally, even if the faculty was allocated the lectures of the same course, the cost of allocating a tutorial to the faculty is reduced by the same bias, since the lectures, tutorials, and labs of the same course should ideally be allocated to the same faculty.
 
-Since the tutorial allocation process does not iterate over the tutorial sessions year-wise to achieve the management priority, the cost function is modified to bias the allocation of earlier-year courses to the best faculty. This is done by reducing the cost of allocating a tutorial to a high-quality faculty and increasing the cost of allocating a tutorial to a low-quality faculty, to ensure that the better faculty are allocated the earlier-year courses. This bias is defined separately for each year, to allow for different degrees of prioritization for different year courses, with the bias being higher for earlier-year courses.
-
-Finally, the cost function is modified to ensure that the workload of faculty is distributed equitably. This is done by limiting the total number of teaching duties that can be allocated to each faculty, as well as a limit to each of the lectures, tutorials, and labs that can be allocated to each faculty. If the faculty has exceeded the workload limit, then the cost of allocating a tutorial to the faculty is set to infinity. This ensures that the faculty isn't overloaded with a sparse and fragmented workload.
+The cost function is also modified to ensure that the workload of faculty is distributed equitably. This is done by limiting the total number of teaching duties that can be allocated to each faculty, as well as a limit to each of the lectures, tutorials, and labs that can be allocated to each faculty. If the faculty has exceeded the workload limit, then the cost of allocating a tutorial to the faculty is set to infinity. This ensures that the faculty isn't overloaded with a sparse and fragmented workload.
 
 \subsection{Preferring Already Allocated Courses}
 
@@ -123,63 +119,12 @@ With the bias, the modified cost matrix function is defined as shown below. The 
 
 where $existingAllocations$ is the set of all lectures, tutorials, and labs that have already been allocated.
 
-\subsection{Handling Management Priority}
-
-In the lecture allocation problem, the management priority of allocating earlier-year courses to the best faculty was handled by allocating the courses year-wise. This was done by allocating the courses of the first year first, then the courses of the second year, and so on. However, this approach is not feasible for the tutorial allocation problem, since ensuring consistency of courses already requires multiple iterations of the algorithm. Allocating the courses year-wise would lead to too many iterations of the algorithm, and would also lead to local optima, where the algorithm allocates too many tutorials to the same faculty for earlier-year courses, and then is unable to allocate the tutorials of later-year courses to the same faculty.
-
-Additionally, since the tutorial sessions are secondary teaching duties, providing a supplementary experience to the lectures, it is not as important to reserve the best faculty for the earlier-year courses. The tutorial sessions also don't require as much expertise in the particular subject area as the lectures and thus aren't affected as much by the quality of the faculty. Thus, the allocation process is modified to allocate the tutorials of all years at once, instead of allocating the tutorials year-wise.
-
-However, the management priority of allocating earlier-year courses to the best faculty still needs to be handled. This is done by skewing the cost function to prioritize better faculty for earlier years. For earlier-year courses, the cost of allocating a high-quality faculty is reduced, and the cost of allocating a low-quality faculty is increased, to ensure that the better faculty are allocated the earlier-year courses. To achieve this, a bias factor is introduced, which is added or subtracted from the cost of allocating a faculty to a tutorial. This bias factor is configurable and can be adjusted based on the management's preference towards allocating earlier-year courses to the best faculty. The bias also has a different value for each year, to allow for different degrees of prioritization for different year courses.
-
-To differentiate high-quality faculty from low-quality faculty, a quality threshold is defined. If the cost of allocating a faculty to a tutorial is less than the quality threshold, then the faculty is considered to be high quality and the bias is subtracted from the cost. If the cost of allocating a faculty to a tutorial is greater than the quality threshold, then the faculty is considered to be low quality and the bias is added to the cost.
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|c|c|c|c|c|c|}
-    \hline
-    Year & 1 & 2    & 3   & 4    & 5 \\ \hline
-    Bias & 1 & 0.75 & 0.5 & 0.25 & 0 \\ \hline
-  \end{tabular}
-  \caption{Year-wise Bias for Tutorial Allocation}
-  \label{tab:yearwise_bias}
-\end{table}
-
-With the bias, the modified cost matrix function is defined as shown below. The $qualityThreshold$ and $yearwiseBias$ parameters are configurable and can be adjusted based on the management's preference towards allocating earlier-year courses to the best faculty. For the test dataset, the biases are defined in \autoref{tab:yearwise_bias}. The $qualityThreshold$ is defined as 1, which means that any faculty with a cost of 1 or less is considered to be high quality, and any faculty with a cost of 1 to 5 is considered to be low quality.
-
-
-\begin{algorithm}[H]
-  \caption*{Refinement 2: Incorporating Year-wise and Consistency Bias}
-  \begin{algorithmic}
-    \Procedure{ConstructCostMatrix}{$tutorials, faculty, existingAllocations$}
-    \State $costMatrix \gets \emptyset$
-    \For{$tutorial \in tutorials$}
-    \For{$f \in faculty$}
-    \State $cost \gets \Call{Q}{tutorial, f}$
-    \State $year = tutorial.course.year$
-    \If{$cost \leq qualityThreshold$}
-    \State $cost \gets cost - yearwiseBias[year]$
-    \Else
-    \State $cost \gets cost + yearwiseBias[year]$
-    \EndIf
-    \If{$f \in existingAllocations[tutorial.course]$}
-    \State $cost \gets cost - consistencyBias$
-    \State $costMatrix[tutorial][f] \gets cost$
-    \EndIf
-    \EndFor
-    \EndFor
-    \State \textbf{return} $costMatrix$
-    \EndProcedure
-  \end{algorithmic}
-\end{algorithm}
-
-where $existingAllocations$ is the set of all lectures, tutorials, and labs that have already been allocated.
-
 \subsection{Distributing Teaching Duties Equitably}
 \label{sec:workload_limits}
 
-The tutorial allocation process should ensure that the teaching duties are distributed equitably amongst faculty. One part of this is ensuring that a similar proportion of lectures, tutorials, and labs are allocated to each faculty. This means that if the institution has a certain proportion of lectures, tutorials, and labs, then the allocation of each faculty should ideally have a similar proportion of lectures, tutorials, and labs. To achieve this, a mechanism needs to be introduced to limit the workload of lectures, tutorials, and labs that can be allocated to each faculty.
+The tutorial allocation process should ensure that the teaching duties are distributed equitably amongst faculty. One part of this is ensuring that a similar proportion of lectures, tutorials, and labs are allocated to each faculty. This means that if the institution has a certain proportion of lectures, tutorials, and labs, then the allocation of each faculty should ideally have a similar proportion of these three activities. To achieve this, a mechanism needs to be introduced to limit the workload of lectures, tutorials, and labs that can be allocated to each faculty.
 
-Thus, the workload limits of the faculty are introduced with the same proportion of lectures, tutorials, and labs as the institution. This is done incrementally, by first setting the workload limits of the faculty to only the proportion of lectures, then increasing the workload limits to include the proportion of tutorials, and then increasing the workload limits to include the proportion of labs. This ensures that the workload of the faculty mimics the workload of the institution, and thus a similar proportion of lectures, tutorials, and labs are allocated to each faculty.
+Thus, the workload limits of the faculty are introduced with the same proportion of teaching activities as the entire institution. This is done incrementally, by first setting the workload limits of the faculty to only the proportion of lectures, then increasing the workload limits to include the proportion of tutorials, and then increasing the workload limits to include the proportion of labs. This ensures that the workload of the faculty mimics the workload of the institution, and thus a similar proportion of lectures, tutorials, and labs are allocated to each faculty.
 
 For example, if the institute's workload consists of 60\% lectures, 20\% tutorials, and 20\% labs, then during the lecture allocation process the workload limits of the faculty are set to only 60\% of the total workload limit of the faculty. This ensures that the lecture allocation process allocates only 60\% of the total workload limit of the faculty to lectures. Then for the tutorial allocation process, the workload limits are increased to 80\% of the total workload limit of the faculty. And then finally, for the lab allocation process, the workload limits are increased to 100\% of the total workload limit of the faculty.
 
@@ -218,13 +163,13 @@ The batch size is a configurable parameter that can be adjusted based on the req
 With the batch allocation, the tutorials are divided into batches of size $batchSize$ before the allocation begins, and then the algorithm is modified to select the first unallocated batch of tutorials for cost matrix construction, instead of the first unallocated session.
 
 
-\section{Dynamically Adjusting Workload Limits for Feasibility}
+\section{Selective Workload Relaxation to Resolve Unallocated Tutorials}
 
 Although the tutorial allocation process manages to allocate most of the tutorials, some tutorials may remain unallocated. This may be due to the workload limits of the faculty, which may not be able to accommodate all the tutorials. It may also be due to the teaching duty limits of the faculty, which limit the number of tutorials and the total number of teaching duties that can be allocated to the faculty.
 
 However, allocation of all the tutorials is the primary objective of the tutorial allocation process. Thus, additional measures need to be added to the allocation process to ensure that all the tutorials are allocated to faculty, even at the cost of exceeding the workload limits or the teaching duty limits of the faculty.
 
-To achieve this, a method of dynamically adjusting the workload limits of the faculty is introduced. This involves identifying the cause of the infeasibility, i.e. whether the workload limit of the faculty or the teaching duty limits that can be allocated to each faculty is responsible for the infeasibility. Then the workload limits of the faculty or the teaching duty limits are adjusted respectively, to accommodate the unallocated tutorials.
+To achieve this, a method of Selectively adjusting the workload limits and teaching duty limits of the faculty is introduced. This involves identifying the cause of the infeasibility, i.e. whether the workload limit of the faculty or the teaching duty limits that can be allocated to each faculty is responsible for the infeasibility. Then the workload limits of the faculty or the teaching duty limits are adjusted respectively, to accommodate the unallocated tutorials.
 
 This process is repeated, iteratively rectifying the cause of the infeasibility, until all the tutorials are allocated to faculty. This ensures that the tutorial allocation process is able to allocate all the tutorials to faculty, even if it means exceeding the workload limits or the teaching duty limits of the faculty.
 
@@ -233,7 +178,7 @@ To find the cause of infeasibility, the process looks at the unallocated tutoria
 For each iteration, the workload limit of the faculty is increased by 10\% of the total workload limit of the faculty.
 
 \begin{algorithm}[H]
-  \caption*{Dynamic Limit Relaxation Algorithm}
+  \caption*{Selective Workload Relaxation Algorithm}
   \begin{algorithmic}
     \Procedure{RelaxWorkloadLimits}{}
     \While {$unallocatedTutorials \neq \emptyset$}
@@ -275,9 +220,9 @@ For each iteration, the workload limit of the faculty is increased by 10\% of th
 
 where $unallocatedTutorials$ is the set of all unallocated tutorials, $existingAllocations$ is the set of all lectures, tutorials, and labs that have already been allocated, and $faculty$ is the set of all faculty. The $maxWorkloadLimit$ is the maximum workload limit that can be allocated to a faculty and is defined as 1.5 times the total workload limit of the faculty.
 
-\section{The Tutorial Allocation Process}
+\section{Automated Tutorial Allocation Process}
 
-In the tutorial allocation algorithm, the tutorial sessions are divided into batches of size of $batchSize$. Then, the algorithm runs multiple iterations of the Hungarian algorithm, each iteration allocating one batch of tutorials to the faculty. In each iteration, the algorithm constructs the cost matrix using the cost matrix function defined below, which takes into account the consistency of courses, the management priority of allocating earlier-year courses to the best faculty, and ensures the workload limits of the faculty are not exceeded. The algorithm then allocates the tutorials to faculty and then repeats the process until all the batches of tutorials have been allocated. This algorithm is defined in \autoref{alg:tutorial_allocation}.
+In the tutorial allocation algorithm, the tutorial sessions are divided into batches of size of $batchSize$. Then, the algorithm runs multiple iterations of the Hungarian algorithm, each iteration allocating one batch of tutorials to the faculty. In each iteration, the algorithm constructs the cost matrix using the cost matrix function defined below, which takes into account the consistency of courses and ensures the workload limits and teaching duty limits of the faculty are not exceeded. The algorithm then allocates the tutorials to faculty and then repeats the process until all the batches of tutorials have been allocated. This algorithm is defined in \autoref{alg:tutorial_allocation}.
 
 \begin{algorithm}[H]
   \caption{Tutorial Allocation Algorithm}
@@ -300,12 +245,6 @@ In the tutorial allocation algorithm, the tutorial sessions are divided into bat
     \For{$batch \in batches$}
     \For{$f \in faculty$}
     \State $cost \gets \Call{Q}{batch, f}$
-    \State $year = batch.course.year$
-    \If{$cost \leq qualityThreshold$}
-    \State $cost \gets cost - yearwiseBias[year]$
-    \Else
-    \State $cost \gets cost + yearwiseBias[year]$
-    \EndIf
     \If{$f \in existingAllocations[batch.course]$}
     \State $cost \gets cost - consistencyBias$
     \EndIf
@@ -323,13 +262,11 @@ In the tutorial allocation algorithm, the tutorial sessions are divided into bat
 
 where, $tutorials$ is the set of all tutorials, $faculty$ is the set of all faculty, and $batchSize$ is the size of the batch of tutorials. The $divideIntoBatches$ function just divides the tutorials into batches of size $batchSize$. If the number of tutorials is not a multiple of $batchSize$, then the last batch will have less than $batchSize$ tutorials.
 
-The $constructCostMatrix$ function is defined in the second procedure, which incorporates the teaching duty limits, the year-wise bias, the consistency bias, and the workload limits of the faculty. The $qualityThreshold$, $consistencyBias$, $yearwiseBias$, and workload limits for every faculty are defined in the previous chapters. Each of these parameters is configurable and can be adjusted as per the needs of the institution. The $existingAllocations$ is the set of all lectures, tutorials, and labs that have already been allocated.
+The $constructCostMatrix$ function is defined in the second procedure, which incorporates the teaching duty limits, the consistency bias, and the workload limits of the faculty. The $qualityThreshold$, $consistencyBias$, and workload limits for every faculty are defined in the previous chapters. Each of these parameters is configurable and can be adjusted as per the needs of the institution. The $existingAllocations$ is the set of all lectures, tutorials, and labs that have already been allocated.
 
 Additionally, the pre-allocation step, from the lecture allocation process, is also incorporated. Pre-Allocation involves identifying the tutorial batches which have a shortage of faculty, and allocating them to faculty before the main allocation process begins. This is done because the main allocation process isn't aware of faculty shortages, and thus might allocate the faculty needed for such courses to other faculty to optimize the cost function, which would lead to unallocated tutorials.
 
-The dynamic limit relaxation process replaces the workload relaxation process from the lecture allocation process and is thus not applied
-
-The post-allocation step was not found to be useful, since it primarily helped with unallocated lectures caused by the management priority of allocating earlier-year courses to the best faculty. Since the tutorial allocation process doesn't allocate the tutorials year-wise, and instead uses the year-wise bias to allocate earlier-year courses to the best faculty, the post-allocation step was found to be unhelpful.
+The Selective Workload Relaxation process replaces the workload relaxation process from the lecture allocation process and thus, workload relaxation is not applied. Dynamic swapping is also not applied because it was found to be ineffective, which is consistent with the expectation because it primarily helped with the unallocated courses caused by the year-wise allocation of courses, which is not part of the tutorial allocation process.
 
 The entire allocation flow used is defined as shown in \autoref{fig:tutorial_allocation_flow}.
 
@@ -342,7 +279,7 @@ The entire allocation flow used is defined as shown in \autoref{fig:tutorial_all
     \node (preallocation) [process, below=of batch] {Pre-Allocation};
     \node (iter) [process, below=of preallocation] {Allocate Tutorial Batches};
     \node (workload_check) [decision, below=of iter] {All Allocated?};
-    \node (workload) [process, right=of workload_check, xshift=0.25cm] {Dynamically Adjust Limits};
+    \node (workload) [process, right=of workload_check, xshift=0.25cm] {Selecteve Workload Relaxation};
     \node (stop) [startstop, below=of workload_check, yshift=-0.25cm] {Stop};
 
     \draw [arrow] (start) edge (workload_limits)
@@ -361,20 +298,20 @@ The entire allocation flow used is defined as shown in \autoref{fig:tutorial_all
   \label{fig:tutorial_allocation_flow}
 \end{figure}
 
-The process begins by increasing the workload limits of the faculty to include tutorials. Then, the tutorial sessions are divided into batches of size $batchSize$. Then the pre-allocation process is run, which allocates the tutorials that have a shortage of faculty. Then, the algorithm runs multiple iterations of the allocation, each iteration allocating one batch of tutorials to the faculty. In each iteration, the algorithm constructs the cost matrix which takes into account the consistency of courses, the management priority of allocating earlier-year courses to the best faculty, and ensures the workload limits of the faculty are not exceeded. The Hungarian algorithm then allocates the tutorials to faculty and then repeats the process until all the batches of tutorials have been allocated. This is followed by dynamically adjusting the workload limits and teaching duty limits of the faculty to accommodate the tutorials that have not been allocated, if the need arises.
+The process begins by increasing the workload limits of the faculty to include tutorials. Then, the tutorial sessions are divided into batches of size $batchSize$. Then the pre-allocation process is run, which allocates the tutorials that have a shortage of faculty. Then, the algorithm runs multiple iterations of the allocation, each iteration allocating one batch of tutorials to the faculty. In each iteration, the algorithm constructs the cost matrix which takes into account the consistency of courses and ensures the workload limits of the faculty are not exceeded. The Hungarian algorithm then allocates the tutorials to faculty and then repeats the process until all the batches of tutorials have been allocated. This is followed by Selective Workload Relaxation which relaxes workload limits and teaching duty limits of the faculty to accommodate the tutorials that have not been allocated, if the need arises.
 
-\section{The Lab Allocation Process}
+\section{Automated Lab Allocation Process}
 
-The lab allocation process is identical to the tutorial allocation process and is carried out right after the tutorial allocation process. For this, the workload limits are expanded to include labs as described in \autoref{sec:workload_limits}. Then the labs are pre-allocated, during which allocates the labs that have a shortage of faculty. Then multiple iterations of the allocation are run, each iteration allocating one batch of labs to faculty. In each iteration, the algorithm constructs the cost matrix, which is then used by the Hungarian algorithm to allocate the labs to faculty. This is followed by dynamic limit relaxation, which relaxes the workload limits and teaching duty limits of the faculty to accommodate the labs that have not been allocated.
+The lab allocation process is identical to the tutorial allocation process and is carried out right after the tutorial allocation process. For this, the workload limits are expanded to include labs as described in \autoref{sec:workload_limits}. Then the labs are pre-allocated, during which allocates the labs that have a shortage of faculty. Then multiple iterations of the allocation are run, each iteration allocating one batch of labs to faculty. In each iteration, the algorithm constructs the cost matrix, which is then used by the Hungarian algorithm to allocate the labs to faculty. This is followed by Selective Workload Relaxation which relaxes workload limits and teaching duty limits of the faculty to accommodate the labs that have not been allocated.
 
-The lab allocation uses the same cost matrix construction function as the tutorial allocation process, which involves the year-wise bias, the consistency bias, and the workload limits of the faculty. The same $qualityThreshold$, $consistencyBias$, and $yearwiseBias$ as the tutorial allocation process are used. The lab duty limit for professors is set to 6, and that for lecturers is set to 12. This is because the workload of labs is considered to be lower than the workload of tutorials, and thus more sessions can be allocated to faculty. These teaching duty limits are defined in \autoref{tab:teaching_duty_limits}.
+The lab allocation uses the same cost matrix construction function as the tutorial allocation process, which involves the consistency bias and the workload and teaching duty limits of the faculty. The same $qualityThreshold$ and $consistencyBias$ as the tutorial allocation process are used. The lab duty limit for professors is set to 6, and that for lecturers is set to 12. This is because the workload of labs is considered to be lower than the workload of tutorials, and thus more sessions can be allocated to faculty. These teaching duty limits are defined in \autoref{tab:teaching_duty_limits}.
 
 The lab allocation process also uses batching of labs to improve the consistency of courses. The optimal batch size for labs was also found to be 6, which is odd since labs are typically twice as long as tutorials. However, because the workload per hour of the lab is considered to be lower than the workload per hour of tutorial, the two factors balance out, and the optimal batch size for labs is also 6. This also makes intuitive sense since workload granularity is of primary importance, not the number of hours allocated to each faculty.
 
 
 \section{Experimental Results}
 
-The tutorial allocation process uses the Hungarian algorithm to allocate the tutorials to faculty in batches. The algorithm is run multiple times, each time allocating one batch of tutorials to faculty. The algorithm is run until as many tutorials as possible are allocated to faculty, and then the unallocated tutorials are resolved by expanding the workload limits of the faculty, and if that fails, by reshuffling the allocations of the tutorials through the post-allocation process.
+The tutorial allocation process uses the Hungarian algorithm to allocate the tutorials to faculty in batches. The algorithm is run multiple times, each time allocating one batch of tutorials to faculty. The algorithm is run until as many tutorials as possible are allocated to faculty, and then the unallocated tutorials are resolved by expanding the workload limits of the faculty.
 
 Using this approach, the tutorial allocation algorithms were run on the dataset of the School of Computer Science and Engineering, Nanyang Technological University, Singapore. The results of this allocation are shown below.
 
@@ -532,167 +469,6 @@ An interesting observation is that the consistency bias doesn't decrease the num
 It can also be seen in \autoref{fig:score_consistency_bias} that the consistency bias has a negligible impact on the course-faculty fit, thus ensuring that the consistency bias doesn't affect the quality of the allocation. The course-faculty fit of tutorials remains nearly constant at 3.65, and the course-faculty fit of labs remains nearly constant at 3.48.
 
 This shows that the consistency bias is effective in reducing the number of faculty per course, and thus improving the consistency of courses. A consistency bias of 1 was found to be optimal for the test dataset, but this is a configurable parameter that can be adjusted based on the requirements of the institution.
-
-\subsection{Impact of Year-wise Bias}
-
-\begin{figure}[H]
-  \begin{subfigure}[ht]{0.5\linewidth}
-    \centering
-    \begin{tikzpicture}[xscale=0.75, yscale=0.75]
-      \begin{axis}[
-          xlabel={Bias Multiplier},
-          ylabel={Avg Course-Faculty Fit},
-          ymin=3.5, ymax=3.8,
-          ymajorgrids=true,
-          grid style=dashed,
-          cycle list name=exotic,
-        ]
-
-        \addplot coordinates {
-            (0, 3.640196)
-            (0.5, 3.643137)
-            (1, 3.657843)
-            (1.5, 3.636275)
-            (2, 3.657843)
-            (2.5, 3.653922)
-            (3, 3.626471)
-            (3.5, 3.626471)
-            (4, 3.626471)
-          };
-        \addlegendentry{Year 1}
-        \addplot coordinates {
-            (0, 3.563830)
-            (0.5, 3.590426)
-            (1, 3.552128)
-            (1.5, 3.553191)
-            (2, 3.548936)
-            (2.5, 3.552128)
-            (3, 3.579787)
-            (3.5, 3.579787)
-            (4, 3.579787)
-          };
-        \addlegendentry{Year 2}
-        \addplot coordinates {
-            (0, 3.711905)
-            (0.5, 3.704762)
-            (1, 3.673810)
-            (1.5, 3.676190)
-            (2, 3.683333)
-            (2.5, 3.680952)
-            (3, 3.666667)
-            (3.5, 3.664286)
-            (4, 3.666667)
-          };
-        \addlegendentry{Year 3}
-        \addplot coordinates {
-            (0, 3.654054)
-            (0.5, 3.629730)
-            (1, 3.600000)
-            (1.5, 3.602703)
-            (2, 3.600000)
-            (2.5, 3.602703)
-            (3, 3.613514)
-            (3.5, 3.616216)
-            (4, 3.613514)
-          };
-        \addlegendentry{Year 4}
-
-      \end{axis}
-    \end{tikzpicture}
-    \caption{Tutorial Allocation}
-    \label{fig:tut_score_yearwise_bias}
-  \end{subfigure}
-  \begin{subfigure}[ht]{0.4\linewidth}
-    \centering
-    \begin{tikzpicture}[xscale=0.75, yscale=0.75]
-      \begin{axis}[
-          xlabel={Bias Multiplier},
-          ylabel={Avg Course-Faculty Fit},
-          ymin=3.35, ymax=3.6,
-          ymajorgrids=true,
-          grid style=dashed,
-          cycle list name=exotic,
-        ]
-        \addplot coordinates {
-            (0, 3.488983)
-            (0.5, 3.479661)
-            (1, 3.491525)
-            (1.5, 3.481356)
-            (2, 3.466102)
-            (2.5, 3.466102)
-            (3, 3.485593)
-            (3.5, 3.485593)
-            (4, 3.485593)
-          };
-        \addlegendentry{Year 1}
-
-        \addplot coordinates {
-            (0, 3.435227)
-            (0.5, 3.439773)
-            (1, 3.436364)
-            (1.5, 3.446591)
-            (2, 3.454545)
-            (2.5, 3.454545)
-            (3, 3.448864)
-            (3.5, 3.448864)
-            (4, 3.448864)
-          };
-        \addlegendentry{Year 2}
-
-        \addplot coordinates {
-            (0, 3.387234)
-            (0.5, 3.395745)
-            (1, 3.408511)
-            (1.5, 3.395745)
-            (2, 3.408511)
-            (2.5, 3.408511)
-            (3, 3.385106)
-            (3.5, 3.385106)
-            (4, 3.385106)
-          };
-        \addlegendentry{Year 3}
-
-        \addplot coordinates {
-            (0, 3.460000)
-            (0.5, 3.460000)
-            (1, 3.440000)
-            (1.5, 3.440000)
-            (2, 3.440000)
-            (2.5, 3.440000)
-            (3, 3.440000)
-            (3.5, 3.440000)
-            (4, 3.440000)
-          };
-        \addlegendentry{Year 4}
-      \end{axis}
-    \end{tikzpicture}
-    \caption{Lab Allocation}
-    \label{fig:lab_score_yearwise_bias}
-  \end{subfigure}
-  \caption{Impact of Year-wise Bias on Course-Faculty Fit}
-\end{figure}
-
-\autoref{fig:tut_score_yearwise_bias} and \autoref{fig:lab_score_yearwise_bias} show the impact when the default year-wise biases of 1, 0.75, 0.5, 0.25, and 0 for years 1-5 respectively are multiplied by a factor of 0 to 4. This means that for the first reading, the year-wise bias for all years is 0, and for the last reading, the biases for all years are multiplied by 4, yielding a year-wise bias of 4, 3, 2, 1, and 0 for years 1-5 respectively.
-
-It can be seen that the year-wise bias has an impact on the course-faculty fit of tutorials, although the impact is consistent throughout. Moving from a bias multiplication factor of 0 to 1, it can be seen that the year 1 quality increases from 3.64 to 3.66 for tutorials and from 3.48 to 3.49 for labs. On the other hand, the year 4 quality decreases from 3.65 to 3.60 for tutorials and from 3.46 to 3.44 for labs. This is consistent with the expected behavior of the year-wise bias, which is to allocate earlier-year courses to the best faculty.
-
-However, upon increasing the consistency bias further, the course-faculty fit of tutorials doesn't consistently improve. Upon further investigation, it was found that the bias had an impact on the first few iterations of the Hungarian algorithm. However, this greediness towards allocating earlier-year courses to the best faculty counteracts in the later iterations, with the earlier-year courses being allocated to worse faculty than the allocations in the absence of year-wise bias.
-
-This can be seen in \autoref{tab:yearwise_bias_hungarian_iterations}, which shows the year 1 quality for the first 4 iterations of the Hungarian algorithm for a bias multiplication factor of 0 and 25. In theory, a bias multiplication factor of 25 should allocate all the year 1 courses to the best faculty, and thus the year 1 quality should be higher than the year 1 quality in the absence of year-wise bias. However, it can be seen that the year 1 quality is effectively lower after the first few iterations of the Hungarian algorithm. This is because the year-wise bias creates a greediness towards the best faculty for the first few iterations, but this leads to suboptimal allocations in the later iterations.
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|c|c|}
-    \hline
-    \textbf{Iteration}   & \textbf{Multiplier = 0} & \textbf{Multiplier = 25} \\ \hline
-    \textbf{Iteration 1} & 3.733333                & 3.755556                 \\ \hline
-    \textbf{Iteration 2} & 3.709756                & 3.724390                 \\ \hline
-    \textbf{Iteration 3} & 3.703846                & 3.692453                 \\ \hline
-    \textbf{Iteration 4} & 3.705263                & 3.686441                 \\ \hline
-  \end{tabular}
-  \caption{Year 1 Quality for the first 4 iterations of Hungarian}
-  \label{tab:yearwise_bias_hungarian_iterations}
-\end{table}
 
 \subsection{Impact of Batch Size}
 
@@ -886,7 +662,7 @@ To check the impact of batch size, the tutorial and lab allocation algorithms we
 
 As seen in \autoref{fig:faculty_per_course_batch_size}, the batch size has a significant impact on the number of faculty per course. As the batch size is increased, the number of faculty per course decreases significantly. For tutorials, 2.38 faculty per course for a batch size of 1 decreases to 1.21 faculty per course for a batch size of 10. For labs, 3.19 faculty per course for a batch size of 1 decreases to 1.41 faculty per course for a batch size of 10. This shows that batch size has the desired effect of reducing the number of faculty per course.
 
-\autoref{fig:score_batch_size} shows that the batch size has a mild impact on the course-faculty fit of tutorials, although the impact is consistent throughout. Moving from a batch size of 1 to 10, it can be seen that the course-faculty fit of tutorials decreases from 3.64 to 3.60. On the other hand, the course-faculty fit of labs increases from 3.48 to 3.53. This is consistent with the expected behavior of the batch size, which is to allocate earlier-year courses to the best faculty. This shows that the batch size does not necessarily have a negative impact on the course-faculty fit.
+\autoref{fig:score_batch_size} shows that the batch size has a mild impact on the course-faculty fit of tutorials, although the impact is consistent throughout. Moving from a batch size of 1 to 10, it can be seen that the course-faculty fit of tutorials decreases from 3.64 to 3.60. On the other hand, the course-faculty fit of labs increases from 3.48 to 3.53. This shows that the batch size does not necessarily impact the course-faculty fit negative.
 
 \autoref{fig:unallocated} shows that the batch size has a significant impact on the number of unallocated tutorial hours. As the batch size is increased, the number of unallocated tutorials decreases up to a certain point and then increases. For tutorials, 52 unallocated tutorial hours for a batch size of 1 decreases to 0 unallocated tutorial hours for a batch size of 4 onwards, and then shot back up after a batch size of 8 to 104 and continued increasing to 221 for a batch size of 10. For labs, 0 unallocated lab hours for a batch size of 1 increases to 140 unallocated lab hours for a batch size of 7 onwards. This shows that batch size does not have a direct correlation to the number of unallocated tutorial hours. Upon investigating the increase in the unallocated hours for tutorials for very high batch sizes, it was found that large batch sizes lead to many faculty being unable to teach certain tutorials due to the workload limits of the faculty being exceeded.
 
@@ -896,7 +672,7 @@ With these results, it can be concluded that increased batch sizes greatly allev
 
 \subsection{Impact of Pre-Allocation}
 
-To check the impact of pre-allocation, the tutorial and lab allocation algorithms were run with and without pre-allocation. The dynamic adjustment of limits was intentionally disabled for this experiment since that will help highlight the unallocated tutorials and labs caused by the absence of pre-allocation. The batch size was set to 6 for this experiment.
+To check the impact of pre-allocation, the tutorial and lab allocation algorithms were run with and without pre-allocation. Selective Workload Relaxation was intentionally disabled for this experiment since that will help highlight the unallocated tutorials and labs caused by the absence of pre-allocation. The batch size was set to 6 for this experiment.
 
 \begin{table}[H]
   \centering
@@ -915,9 +691,9 @@ To check the impact of pre-allocation, the tutorial and lab allocation algorithm
 
 \autoref{tab:pre_allocation} shows the impact of pre-allocation on the tutorial and lab allocation processes. It can be seen that pre-allocation has a significant impact on the number of hours assigned, with an additional 3.3\% of tutorial hours and 1.9\% of lab hours being assigned when pre-allocation is used. This is because pre-allocation allows the algorithm to allocate tutorials and labs that have a shortage of faculty, which would otherwise be unallocated.
 
-\subsection{Impact of Dynamic Adjustment of Limits}
+\subsection{Impact of Selective Workload Relaxation}
 
-As can also be seen in \autoref{tab:pre_allocation}, the absence of dynamic adjustment of limits leads to a significant number of unallocated tutorial and lab hours. This is due to a combination of uneven demand for faculty to teach certain courses, which doesn't line up with the workload limits of the faculty, and the greediness of the Hungarian algorithm which prioritizes the student feedback score for earlier iterations of the algorithm.
+As can also be seen in \autoref{tab:pre_allocation}, the absence of selective workload relaxation leads to a significant number of unallocated tutorial and lab hours. This is due to a combination of uneven demand for faculty to teach certain courses, which doesn't line up with the workload limits of the faculty, and the greediness of the Hungarian algorithm which prioritizes the student feedback score for earlier iterations of the algorithm.
 
 \begin{table}[H]
   \centering
@@ -925,7 +701,7 @@ As can also be seen in \autoref{tab:pre_allocation}, the absence of dynamic adju
     \begin{tabular}{|l|c|c|c|c|}
       \hline
                                  & \textbf{Unallocated Batches} & \textbf{Total duties limit} & \textbf{Tut limit} & \textbf{Workload limit} \\ \hline
-      \textbf{Before Adjustment} & 31                           & 12                          & 6                  & 1.0                     \\ \hline
+      \textbf{Before Relaxation} & 31                           & 12                          & 6                  & 1.0                     \\ \hline
       Iteration 1                & 21                           & 12                          & 6                  & 0.1                     \\ \hline
       Iteration 2                & 15                           & 14                          & 7                  & 0.2                     \\ \hline
       Iteration 3                & 3                            & 16                          & 8                  & 0.3                     \\ \hline
@@ -933,7 +709,7 @@ As can also be seen in \autoref{tab:pre_allocation}, the absence of dynamic adju
       Iteration 5                & 0                            & 18                          & 9                  & 0.5                     \\ \hline
     \end{tabular}
   }
-  \caption{Impact of Dynamic Adjustment of Limits on Tutorials}
+  \caption{Impact of Selective Workload Relaxation on Tutorials}
   \label{tab:dynamic_adjustment_tutorials}
 \end{table}
 
@@ -943,21 +719,21 @@ As can also be seen in \autoref{tab:pre_allocation}, the absence of dynamic adju
     \begin{tabular}{|l|c|c|c|c|}
       \hline
                                  & \textbf{Unallocated Batches} & \textbf{Total duties limit} & \textbf{Lab limit} & \textbf{Workload limit} \\ \hline
-      \textbf{Before Adjustment} & 44                           & 12                          & 6                  & 1.0                     \\ \hline
+      \textbf{Before Relaxation} & 44                           & 12                          & 6                  & 1.0                     \\ \hline
       Iteration 1                & 27                           & 14                          & 7                  & 0.1                     \\ \hline
       Iteration 2                & 9                            & 16                          & 8                  & 0.2                     \\ \hline
       Iteration 3                & 6                            & 18                          & 9                  & 0.3                     \\ \hline
       Iteration 4                & 0                            & 20                          & 10                 & 0.4                     \\ \hline
     \end{tabular}
   }
-  \caption{Impact of Dynamic Adjustment of Limits on Labs}
+  \caption{Impact of Selective Workload Relaxation on Labs}
   \label{tab:dynamic_adjustment_labs}
 \end{table}
 
 \section{Summary}
 
-This chapter presented the approach towards tutorial allocation and lab allocation. This approach involved the use of the Hungarian algorithm to allocate tutorials and labs to faculty. The approach also involved the use of a consistency bias in the cost matrix, and the use of batching to reduce fragmentation. The cost matrix was also modified to include the year-wise bias, which allocates earlier-year courses to the best faculty, and teaching duty limits to ensure that faculty are not overworked.
+This chapter presented the approach towards tutorial allocation and lab allocation. This approach involved the use of the Hungarian algorithm to allocate tutorials and labs to faculty. The approach also involved the use of a consistency bias in the cost matrix, and the use of batching to reduce fragmentation. The cost matrix was also modified to incorporate the teaching duty limits, ensuring that faculty are not overworked.
 
-As part of the allocation process, the tutorials were first pre-allocated to ensure that tutorials with a shortage of faculty were allocated. Then it used the above approach to allocate the tutorials. Finally, if any tutorials were left unallocated, the workload limits and teaching duty limits of the faculty were dynamically adjusted to ensure that the unallocated tutorials were allocated.
+As part of the allocation process, the tutorials were first pre-allocated to ensure that tutorials with a shortage of faculty were allocated. Then it used the above approach to allocate the tutorials. Finally, if any tutorials were left unallocated, the workload limits and teaching duty limits of the faculty were selectively adjusted to ensure that the unallocated tutorials were allocated.
 
-The approach was then tested on the test dataset. The results showed that the approach was able to allocate tutorials and labs with a high course-faculty fit, and a low number of faculty per course, while maintaining a high faculty utilization. It was shown that the consistency bias was able to reduce the number of faculty per course, and the batching was very effective in reducing fragmentation as well. The year-wise bias was shown to not be very effective in allocating the earlier-year courses to the best faculty. The dynamic adjustment of limits was shown to be very effective in reducing the number of unallocated tutorials and labs without significantly overworking the faculty.
+The approach was then tested on the test dataset. The results showed that the approach was able to allocate tutorials and labs with a high course-faculty fit, and a low number of faculty per course, while maintaining a high faculty utilization. It was shown that the consistency bias was able to reduce the number of faculty per course, and the batching was very effective in reducing fragmentation as well. Selective Workload Relaxation was shown to be very effective in reducing the number of unallocated tutorials and labs without significantly overworking the faculty.

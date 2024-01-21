@@ -16,6 +16,22 @@ An additional technique of dynamic limit relaxation is also introduced, which in
 
 In this chapter, a comprehensive approach to tutorial and lab allocation is discussed, which uses the Hungarian algorithm to allocate the tutorials and labs to faculty, while utilizing the techniques discussed above to meet the objectives and constraints of the tutorial and lab allocation problem. These techniques are then applied to a real-world dataset to evaluate their effectiveness.
 
+\section{Modelling the Tutorial Allocation Problem}
+
+The tutorial allocation problems, similar to the lecture allocation problem, can be modeled as an assignment problem where the tasks are the tutorials, and the resources are the faculty. Every tutorial will be assigned to exactly one faculty, but multiple tutorials or labs can be assigned to the same faculty, i.e. the tutorial allocation problems are many-to-one assignment problems.
+
+The cost of allocating a tutorial to a faculty should take into consideration the student feedback and the faculty preferences. Additionally, the cost should be modeled such that consistency of courses can be maintained for tutorials, the workload of faculty is distributed equitably, and a similar proportion of lectures, tutorials, and labs are allocated to each faculty.
+
+Similar to the lecture assignment problem, the tutorial assignment is performed using the Hungarian algorithm. Since the algorithm only works for one-to-one assignment problems, the tutorial assignment problem is converted into a one-to-one assignment problem by running multiple iterations of the algorithm, where each iteration allocates exactly one session of tutorials to the faculty.
+
+However, the allocation process has a key difference - the tutorials involve multiple sessions of the same tutorial, each of which may be allocated to the same faculty as well. However since Hungarian only allocates one task to one agent at a time, if multiple sessions of one tutorial are allocated in a single iteration, they will never be allocated to the same faculty. This would lead to the tutorials of the same course being allocated to different faculty, which leads to problems discussed previously.
+
+As a result, the tutorial allocation process is modified to allocate only one session of each tutorial in each iteration. This ensures that the same faculty gets the opportunity to teach multiple sessions of the same tutorial.
+
+Additionally, course tutorials do not require as much subject-matter expertise as lectures. Thus, preferential allocation of earlier-year course tutorials to faculty is not required. As a result, the year-wise allocation of courses, as was done in the lecture allocation process, is not required for the tutorial allocation process.
+
+In the next section, the objectives of the tutorial allocation problem are discussed. After that, the cost function to be used for the tutorial allocation problem is defined, and then additional measures are taken to improve the consistency of courses and ensure equitable distribution of workload.
+
 \section{Tutorial Allocation Objectives}
 
 The tutorial allocation involves allocating tutorials to faculty members who are eligible to deliver them. Tutorial allocation is similar to lecture allocation, which means that the objectives and constraints of the tutorial allocation problem are similar to the lecture allocation problem. This means that the tutorial allocation problem is also a multi-objective optimization problem, with a set of objectives that need to be optimized and a set of constraints that need to be satisfied.
@@ -39,51 +55,15 @@ However, there are a few additional considerations that need to be taken into ac
 
 \end{itemize}
 
-As a result, the tutorial allocation problem is modeled differently from the lecture allocation problem. The next section discusses how the tutorial allocation problem is modeled.
-
-\section{Modelling the Tutorial Allocation Problem}
-
-The tutorial allocation problems, similar to the lecture allocation problem, can be modeled as an assignment problem where the tasks are the tutorials, and the resources are the faculty. Every tutorial will be assigned to exactly one faculty, but multiple tutorials or labs can be assigned to the same faculty, i.e. the tutorial allocation problems are many-to-one assignment problems.
-
-The cost of allocating a tutorial to a faculty should take into consideration the student feedback and the faculty preferences. Additionally, the cost should be modeled such that consistency of courses can be maintained for tutorials, the workload of faculty is distributed equitably, and a similar proportion of lectures, tutorials, and labs are allocated to each faculty.
-
-\subsection{Allocating using the Hungarian Algorithm}
-
-Similar to the lecture assignment problem, the tutorial assignment is performed using the Hungarian algorithm. Since the algorithm only works for one-to-one assignment problems, the tutorial assignment problem is converted into a one-to-one assignment problem by running multiple iterations of the algorithm, where each iteration allocates exactly one session of tutorials to the faculty.
-
-The cost function for the lecture allocation problem is used as a starting point to define the cost function for the tutorial allocation problem. Thus, \autoref{eq:course_faculty_fit} is used as the course-faculty fit metric for the problem. This fit metric is then used to construct the allocation matrix as defined in \autoref{alg:cost_matrix_construction}. This cost matrix function is then used as input to the Hungarian algorithm, similar to the lecture allocation problem defined in \autoref{alg:base_lec_alloc}.
-
-For the cost function, a separate set of student feedback and faculty preferences are provided for tutorials, to account for the different faculty delivering the tutorials, and the different student experience in tutorials. The faculty preferences for tutorials also tend to be broader, with more faculty being able to deliver tutorials than lectures.
-
-However, the allocation process has a key difference - the tutorials involve multiple sessions of the same tutorial, each of which may be allocated to the same faculty as well. However since Hungarian only allocates one task to one agent at a time, if multiple sessions of one tutorial are allocated in a single iteration, they will never be allocated to the same faculty. This would lead to the tutorials of the same course being allocated to different faculty, which leads to problems discussed previously.
-
-As a result, the tutorial allocation process is modified to allocate only one session of each tutorial in each iteration. This ensures that the same faculty gets the opportunity to teach multiple sessions of the same tutorial. The allocation algorithm is thus defined as shown below.
-
-\begin{algorithm}[H]
-  \caption*{Base Tutorial Allocation Algorithm}
-  \begin{algorithmic}
-    \Procedure{AllocateTutorials}{$tutorials, faculty$}
-    \State $unallocatedTutorialSessions \gets tutorials$
-    \State $allAllocations \gets \emptyset$
-    \While{$unallocatedTutorialSessions \neq \emptyset$}
-    \State $iterationSessions \gets getFirstUnallocatedSession()$
-    \State $costMatrix \gets constructCostMatrix(iterationSessions, faculty)$
-    \State $allocation \gets \text{HungarianAlgorithm}(costMatrix)$
-    \State $allAllocations \gets allAllocations \cup allocation$
-    \State $unallocatedTutorialSessions \gets unallocatedTutorialSessions \setminus allocation$
-    \EndWhile
-    \State \textbf{return} $allAllocations$
-    \EndProcedure
-  \end{algorithmic}
-\end{algorithm}
-
-where, $tutorials$ is the set of all tutorials, and $faculty$ is the set of all faculty. The $constructCostMatrix$ function is defined as shown in \autoref{alg:cost_matrix_construction}. In every iteration, the allocation process takes the first unallocated tutorial session of each course and allocates it to a faculty. This ensures that the same faculty gets the opportunity to teach multiple sessions of the same tutorial.
-
-In the next section, the cost function is modified to improve the consistency of courses and ensure equitable distribution of workload.
+As a result, the tutorial allocation problem is modeled differently from the lecture allocation problem. The next section discusses how the cost function is modified to account for these considerations.
 
 \section{Designing the Cost Function}
 
-As mentioned in the previous section, the course-faculty fit metric is used and defined in the lecture allocation process as the starting point for the cost function for the tutorial allocation problem. This fit metric is then used to construct the allocation matrix as defined in \autoref{alg:cost_matrix_construction}, which serves as the input to the Hungarian algorithm. However, the cost function needs to be modified to account for the different objectives and constraints of the tutorial allocation problem.
+For tutorial allocation, the cost function for the lecture allocation problem is used as a starting point to define the cost function for the tutorial allocation problem. Thus, \autoref{eq:course_faculty_fit} is used as the course-faculty fit metric for the problem. This fit metric is then used to construct the allocation matrix as defined in \autoref{alg:cost_matrix_construction}, which serves as the input to the Hungarian algorithm.
+
+For the cost function, a separate set of student feedback and faculty preferences are provided for tutorials, to account for the different faculty delivering the tutorials, and the different student experience in tutorials. The faculty preferences for tutorials also tend to be broader, with more faculty being able to deliver tutorials than lectures.
+
+However, the tutorial allocation problem has a few objectives, and constraints that need to be taken into account, and cost function needs to be modified to account for these objectives and constraints.
 
 Firstly, to maintain the consistency of courses, the cost function is modified to bias the allocation of tutorials to the same faculty who was allocated the lectures, tutorials, or labs of the same course. This is done by reducing the cost of allocating a tutorial to the faculty by a certain bias if the faculty was allocated any existing tutorials or labs of the same course. Additionally, even if the faculty was allocated the lectures of the same course, the cost of allocating a tutorial to the faculty is reduced by the same bias, since the lectures, tutorials, and labs of the same course should ideally be allocated to the same faculty.
 

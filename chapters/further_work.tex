@@ -30,29 +30,21 @@ With the allocation of all teaching activities to the faculty using the Hungaria
 
 The allocation of teaching workload to faculty is a complex problem, and while the allocation achieved in this thesis is fair and equitable, there are still certain areas of improvement that can be made. Some of these areas are discussed below.
 
-\subsection{Workload Analysis from the RTS Model}
+\subsection{Relaxing prioritization of earlier year courses to minimize unallocated lectures}
 
-The RTS Model provides a lot of insight into the workload of the faculty and can be used to derive important metrics regarding the health of the institution. It can be used to determine if the overall organizational objectives of the institution are met, by ensuring that the aggregate RTS ratio of the institution is in the right direction. A research-intensive university may aim for an aggregate RTS Ratio of $R:T:S = 6:4:2$, for example.
+The absolute prioritization of earlier-year courses, while effective in ensuring that the foundational courses are taught by the best faculty, can result in a large number of unallocated lectures, as the best faculty who are teaching the earlier-year courses may be essential to teach the later-year courses. While this thesis proposed several techniques to handle this which proved to be effective in resolving these unallocated lectures, relaxing the prioritization of earlier-year courses can be explored in future work.
 
-It can also be used to determine if the faculty are overloaded with work, by checking if the RTS ratio corresponds to the actual workload self-reported by the faculty. A misalignment between the two can indicate that the faculty are overloaded with work, and can be used to determine if additional faculty need to be hired.
+The prioritization of earlier-year courses was also performed to prioritize foundational courses which form the basis of the later-year courses, and are important for the students to learn and perform well in. An analysis of the course prerequisites can be performed, to determine which courses are foundational, and can be given a higher priority in the allocation process instead of a blanket prioritization of earlier-year courses.
 
-\subsection{Better prioritization of earlier year courses}
+Exploring the course interdependencies, such as analyzing the effect of student performance in a foundational course on the student performance in the subsequent courses, can highlight other valuable insights, that can be used to improve the allocation process and learning outcomes for the students.
 
-Many techniques such as pre-allocation, dynamic splitting, and workload relaxation, needed to be developed to overcome unallocated lectures which were a result of absolute prioritization of earlier year courses. Primitive analysis of allocating all years together showed that many of the unallocated lectures would be allocated if the lectures weren't allocated year-wise. However as shown in tutorial allocation, a year-wise bias was not very effective.
+\subsection{Accounting for the impact of Teaching Assistants}
 
-If a better way of prioritizing earlier-year courses can be found, it would be possible to allocate all lectures together, instead of allocating lectures year-wise, which could yield better results. This can be explored in future work.
+Teaching Assistants (TAs) are typically graduate students who assist the faculty in teaching the course. Their role is to assist the faculty in teaching activities, such as grading, and in some cases, they may also be involved in the delivery of the tutorials and labs. Their presence might help in reducing the workload of the faculty, and can also be used to improve the learning outcomes of the students by providing them with additional support. The impact of TAs on the teaching workload of the faculty is not accounted and thus, adapting the proposed models for TA supply and involvement would be a worthy pursuit.
 
-\subsection{Prioritization of Foundational Courses}
+\subsection{Allocation of Final Year Projects}
 
-Certain courses are considered to be foundational courses, which are important for the students to learn, and are also important for the students to perform well in, as they are prerequisites for other courses, and play an important part in the students' learning journey. Allocating earlier-year courses to the best faculty broadly serves to prioritize such foundational courses, but it is not very targeted.
-
-An analysis of course prerequisites can be performed, to determine which courses are foundational, and can be given a higher priority in the allocation process. Exploring these interdependencies, such as analyzing the effect of student performance in a foundational course on the student performance in the subsequent courses, can highlight other valuable insights, that can be used to improve the allocation process and learning outcomes for the students.
-
-\subsection{Prioritizing Faculty with Prior Experience in the Course}
-
-As shown in the course workload model, faculty who have previously taught a course have a lower workload than faculty who are teaching the course for the first time. Thus, prioritizing faculty who have previously taught a course can be an additional consideration in avoiding the fragmentation of tutorials and labs. This can also be incorporated into lecture allocation, as it has the potential of lowering overall teaching workload in the institution, and can be explored further.
-
-Additionally, the reduction of workload accompanied by teaching multiple tutorials of the same course is not accounted for in the current model and can be incorporated into the model in future work.
+Final Year Projects (FYPs) are a capstone project that is undertaken by the students in their final year of study. The FYPs are supervised by a faculty member, and the faculty member is responsible for the grading of the FYP. The workload of the FYP is considered as teaching workload, and thus, the allocation of FYPs to the faculty is an important consideration in the allocation process. The RTS ratio can be used to determine the number of FYPs that can be allocated to the faculty, and the allocation process can be adapted to allocate the FYPs to the faculty. An exploration in this area will make the allocation process more comprehensive and holistic.
 
 \subsection{Timetabling Constraints}
 
@@ -62,4 +54,12 @@ Other timetabling constraints like the distance between classrooms can also be i
 
 \subsection{Workforce Gap Analysis}
 
-Techniques like pre-allocation highlighted the shortage of eligible faculty for certain courses. This can be used to perform a workforce gap analysis, which can be used to determine the number of additional faculty that need to be hired to ensure that all courses can be taught by eligible faculty. This, in combination with the need for systematic overloading of faculty, shows the possibility for a more targeted hiring process, which can be beneficial for the institution.
+Techniques like pre-allocation highlighted the shortage of eligible faculty for certain courses. This can be used to perform a workforce gap analysis, which can be used to determine the number of additional faculty that need to be hired to ensure that all courses can be taught by eligible faculty. A closer examination of the degree of deviation from faculty preference should pave the way for identifying a shortage of expertise in certain areas. This, in combination with the need for systematic overloading of faculty, shows the possibility for a more targeted hiring process, which can be beneficial for the institution.
+
+\subsection{Inter-semester workload balancing}
+
+It was seen that certain faculty members needed to be overloaded in a semester to ensure the allocation of all teaching workload to the faculty. There is scope for inter-semester workload balancing, where the workload of the faculty is balanced across semesters, to ensure that in the event of an overloading of faculty in one semester, the workload of the faculty is reduced in the subsequent semester.
+
+\subsection{Realization of Institutional Goals}
+
+The RTS model provided a transparent and insightful metric for the workload of the faculty. This can be used to determine if the institutional goals are being met, by ensuring that the aggregate RTS ratio of the institution is in the right direction. A research-intensive university may aim for an aggregate RTS Ratio of $R:T:S = 6:4:2$, for example. The RTS ratio can also be used to determine if these goals are being met at the department level, and faculty level, and can be used to identify areas of improvement.

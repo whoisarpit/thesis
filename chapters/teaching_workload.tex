@@ -1,4 +1,4 @@
-\chapter{Computing Teaching Workload}
+\chapter{Modeling Workload for Teaching Activities}
 \label{ch:teaching_workload}
 
 \section{Introduction}
@@ -13,31 +13,6 @@ Additionally, various factors are analyzed, and their impact on the teaching wor
 
 In the following sections, these components of course workload, and the factors affecting them are discussed in detail. The workload calculation technique is then demonstrated with real-world examples.
 
-\section{Components of Teaching Workload}
-
-For any given teaching activity assigned to a faculty, the teaching workload can be divided into multiple activities. These include preparing the course material before the course begins, reviewing and delivering the course material during the course, and grading the examinations and assignments during and after the course. These activities are described in the following sections.
-
-\begin{enumerate}
-  \item \textbf{Preparation (\(T_p\))} \\
-        At the start of the semester, the faculty is assigned to teach a set of courses. Between the start of the semester and the first week of teaching, the faculty needs to prepare the course material for the course. The faculty has to spend a considerable amount of time researching and preparing the course material which involves designing up-to-date content for the course, time spent designing slides for the course, time spent designing an evaluation strategy for the course and accordingly, defining the rubric for the course and designing the examinations and assignments.
-
-  \item \textbf{Pre-delivery Review (\(T_r\))} \\
-        Before the delivery of each lecture, tutorial, or lab, the faculty needs to review the course material to refresh their understanding of the course material. This involves reviewing the lecture slides, reviewing the tutorial questions and solutions, and reviewing the lab experiments and solutions respectively. This can be a considerable amount of effort, especially for lectures, as the faculty needs to ensure the pace of the lecture is appropriate to complete the lecture materials, and the lecture is engaging.
-
-  \item \textbf{Delivery (\(T_d\))} \\
-        This refers to the contact time of the faculty with the students i.e. delivering the lectures or tutorials, or supervising the lab sessions. The faculty needs to ensure the comprehension and engagement of the students and engage in real-time feedback to adjust the pace of the lecture.
-
-  \item \textbf{Grading (\(T_g\))} \\
-        During the duration of the course, the faculty is responsible for grading the examinations and assignments. This includes grading the mid-semester exams, final exams, and any additional assignments that may be given. If the faculty is handling tutorial or lab sessions, they are also responsible for grading the tutorial assignments and lab reports.
-
-        Since the preparation of examination material and the grading strategy is already done, this activity is largely clerical in nature. However, since this activity needs to be done individually for each student enrolled in the course, it can be a considerable amount of effort, especially for courses with a large number of students.
-
-        Some assistance may be provided by teaching assistants in grading the examinations and assignments, but the faculty is primarily responsible for grading the examinations and assignments.
-
-\end{enumerate}
-
-In addition to the above activities, the faculty is also responsible for consultation hours, consolidation and entry of grades, as well as collection of teaching feedback from the students. However, these activities are not significant enough to affect the workload distribution and thus are not considered separately.
-
 \section{Factors Affecting Teaching Workload}
 
 Even for courses in the same study program or field, the teaching workload can vary significantly. This is because the teaching workload is affected by various factors.
@@ -48,56 +23,73 @@ Course newness i.e. the familiarity of the faculty with the course material can 
 
 Class size also has a significant impact on grading workload \( T_g \), because the examinations and assignments need to be graded individually for each student enrolled in the course. However, the class size has minimal impact on the preparation of course material and delivery of lectures.
 
-In the following sections, we will discuss the various factors that affect the teaching workload.
+For latter-year specialization courses, the course material can be significantly more complex than foundational courses, and may also require more frequent updates. Course complexity can also vary depending on the field of study. However, it is important to remember that faculty performs a significant amount of research as part of their job, and can be considered experts in their field of study. Since the faculty is typically assigned to teach a course according to their expertise, the course complexity is assumed to have minimal impact on the teaching workload.
 
-\subsection{Teaching Activity Type}
-\label{sec:activity_type}
+There are various arguments for higher or lower workload for online courses compared to offline courses, relating to additional efforts to ensure comprehension, and time spent traveling to and from the university and between classes. Through a survey of faculty, it was found that online delivery of lectures has a largely similar workload to offline delivery of lectures, with various factors contributing to an increase and decrease in workload. Thus, the mode of delivery is assumed to have a negligible impact on the teaching workload.
 
-The workload of the faculty is directly affected by the activity that is assigned to them. A faculty assigned to deliver the lectures has a significantly higher workload than a faculty assigned to deliver the tutorials or labs.
+Overall, the factors that affect the teaching workload can be classified into three categories - the type of teaching activity, the course newness, and the class size. These factors are discussed in detail as follows:
 
-If the faculty is assigned to deliver the lectures, they are responsible for preparing the course material for the lecture, the tutorial as well as the lab sessions. They also take the primary responsibility of grading the examinations and assignments. Thus, the workload of the faculty is significantly higher.
+\begin{enumerate}
 
-If the faculty is assigned to deliver the tutorials, they are not responsible for preparing the tutorial materials since the lecturer has already prepared the tutorial materials. They are responsible for reviewing the tutorial material before the tutorial session, and then delivering the tutorial session. Although they are also responsible for grading the tutorial assignments, this is largely done as part of the delivery of tutorials and thus doesn't need to be separately accounted for. Thus, the workload of the faculty is significantly lower.
+  \item \textbf{Teaching Activity Type}
+        \label{sec:activity_type}
 
-Similarly, if the faculty is assigned to deliver the labs, they are not responsible for preparing the lab materials. They are responsible for reviewing the lab material before the lab session, and then delivering the lab session. Similar to tutorials, they are also responsible for grading the lab reports, but this is largely done as part of the delivery of labs, and thus doesn't need to be separately accounted for. Thus, the workload of the faculty is quite low as well.
+        The workload of the faculty is directly affected by the activity that is assigned to them. A faculty assigned to deliver the lectures has a significantly higher workload than a faculty assigned to deliver the tutorials or labs.
 
-\subsection{Course Newness}
+        If the faculty is assigned to deliver the lectures, they are responsible for preparing the course material for the lecture, the tutorial as well as the lab sessions. They also take the primary responsibility of grading the examinations and assignments. Thus, the workload of the faculty is significantly higher.
 
-The course newness is the familiarity of the faculty with the course material. Typically, the same course is taught by the same faculty every year, due to their prior experience with the course material. However, in a university with a large number of courses, it is fairly common for faculty to teach courses that they have not taught before due to the unavailability of other faculty. Additionally, fields with rapidly changing technology like Computer Science and Engineering require the introduction of new courses every year. Thus, the course newness can vary significantly between different courses.
+        However, if the faculty is assigned to deliver the tutorials or lab, they are not responsible for preparing the tutorial materials. Additionally, grading of tutorials and lab sessions also requires minimal effort, since the grading is largely done as part of the delivery of tutorials and labs respectively. Thus, the workload of the faculty is quite low.
 
-The course newness primarily has an impact on the preparation of course material. If the faculty is unfamiliar with the course material, they will need to spend more time researching and preparing the course material. There might be cases where the faculty has not taught the course before, but another faculty has. In such cases, the course material prepared by the other faculty is readily available, and thus the preparation workload is reduced. Thus, course newness can have a significant impact on the preparation workload.
+  \item \textbf{Course Newness}
 
-It can be argued that the course newness can have an impact on the delivery of lectures since new courses require additional preparation for the delivery of lectures. However, it can be assumed that the faculty already familiarized themselves with the course material during the preparation of course material, and thus the impact of such factors is assumed to be minimal.
+        The course newness is the familiarity of the faculty with the course material. Typically, the same course is taught by the same faculty every year, due to their prior experience with the course material. However, in a university with a large number of courses, it is fairly common for faculty to teach courses that they have not taught before due to the unavailability of other faculty. Additionally, fields with rapidly changing technology like Computer Science and Engineering require the introduction of new courses every year. Thus, the course newness can vary significantly between different courses.
 
-Similarly, it can be argued that the course newness can have an impact on the grading of examinations and assignments since a new course would have varied responses from students. However, it is assumed that the examination material design and grading strategy are already prepared thoroughly to the extent that the grading workload is clerical in nature, and thus the impact of such factors is assumed to be minimal.
+        For new courses, the faculty needs to spend a significant amount of time researching and preparing the course material, which involves designing up-to-date content for the course, time spent designing lecture slides, time spent designing an evaluation strategy for the course and accordingly, defining the rubric for the course and designing the examinations and assignments.
 
-\subsection{Class Size}
+        For courses that have been taught before, the course material prepared by the previous faculty is readily available. Most time is spent reviewing the course material and tailoring it to the faculty's teaching style. Thus, the preparation workload is reduced.
 
-The class size, i.e. the number of students enrolled in a course, can vary significantly between different courses. For example, a foundational course like Data Structures and Algorithms can have as many as 900 students enrolled in it, while an advanced course like Artificial Intelligence in Game Design can have as few as 30 students enrolled in it.
+        For courses that have been taught by the same faculty before, the course material is readily available, and minimal revision of the course material is required. Thus, the preparation workload is negligible.
 
-The class size has a significant impact on the grading workload. This is because the examinations and assignments need to be graded individually for each student enrolled in the course. Thus, the grading workload is directly proportional to the number of students enrolled in the course.
+  \item \textbf{Class Size}
 
-It can be argued that the class size can have an impact on the preparation of course material, since ensuring comprehension and engagement of the students can be more difficult for a larger class size, and the preparation of course materials needs to be more thorough. However, the impact of such factors is assumed to be minimal. Similar arguments made for the impact of class size on the delivery of lectures can also be ignored for the same reason.
+        The class size, i.e. the number of students enrolled in a course, can vary significantly between different courses. For example, a foundational course like Data Structures and Algorithms can have as many as 900 students enrolled in it, while an advanced course like Artificial Intelligence in Game Design can have as few as 30 students enrolled in it.
+
+        The class size has a significant impact on time spend grading examinations and assignments because these need to be graded individually for each student enrolled in the course. It can be argued that larger class sizes also require more preparation, since ensuring comprehension and engagement of the students can be more difficult for a larger class size. However, the impact of such factors is assumed to be minimal.
+
+\end{enumerate}
 
 
-\subsection{Factors With Minimal Impact}
+\section{Components of Teaching Workload}
 
-Some other factors are important to consider, but their impact on the teaching workload was found to be minimal. This includes course complexity and faculty expertise. These factors are as follows:
+For any given teaching activity assigned to a faculty, the teaching workload can be divided into multiple activities. These include preparing the course material before the course begins, reviewing and delivering the course material during the course, and grading the examinations and assignments during and after the course. These activities are described in the following sections.
 
-\begin{itemize}
-  \item  \textbf{Course Complexity}
+\begin{enumerate}
+  \item \textbf{Preparation (\(T_p\))}
 
-        For latter-year specialization courses, the course material can be significantly more complex than foundational courses, and may also require more frequent updates. Course complexity can also vary depending on the field of study. For example, courses in fields with rapidly changing technology like Artificial Intelligence require more frequent updates to include state-of-the-art research in the corresponding fields. Thus, the course complexity can vary significantly between different courses.
+        At the start of the semester, the faculty is assigned to teach a set of courses. Between the start of the semester and the first week of teaching, the faculty needs to prepare the course material for the course. The faculty has to spend a considerable amount of time researching and preparing the course material which involves designing up-to-date content for the course, time spent designing slides for the course, time spent designing an evaluation strategy for the course and accordingly, defining the rubric for the course and designing the examinations and assignments. The preparation workload is only applicable to the faculty assigned to deliver the lectures because the lecturer is responsible for preparing the tutorial and lab materials as well.
 
-        However, it is important to remember that faculty performs a significant amount of research as part of their job, and can be considered experts in their field of study. Since the faculty is typically assigned to teach a course according to their expertise, it can be assumed that the faculty is competent at teaching the course. Thus, the course complexity is assumed to have minimal impact on the teaching workload.
+  \item \textbf{Pre-delivery Review (\(T_r\))}
 
-  \item \textbf{Mode of Delivery}
+        Before the delivery of each lecture, tutorial, or lab, the faculty needs to review the course material to refresh their understanding of the course material. This involves reviewing the lecture slides, reviewing the tutorial questions and solutions, and reviewing the lab experiments and solutions respectively. This can be a considerable amount of effort, especially for lectures, as the faculty needs to ensure the pace of the lecture is appropriate to complete the lecture materials, and the lecture is engaging.
 
-        There are various arguments arguing for a higher or lower workload for online courses compared to offline courses. The online mode of delivery can be argued to have a higher workload since the faculty needs to ensure that the students are engaged and comprehending the course material. However, the online mode of delivery can also be argued to have a lower workload since the faculty doesn't need to travel to the university to deliver the lectures.
+  \item \textbf{Delivery (\(T_d\))}
 
-        Through a survey of faculty, it was found that online delivery of lectures has a largely similar workload to offline delivery of lectures, with various factors contributing to an increase and decrease in workload. Thus, the mode of delivery is assumed to have a negligible impact on the teaching workload.
+        This refers to the contact time of the faculty with the students i.e. delivering the lectures or tutorials, or supervising the lab sessions. The faculty needs to ensure the comprehension and engagement of the students and engage in real-time feedback to adjust the pace of the lecture.
 
-\end{itemize}
+        This activity is applicable to the faculty assigned to deliver the lectures, tutorials, or lab as all three need to be delivered.
+
+  \item \textbf{Grading (\(T_g\))}
+
+        During the duration of the course, the faculty is responsible for grading the examinations and assignments. This includes grading the mid-semester exams, final exams, and any additional assignments that may be given. If the faculty is handling tutorial or lab sessions, they are also responsible for grading the tutorial assignments and lab reports.
+
+        Since the preparation of examination material and the grading strategy is already done, this activity is largely clerical in nature. However, since this activity needs to be done individually for each student enrolled in the course, it can be a considerable amount of effort, especially for courses with a large number of students. Some assistance may be provided by teaching assistants in grading the examinations and assignments, but the faculty is primarily responsible for grading the examinations and assignments.
+
+        The grading workload is only applicable to the faculty assigned to deliver the lectures because the grading of tutorial assignments and lab reports is largely done as part of delivery, and thus does not need to be separately accounted for.
+
+\end{enumerate}
+
+In addition to the above activities, the faculty is also responsible for consultation hours, consolidation and entry of grades, as well as collection of teaching feedback from the students. However, these activities are not significant enough to affect the workload distribution and thus are not considered separately.
+
 
 \begin{table}[htbp]
   \centering
@@ -125,8 +117,7 @@ Some other factors are important to consider, but their impact on the teaching w
 
 For tutorials and labs, the preparation workload is not considered since the lecturer is responsible for preparing the tutorial and lab materials, as discussed in \autoref{sec:activity_type}. The review workload is affected by the course newness, since the faculty needs to spend more time reviewing the course material if they are unfamiliar with the course material. The delivery workload of tutorials and labs is not affected by any of the factors. The grading workload is also not considered since the grading of tutorial assignments and lab reports is largely done as part of the delivery of tutorials and labs respectively.
 
-
-\section{Computing Lecture Workload}
+\section{Modeling Lecture Workload}
 
 Lecturing has the highest workload of all teaching activities since the lecturer for the course takes the primary responsibility of managing the course. This involves four primary activities - preparing the course material, reviewing and delivering the course material, and grading the examinations and assignments.
 
@@ -413,7 +404,7 @@ Since the workload of a course can be high due to other factors as well, the wor
 
 It is important to note that the tutorial and lab workloads are already split into groups of 30-40 students and, as a result, do not need to be split further. Thus, as long as a reasonable number of tutorial and lab groups are allocated to each faculty, the tutorial and lab workload distribution remains fair.
 
-\section{Computing Tutorial Workload}
+\section{Modeling Tutorial Workload}
 
 Tutorials are supplementary sessions that are conducted to provide additional support to students and to provide an opportunity for students to engage with the course material. This includes solving any doubts that the students might have, as well as providing additional material that expands on the lecture material. Tutorials are typically 1 hour long and are conducted in groups of 30-40 students to ensure that the students have an opportunity to engage with the faculty.
 
@@ -466,7 +457,7 @@ With the above definitions, we can now compute the workload for a course tutor. 
 
 Where, \(N\) is the newness factor as defined in \autoref{sec:preparation_of_course_material}, \(H^{tut}\) is the number of hours of tutorials, \(T_r^{tut}\) is the tutorial review workload, and \(T_d^{tut}\) is the tutorial delivery workload.
 
-\section{Computing Lab Workload}
+\section{Modeling Lab Workload}
 
 Labs are supplementary sessions that are conducted to provide hands-on experience to the students. A typical lab session consists of a lab experiment that provides hands-on experience to the students. The students might be graded on their performance in the lab experiment or might be required to submit a lab report. Labs are typically 2 hours long and are conducted in groups of 30-40 students to ensure that the students have an opportunity to engage with the faculty.
 
@@ -505,49 +496,12 @@ With the above definitions, we can now compute the total workload for a course l
 
 Where, \(N\) is the newness factor as defined in \autoref{sec:preparation_of_course_material}, \(H^{lab}\) is the number of hours of labs, \(T_r^{lab}\) is the lab review workload, and \(T_d^{lab}\) is the lab delivery workload.
 
-\section{Total Teaching Workload}
-
-The total course workload is the sum of the tutorial, lab, and lecture workload. The total workload can be used as a comparative metric to determine the comparative workload of different courses, which can help to understand the workload distribution across courses, as well as estimate the need for course mirroring. The total workload can be calculated as follows:
-
-\begin{equation}
-  \label{eqn:total-course-workload}
-  \begin{aligned}
-    T & = T^{lec}                                                               & \ +\  & T^{tut}             & \ +\  & T^{lab}          \\
-      & = (10\ H^{lec} + 4\ H^{tut} + 2\ H^{lab})\ N\ +\ H^{lec}  \ +\   0.5\ S & \ +\  & (2\ N + 1)\ H^{tut} & \ +\  & (N + 1)\ H^{lab} \\
-      & = (10\ N + 1)H^{lec} + (6\ N + 1)H^{tut} + (3\ N + 1)H^{lab}            & \ +\  & 0.5\ S
-  \end{aligned}
-\end{equation}
-
-where,
-\begin{equation*}
-  \nonumber
-  \begin{aligned}
-    N       & = newness\ factor                     \\
-    H^{lec} & = hours\ of\ lectures                 \\
-    H^{tut} & = hours\ of\ tutorials                \\
-    H^{lab} & = hours\ of\ labs                     \\
-    S       & = students\ enrolled\ in\ the\ course
-  \end{aligned}
-\end{equation*}
-
-Other activities like consultation hours, office hours, and entry of grades and moderation are not included in the workload calculation because they are not significant enough to affect the workload distribution.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.9\textwidth]{images/teaching_workload.png}
-  \caption{An overview of the teaching workload calculation process}
-  \label{fig:teaching-workload}
-\end{figure}
-
-\autoref{fig:teaching-workload} shows an overview of the teaching workload calculation process. The workload calculation process is divided into lecture, tutorial, and lab workload calculation. The calculated lecture workload further passes through the lecture splitting process to provide the split lecture workload.
-
-
-\subsection{Demonstration of the model}
+\section{Deploying The Model for Evaluating Teaching Workload}
 \label{sec:workload_demo}
 
-For the purposes of demonstration, we will consider three examples:
+For demonstration, we will consider three examples from a real-world dataset that show the impact of the number of hours of lectures, tutorials, and labs, the number of students enrolled in the course, and the newness of the course on the workload of the course coordinator.
 
-\begin{table}[ht]
+\begin{table}[H]
   \centering
   \begin{tabular}{|l|c|c|c|c|c|}
     \hline
@@ -560,14 +514,14 @@ For the purposes of demonstration, we will consider three examples:
 
 For the above examples, the course workload is shown to be:
 
-\begin{table}[ht]
+\begin{table}[H]
   \centering
-  \begin{tabular}{|l|c|c|c|c|}
+  \begin{tabular}{|l|c|c|c|}
     \hline
-    \textbf{Course}                                  & \(T_{total}\) & \(T^{lec}\) & \(T^{tut}\) & \(T^{lab}\) \\\hline
-    \(C_1\) - Computer Organisation \& Architecture  & 591           & 532         & 23          & 36          \\\hline
-    \(C_2\) - Artificial Intelligence in Game Design & 208           & 208         & 0           & 0           \\\hline
-    \(C_3\) - Data Structures                        & 493           & 403         & 39          & 52          \\\hline
+    \textbf{Course}                                  & \(T^{lec}\) & \(T^{tut}\) & \(T^{lab}\) \\\hline
+    \(C_1\) - Computer Organisation \& Architecture  & 532         & 23          & 36          \\\hline
+    \(C_2\) - Artificial Intelligence in Game Design & 208         & 0           & 0           \\\hline
+    \(C_3\) - Data Structures                        & 403         & 39          & 52          \\\hline
   \end{tabular}
 \end{table}
 
@@ -575,8 +529,46 @@ As you can see, the workload for \(C_1\) is around 3 times the workload of \(C_2
 
 You can also see the difference in tutorial and lab workload between \(C_1\) and \(C_3\). This is due to the course newness factor, since \(C_3\) is a new course, while \(C_1\) is an old course. Even with this difference, the tutorial and lab workloads for the two courses are still comparable.
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/teaching_workload.png}
+  \caption{An overview of the teaching workload calculation process}
+  \label{fig:teaching-workload}
+\end{figure}
+
+\autoref{fig:teaching-workload} shows an overview of the teaching workload calculation process. The workload calculation process is divided into lecture, tutorial, and lab workload calculation. The calculated lecture workload further passes through the lecture splitting process to provide the split lecture workload.
+
+
+\section{Defining Workload Limits for Faculty}
+
+In the previous chapter, the workload limits of the faculty members were defined in \autoref{sec:determining_equitable_teaching_workload} as the relative teaching workload. The relative teaching workload is a measure of the amount of teaching workload that a faculty member can handle, relative to the other faculty members. However, the workload of the faculty members is defined in terms of workload units, as shown in the previous sections. In order to enforce workload limits on the faculty members at later stages, the workload limits of the faculty members need to be defined in terms of workload units.
+
+To convert the workload limits to workload units, the total workload units of the department are calculated, which is the sum of the workload units of all the courses. The workload limits of the faculty members are then converted to workload units by multiplying the workload limits with the total workload units of the department and dividing them by the total number of relative workload units of the faculty members. This is shown in \autoref{eq:workload_limits}.
+
+\begin{equation}
+  \label{eq:workload_limits}
+  \begin{aligned}
+    T_{total} & = \sum_{c \in courses} T_c               \\
+    R_{total} & = \sum_{f \in faculty} R_f               \\
+    T_f       & = R_f \times \frac{T_{total}}{R_{total}}
+  \end{aligned}
+\end{equation}
+
+where,
+\begin{align*}
+  T_{total} & = \text{Total workload units of the department}               \\
+  T_c       & = \text{Workload units of the course } c                      \\
+  R_{total} & = \text{Total relative workload units of the faculty members} \\
+  R_f       & = \text{Relative workload units of the faculty member } f     \\
+  T_f       & = \text{Workload units limit of the faculty member } f
+\end{align*}
+
+In the real-world dataset, the sum of the workload units of all courses was found to be 42,416 units. The sum of the relative workload units of all faculty members was found to be 557.75 units. Thus, for a faculty with a relative workload of 8, the workload limit in workload units is 608 units. Similarly, for a faculty with a relative workload of 6, the workload limit in workload units is 456 units.
+
+However, it is important to note that this workload limit is calculated based on the teaching activity being allocated. For example, if only lectures are allocated, the workload limit is calculated based on the lecture workload, for which the total workload units of the department are 26,000 units. However, if both lectures and tutorials are allocated, the total workload units of the department are 36,320 units. For these scenarios, the workload limits are 280 units and 390 units respectively. Thus, it is important to know the teaching activity being allocated to the faculty member to calculate the workload limit.
+
 \section{Summary}
 
-In this chapter, we discussed the teaching workload calculation process. We started by defining the various components of the teaching workload and then discussed the process of calculating the workload for each of these components. We also discussed the process of splitting the workload of a course between two or more faculty, and the process of mirroring a course into two or more sub-courses. Finally, we demonstrated the workload calculation process using three examples. This approach to calculating the teaching workload was found to be holistic and effective in calculating the workload for a course and will serve as the basis of teaching workload calculation.
+In this chapter, we discussed the teaching workload calculation process. We started by defining the various components of the teaching workload and then modeled the workload for each of these components. We also discussed the process of splitting the workload of a course between two or more faculty, and the process of mirroring a course into two or more sub-courses. We also deployed the workload calculation process to see the workload model in action using three examples. This approach to calculating the teaching workload was found to be holistic and effective in calculating the workload for a course and will serve as the basis of teaching workload calculation.
 
-In the next chapter, the teaching workload, in conjunction with the RTS model will be used as the basis for the lecture allocation problem, during which it will establish the limits for the teaching workload of the faculty to ensure that the faculty is not overloaded with work.
+Additionally, we also defined the teaching workload limits for the faculty members on the basis of the relative teaching workload defined in the previous chapter, combining it with the workload of the teaching activities. In the next chapter, these teaching workload limits will be used as the basis for the lecture allocation problem, during which they will ensure that the faculty is not overloaded with work by avoiding the allocation of courses beyond the workload limits.

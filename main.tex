@@ -89,6 +89,29 @@ style=ieee,
 % Set path to images
 \graphicspath{ {images/} }  % Direct to the main image folder, always good to create sub-folders to organize images for individual chapters
 
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{20\p@}
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \huge\bfseries \@chapapp\space \thechapter
+        \par\nobreak
+        \vskip 20\p@
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\def\@makeschapterhead#1{%
+  \vspace*{20\p@}
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries  #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
+
 
 
 \def\thesistitle{Holistic Teaching Workload Allocation for Research-Intensive Universities}
@@ -123,8 +146,6 @@ style=ieee,
   \input{intro/declaration.tex}
   \input{intro/acknowledgements.tex}
 }
-
-
 
 \input{intro/abstract.tex}
 

@@ -258,14 +258,15 @@ Using this approach, the lecture allocation algorithm was run on the dataset of 
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|l|c|c|c|c|c|r|}
+  \begin{tabular}{|l|r|r|r|r|r|r|}
     \hline
-               & \textbf{Year 1} & \textbf{Year 2} & \textbf{Year 3} & \textbf{Year 4} & \textbf{Year 5} & \textbf{Total} \\ \hline
-    Assigned   & 32              & 23              & 12              & 6               & 2               & 75             \\ \hline
-    Unassigned & 8               & 8               & 12              & 20              & 12              & 60             \\ \hline
-    Avg Score  & 3.62            & 3.71            & 3.44            & 3.43            & 3.75            & 3.60           \\ \hline
+                         & \textbf{Year 1} & \textbf{Year 2} & \textbf{Year 3} & \textbf{Year 4} & \textbf{Year 5} & \textbf{Total} \\ \hline
+    Assigned             & 432 hrs         & 334 hrs         & 228 hrs         & 169 hrs         & 51 hrs          & 1214 hrs       \\ \hline
+    Unassigned           & 120 hrs         & 173 hrs         & 240 hrs         & 442 hrs         & 417 hrs         & 1392 hrs       \\ \hline
+    \textbf{\% Assigned} & \textbf{78\%}   & \textbf{66\%}   & \textbf{49\%}   & \textbf{28\%}   & \textbf{11\%}   & \textbf{47\%}  \\ \hline
+    Avg Score            & 3.62            & 3.71            & 3.44            & 3.43            & 3.75            & 3.61           \\ \hline
   \end{tabular}
-  \caption{Number of Lectures Allocated by Year, and Average Course-Faculty Fit Score}
+  \caption{Year-wise breakdown of Allocation Results}
   \label{tab:lec_alloc_results}
 \end{table}
 
@@ -398,16 +399,11 @@ The pre-allocation process is defined in \autoref{alg:pre_allocation}. The pre-a
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|l|l|c|c|c|c|c|c|}
+  \begin{tabular}{|l|r|r|r|c|}
     \hline
-                     &                     & \textbf{Total} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
-                     & \textbf{Assigned}   & \textbf{75}    & 32         & 23         & 12         & 6          & 2          \\
-    \textbf{Without} & \textbf{Unassigned} & \textbf{60}    & 8          & 8          & 12         & 20         & 12         \\
-                     & \textbf{Avg Score}  & \textbf{3.60}  & 3.62       & 3.71       & 3.44       & 3.43       & 3.75       \\\hline
-                     & \textbf{Assigned}   & \textbf{84}    & 26         & 18         & 16         & 12         & 12         \\
-    \textbf{With}    & \textbf{Unassigned} & \textbf{51}    & 14         & 13         & 8          & 14         & 2          \\
-                     & \textbf{Avg Score}  & \textbf{3.61}  & 3.64       & 3.62       & 3.56       & 3.43       & 3.76       \\
-    \hline
+    \textbf{}                 & \textbf{Allocated} & \textbf{Unallocated} & \textbf{Allocated \%} & \textbf{Avg Score} \\ \hline
+    \textbf{Before Splitting} & 1214 hrs           & 1392 hrs             & \textbf{46.6\%}       & 3.60               \\
+    \textbf{After Splitting}  & 1640 hrs           & 966 hrs              & \textbf{62.9\%}       & 3.63               \\ \hline
   \end{tabular}
   \caption{Pre-Allocation Results}
   \label{tab:pre_alloc_results}
@@ -461,14 +457,12 @@ where, $eligibleFaculty(l, lecWorkload)$ is the list of faculty members who are 
 
 \begin{table}[H]
   \centering
-  \resizebox{\textwidth}{!}{
-    \begin{tabular}{|l|c|c|c|c|c|c|}
-      \hline
-      \textbf{}       & \textbf{Assigned} & \textbf{Unassigned} & \textbf{Assigned Hrs} & \textbf{Unassigned Hrs} & \textbf{Allocated \%} & \textbf{Avg Score} \\ \hline
-      \textbf{Before} & 75                & 60                  & 1214                  & 1392                    & \textbf{46.6\%}       & 3.60               \\
-      \textbf{After}  & 120               & 41                  & 1849                  & 757                     & \textbf{71.0\%}       & 3.63               \\ \hline
-    \end{tabular}
-  }
+  \begin{tabular}{|l|r|r|r|c|}
+    \hline
+    \textbf{}                 & \textbf{Allocated} & \textbf{Unallocated} & \textbf{Allocated \%} & \textbf{Avg Score} \\ \hline
+    \textbf{Before Splitting} & 1214 hrs           & 1392 hrs             & \textbf{46.6\%}       & 3.60               \\
+    \textbf{After Splitting}  & 1800 hrs           & 806 hrs              & \textbf{69.1\%}       & 3.63               \\ \hline
+  \end{tabular}
 
   \caption{Dynamic Splitting Results}
   \label{tab:dynamic_splitting_results}
@@ -492,13 +486,13 @@ However, if there remain unallocated courses after the allocation process is com
 
 \begin{table}[H]
   \centering
-  \resizebox{\textwidth}{!}{\begin{tabular}{|l|r|r|r|c|}
-      \hline
-      \textbf{}                   & \textbf{Assigned Lectures} & \textbf{Unassigned Lectures} & \textbf{\% Allocated} & \textbf{Avg Score} \\ \hline
-      \textbf{Before Overloading} & 1214  hrs                  & 1392  hrs                    & \textbf{46.6\%}       & 3.61               \\
-      \textbf{After Overloading}  & 2147  hrs                  & 459  hrs                     & \textbf{82.4\%}       & 3.62               \\
-      \hline
-    \end{tabular}}
+  \begin{tabular}{|l|r|r|r|c|}
+    \hline
+    \textbf{}                   & \textbf{Allocated} & \textbf{Unallocated} & \textbf{\% Allocated} & \textbf{Avg Score} \\ \hline
+    \textbf{Before Overloading} & 1214  hrs          & 1392  hrs            & \textbf{46.6\%}       & 3.61               \\
+    \textbf{After Overloading}  & 2147  hrs          & 459  hrs             & \textbf{82.4\%}       & 3.62               \\
+    \hline
+  \end{tabular}
   \caption{Allocation Results Before and After Workload Overloading}
   \label{tab:targeted_overloading_results}
 \end{table}
@@ -591,15 +585,13 @@ where, $eligibleFaculty(lecture, exclude=facultyMember)$ is the list of faculty 
 
 \begin{table}[H]
   \centering
-  \resizebox{\textwidth}{!}{
-    \begin{tabular}{|l|r|r|r|c|}
-      \hline
-      \textbf{}                & \textbf{Assigned Lectures} & \textbf{Unassigned Lectures} & \textbf{Allocated Hrs \%} & \textbf{Avg Score} \\ \hline
-      \textbf{Before Swapping} & 1214 hrs                   & 1392 hrs                     & \textbf{46.6\%}           & 3.61               \\
-      \textbf{After Swapping}  & 1622 hrs                   & 984 hrs                      & \textbf{62.2\%}           & 3.71               \\
-      \hline
-    \end{tabular}
-  }
+  \begin{tabular}{|l|r|r|r|c|}
+    \hline
+    \textbf{}                & \textbf{Allocated} & \textbf{Unallocated} & \textbf{Allocated Hrs \%} & \textbf{Avg Score} \\ \hline
+    \textbf{Before Swapping} & 1214 hrs           & 1392 hrs             & \textbf{46.6\%}           & 3.61               \\
+    \textbf{After Swapping}  & 1622 hrs           & 984 hrs              & \textbf{62.2\%}           & 3.71               \\
+    \hline
+  \end{tabular}
   \caption{Allocation Results Before and After Dynamic Swapping}
   \label{tab:post_allocation_results}
 \end{table}
@@ -676,16 +668,14 @@ Thus, the overall approach can be revised as shown in \autoref{fig:allocation_pr
 
 \begin{table}[H]
   \centering
-  \resizebox{\textwidth}{!}{
-    \begin{tabular}{|l|r|r|r|c|}
-      \hline
-      \textbf{Experiment}           & \textbf{Assigned Lectures} & \textbf{Unassigned Lectures} & \textbf{\% Allocated} & \textbf{Avg Score} \\ \hline
-      \textbf{With Preallocate}     & 2370 hrs                   & 236 Hrs                      & \textbf{90.9\%}       & 3.65               \\ \hline
-      \textbf{Split}                & 2456 hrs                   & 150 Hrs                      & \textbf{94.2\%}       & 3.65               \\ \hline
-      \textbf{Targeted Overloading} & 2480 hrs                   & 126 Hrs                      & \textbf{95.2\%}       & 3.64               \\ \hline
-      \textbf{Dynamic Swapping}     & 2591 hrs                   & 15 Hrs                       & \textbf{99.4\%}       & 3.66               \\ \hline
-    \end{tabular}
-  }
+  \begin{tabular}{|l|r|r|r|c|}
+    \hline
+    \textbf{Experiment}           & \textbf{Allocated} & \textbf{Unallocated} & \textbf{\% Allocated} & \textbf{Avg Score} \\ \hline
+    \textbf{With Preallocate}     & 2370 hrs           & 236 Hrs              & \textbf{90.9\%}       & 3.65               \\ \hline
+    \textbf{Split}                & 2456 hrs           & 150 Hrs              & \textbf{94.2\%}       & 3.65               \\ \hline
+    \textbf{Targeted Overloading} & 2480 hrs           & 126 Hrs              & \textbf{95.2\%}       & 3.64               \\ \hline
+    \textbf{Dynamic Swapping}     & 2591 hrs           & 15 Hrs               & \textbf{99.4\%}       & 3.66               \\ \hline
+  \end{tabular}
   \caption{Experimental Results of Equal Misery}
   \label{tab:equal_misery_results}
 \end{table}
@@ -769,18 +759,16 @@ The experimental results of the allocation process are shown in \autoref{tab:ove
 
 \begin{table}[H]
   \centering
-  \resizebox{\textwidth}{!}{
-    \begin{tabular}{|l|r|r|r|c|}
-      \hline
-      \textbf{Experiment}                 & \textbf{Assigned Lectures} & \textbf{Unassigned Lectures} & \textbf{\% Allocated} & \textbf{Avg Score} \\ \hline
-      \textbf{Base}                       & 1214 hrs                   & 1392 hrs                     & \textbf{46.6\%}       & 3.61               \\ \hline
-      \textbf{With Preallocate}           & 1640 hrs                   & 966 hrs                      & \textbf{62.9\%}       & 3.61               \\ \hline
-      \textbf{Split}                      & 2132 hrs                   & 474 hrs                      & \textbf{81.8\%}       & 3.59               \\ \hline
-      \textbf{Targeted Overloading}       & 2398 hrs                   & 208 hrs                      & \textbf{92.0\%}       & 3.60               \\ \hline
-      \textbf{Dynamic Swapping}           & 2540 hrs                   & 66 hrs                       & \textbf{97.5\%}       & 3.60               \\ \hline
-      \textbf{Overloading of all faculty} & 2591 hrs                   & 15 Hrs                       & \textbf{99.4\%}       & 3.66               \\ \hline
-    \end{tabular}
-  }
+  \begin{tabular}{|l|r|r|r|c|}
+    \hline
+    \textbf{Experiment}                 & \textbf{Allocated} & \textbf{Unallocated} & \textbf{\% Allocated} & \textbf{Avg Score} \\ \hline
+    \textbf{Base}                       & 1214 hrs           & 1392 hrs             & \textbf{46.6\%}       & 3.61               \\ \hline
+    \textbf{With Preallocate}           & 1640 hrs           & 966 hrs              & \textbf{62.9\%}       & 3.61               \\ \hline
+    \textbf{Split}                      & 2132 hrs           & 474 hrs              & \textbf{81.8\%}       & 3.59               \\ \hline
+    \textbf{Targeted Overloading}       & 2398 hrs           & 208 hrs              & \textbf{92.0\%}       & 3.60               \\ \hline
+    \textbf{Dynamic Swapping}           & 2540 hrs           & 66 hrs               & \textbf{97.5\%}       & 3.60               \\ \hline
+    \textbf{Overloading of all faculty} & 2591 hrs           & 15 Hrs               & \textbf{99.4\%}       & 3.66               \\ \hline
+  \end{tabular}
   \caption{Experimental Results}
   \label{tab:overall_experimental_results}
 \end{table}

@@ -100,6 +100,7 @@ style=ieee,
 \def\submissionyear{2024}
 \def\submissionmonth{January}
 \def\submissiondate{23 \submissionmonth, \submissionyear}
+\def\plagiarismMode{false} % set to true to include plagiarism declaration page
 
 
 % End of preamble
@@ -107,17 +108,24 @@ style=ieee,
 \begin{document}
 \onehalfspacing
 \setlength{\parskip}{1em}   % 1em is the height of the letter 'M'
-{
-  \singlespacing
-  % Making title page
-  \input{intro/cover.tex}
-  \input{intro/titlepage.tex}
+
+\ifthenelse{\equal{\plagiarismMode}{true}}{
+  \pagenumbering{roman}
+}{
+  {
+      \singlespacing
+      % Making title page
+      \input{intro/cover.tex}
+      \input{intro/titlepage.tex}
+    }
+  % Starting front matter
+  \pagenumbering{roman}
+  \input{intro/declaration.tex}
+  \input{intro/acknowledgements.tex}
 }
 
-% Starting front matter
-\pagenumbering{roman}
-\input{intro/declaration.tex}
-\input{intro/acknowledgements.tex}
+
+
 \input{intro/abstract.tex}
 
 {

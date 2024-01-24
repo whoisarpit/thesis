@@ -190,7 +190,7 @@ Since the faculty has a finite workload limit, as defined in the previous sectio
 
 To achieve this, the courses are allocated in the sequence of their year of study, thus ensuring that the courses in the earlier years can reserve the best faculty members. This is done by iterating over the courses in the order of their year of study and allocating the courses in that order. This ensures that the courses in the earlier years are allocated first, and thus, they can reserve the best faculty members, meeting the hard constraint of the management priority.
 
-\subsection{Implementing Lecture Allocation Algorithm}
+\subsection{Implementing Lecture Allocations}
 
 The cost matrix for the Hungarian algorithm is constructed by calculating the cost of assigning each course to each faculty member. The cost of assigning a course to a faculty member is calculated by taking the course-faculty fit metric and subtracting it from 5. This is done to ensure that the cost of assigning a course to a faculty member is inversely proportional to the course-faculty fit metric since the Hungarian algorithm minimizes the total cost of the assignment.
 
@@ -631,6 +631,7 @@ As can be seen from the results, the number of allocated lectures has increased 
 
 
 \section{Overloading of All Faculty for Resolving Unallocated Lectures}
+\label{sec:equal_misery}
 
 The allocation process allocates course lectures to the faculty members in a way that doesn't overload the faculty members. This is done by setting the workload limits of the faculty members, and ensuring that the workload of the faculty members doesn't exceed their workload limits. In exceptional cases where the workload limits of the faculty members are reached and the courses cannot be allocated, the workload limits of the faculty members are relaxed as defined in \autoref{sec:targeted_overloading}. This is done at the expense of bandwidth for teaching tutorials and labs for these faculty members, and in the worst case, the faculty members might be overloaded.
 
@@ -686,7 +687,7 @@ Another notable insight from the results is that the average score of the alloca
 
 It is important to note that for the dataset used in this thesis, the Equal Misery approach led to only marginal improvements in the allocation results. However, this approach is important to consider, since it ensures that the workload of the faculty members is distributed equally, and no faculty member is disproportionately overloaded.
 
-\section{Automated Lecture Allocation Process}
+\section{Integrating Lecture Allocation Process}
 \label{sec:allocation_process}
 
 The allocation process receives the list of lectures, the list of faculty members, the student feedback scores, and the faculty preference scores as input. The lectures might already be split into multiple parts by the static splitting process defined in \autoref{sec:lecture_splitting}. Each of the lectures also has a workload associated with it, which is the number of workload units that the lecture has. This workload was defined in \autoref{ch:teaching_workload}. Additionally, it receives the relative workload limits of the faculty members as input, which are set using the approach defined in \autoref{sec:determining_equitable_teaching_workload}.
@@ -706,6 +707,8 @@ Using these inputs, the allocation process allocates the lectures to the faculty
         If unallocated courses remain, the workload limits are reached for all the faculty members. Relax the workload limits of the faculty members as defined in \autoref{sec:targeted_overloading} before continuing to the next step.
   \item \textbf{Dynamic Swapping}\\
         If unallocated courses remain, check if the unallocated courses can be allocated by swapping the existing allocations, as defined in \autoref{sec:post_allocation}.
+  \item \textbf{Equal Misery}\\
+        If unallocated courses remain, discard all the existing allocations and relax the workload limits of the faculty members as defined in \autoref{sec:equal_misery}.
 \end{enumerate}
 
 This allocation process is summarized in \autoref{fig:allocation_process_flowchart}.

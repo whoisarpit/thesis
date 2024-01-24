@@ -113,7 +113,7 @@ It is also important to note that with a FitScore of 5 and consistency bias of 1
 
 This cost function is further modified to incorporate the workload limits of the faculty, which is discussed in the next section.
 
-\subsection{Distributing Teaching Duties Equitably}
+\subsection{Equitable Distribution of Teaching Duties}
 \label{sec:workload_limits}
 
 The tutorial allocation process should ensure that the teaching duties are distributed equitably amongst faculty. One part of this is ensuring that a similar proportion of lectures, tutorials, and labs are allocated to each faculty. This means that if the institution has a certain proportion of lectures, tutorials, and labs, then the allocation of each faculty should ideally have a similar proportion of these three activities. To achieve this, a mechanism needs to be introduced to limit the workload of lectures, tutorials, and labs that can be allocated to each faculty.
@@ -186,11 +186,11 @@ The batch size is a configurable parameter that can be adjusted based on the req
 With the batch allocation, the tutorials are divided into batches of size $batchSize$ before the allocation begins, and then the algorithm is modified to select the first unallocated batch of tutorials for cost matrix construction, instead of the first unallocated session.
 
 
-\section{Automated Tutorial Allocation Process}
+\section{Integrating Tutorial Allocation Process}
 
 The automated tutorial allocation process involves the allocation of tutorials to faculty, using the Hungarian Algorithm, using the cost function defined in the previous section. Additionally, it introduces a pre-allocation step before the main allocation process, which allocates the tutorials that have a shortage of faculty. It also introduces a selective workload relaxation process, which relaxes the workload limits of the faculty to accommodate the unallocated tutorials. This section discusses the tutorial allocation process in detail.
 
-\subsection{Optimal Allocation using the Hungarian Algorithm}
+\subsection{Allocation using the Hungarian Algorithm}
 
 In the tutorial allocation algorithm, the tutorial sessions are divided into batches of size of $batchSize$. Then, the algorithm runs multiple iterations of the Hungarian algorithm, each iteration allocating one batch of tutorials to the faculty. In each iteration, the algorithm constructs the cost matrix using the cost matrix function defined below, which takes into account the consistency of courses and ensures the workload limits and teaching duty limits of the faculty are not exceeded. The algorithm then allocates the tutorials to faculty and then repeats the process until all the batches of tutorials have been allocated. This algorithm is defined in \autoref{alg:tutorial_allocation}.
 
@@ -334,7 +334,7 @@ The entire allocation flow used is defined as shown in \autoref{fig:tutorial_all
 
 The process begins by increasing the workload limits of the faculty to include tutorials. Then, the tutorial sessions are divided into batches of size $batchSize$. Then the pre-allocation process is run, which allocates the tutorials that have a shortage of faculty. Then, the algorithm runs multiple iterations of the allocation, each iteration allocating one batch of tutorials to the faculty. In each iteration, the algorithm constructs the cost matrix which takes into account the consistency of courses and ensures the workload limits of the faculty are not exceeded. The Hungarian algorithm then allocates the tutorials to faculty and then repeats the process until all the batches of tutorials have been allocated. This is followed by Selective Workload Relaxation which relaxes workload limits and teaching duty limits of the faculty to accommodate the tutorials that have not been allocated, if the need arises.
 
-\section{Automated Lab Allocation Process}
+\section{Integrating Lab Allocation Process}
 
 The lab allocation process is identical to the tutorial allocation process and is carried out right after the tutorial allocation process. For this, the workload limits are expanded to include labs as described in \autoref{sec:workload_limits}. Then the labs are pre-allocated, during which allocates the labs that have a shortage of faculty. Then multiple iterations of the allocation are run, each iteration allocating one batch of labs to faculty. In each iteration, the algorithm constructs the cost matrix, which is then used by the Hungarian algorithm to allocate the labs to faculty. This is followed by Selective Workload Relaxation which relaxes workload limits and teaching duty limits of the faculty to accommodate the labs that have not been allocated.
 

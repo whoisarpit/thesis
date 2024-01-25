@@ -121,8 +121,8 @@ style=ieee,
 \def\supervisorname{Prof. Thambipillai Srikanthan}
 \def\schoolname{Nanyang Technological University}
 \def\submissionyear{2024}
-\def\submissionmonth{January}
-\def\submissiondate{24 \submissionmonth, \submissionyear}
+\def\submissionmonth{01}
+\def\submissiondate{25/\submissionmonth/\submissionyear}
 \def\plagiarismMode{false} % set to true to include plagiarism declaration page
 
 
@@ -135,12 +135,8 @@ style=ieee,
 \ifthenelse{\equal{\plagiarismMode}{true}}{
   \pagenumbering{roman}
 }{
-  {
-      \singlespacing
-      % Making title page
-      \input{intro/cover.tex}
-      \input{intro/titlepage.tex}
-    }
+  % Making title page
+  \input{intro/cover.tex}
   % Starting front matter
   \pagenumbering{roman}
   \input{intro/declaration.tex}

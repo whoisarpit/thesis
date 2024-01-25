@@ -35,9 +35,9 @@
   ],
   "latex-workshop.view.pdf.color.dark.pageBorderColor": "#6f6f6f1f",
 
-  "latex-workshop.view.pdf.color.dark.backgroundColor": "#161616",
-  "latex-workshop.view.pdf.color.dark.pageColorsBackground": "#242424",
-  "latex-workshop.view.pdf.color.dark.pageColorsForeground": "#ccc",
+  // "latex-workshop.view.pdf.color.dark.backgroundColor": "#161616",
+  // "latex-workshop.view.pdf.color.dark.pageColorsBackground": "#242424",
+  // "latex-workshop.view.pdf.color.dark.pageColorsForeground": "#ccc",
 
   "window.title": "Thesis",
   "editor.tabSize": 2,
